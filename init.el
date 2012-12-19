@@ -7,6 +7,10 @@
 (set-foreground-color "white")
 (set-cursor-color "white")
 
+;; hide menubar ad toolbar
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+
 ;; init auto-complete
 (load "init-ac.el")
 
