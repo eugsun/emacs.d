@@ -11,6 +11,12 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 
+;; put temp files to system temp folder
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
+
 ;; init auto-complete
 (load "init-ac.el")
 
