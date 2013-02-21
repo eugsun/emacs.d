@@ -17,6 +17,9 @@
 (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
 
+;; emacs <-> system copy
+(setq x-select-enable-clipboard t)
+
 ;; init auto-complete
 (load "init-ac.el")
 
