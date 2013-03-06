@@ -20,8 +20,14 @@
 ;; emacs <-> system copy
 (setq x-select-enable-clipboard t)
 
+;; mouse avoidence mode
+(mouse-avoidance-mode 'animate)
+
 ;; init auto-complete
 (load "init-ac.el")
 
 ;; init auctex-config
 (load "init-auctex-config.el")
+
+;; init ibus.el
+(load "init-ibus.el")
