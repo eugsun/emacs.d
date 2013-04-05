@@ -8,7 +8,7 @@
 (set-cursor-color "white")
 
 ;; hide menubar ad toolbar
-(menu-bar-mode -1)
+;;(menu-bar-mode -1)
 (tool-bar-mode -1)
 
 ;; put temp files to system temp folder
