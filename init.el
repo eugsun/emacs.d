@@ -2,6 +2,16 @@
 (add-to-list 'load-path "~/.emacs.d/")
 (add-to-list 'load-path "~/.emacs.d/lib/")
 
+;; tab settings
+(setq-default indent-tabs-mode nil) ;use space
+(setq-default tab-width 4)
+(setq indent-line-function 'insert-tab)
+
+;; 80 column rule
+(require 'whitespace)
+(setq whitespace-style '(face empty tabs lines-tail trailing))
+(global-whitespace-mode t)
+
 ;; set colors
 (set-background-color "black")
 (set-foreground-color "white")
