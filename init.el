@@ -5,7 +5,9 @@
 ;; tab settings
 (setq-default indent-tabs-mode nil) ;use space
 (setq-default tab-width 4)
-(setq indent-line-function 'insert-tab)
+(defvaralias 'c-basic-offset 'tab-width)
+(defvaralias 'cperl-indent-level 'tab-width)
+(setq-default indent-line-function 'insert-tab)
 
 ;; 80 column rule
 (require 'whitespace)
