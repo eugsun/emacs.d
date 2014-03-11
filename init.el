@@ -1,6 +1,22 @@
+;; Turn off mouse interface
+;(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+
+;; No splash screen
+(setq inhibit-startup-message t)
+
+;; Add package manager
+(when (>= emacs-major-version 24)
+  (require 'package)
+  (package-initialize)
+  (add-to-list 'package-archives 
+               '("melpa" . "http://melpa.milkbox.net/packages/") t)
+  )
+
 ;; set load-path
 (add-to-list 'load-path "~/.emacs.d/")
-(add-to-list 'load-path "~/.emacs.d/lib/")
+(add-to-list 'load-path "~/.emacs.d/elpa/")
 
 ;; tab settings
 (setq-default indent-tabs-mode nil) ;use space
@@ -12,16 +28,12 @@
 ;; 80 column rule
 (require 'whitespace)
 (setq whitespace-style '(face empty tabs lines-tail trailing))
-(global-whitespace-mode t)
+;; (global-whitespace-mode t)
 
 ;; set colors
 (set-background-color "black")
 (set-foreground-color "white")
 (set-cursor-color "white")
-
-;; hide menubar ad toolbar
-;;(menu-bar-mode -1)
-(tool-bar-mode -1)
 
 ;; put temp files to system temp folder
 (setq backup-directory-alist
