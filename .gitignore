@@ -2,5 +2,8 @@
 *.dat
 auto-save-list
 session.*
+projectile*
+.mc-lists.el
 places
-elpa/
+elpa
+eshell

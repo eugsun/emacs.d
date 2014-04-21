@@ -7,7 +7,6 @@
 ;; Make sure backspace works during typing
 (ibus-define-common-key [backspace] t)
 
-
 ;; Change cursor color depending on IBus status
 ;(setq ibus-cursor-color '("red" "blue" "limegreen"))
 ;; Use C-SPC for Set Mark command

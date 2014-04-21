@@ -23,13 +23,13 @@
 (add-hook 'LaTeX-mode-hook 'pdflatex-mode-hook)
 (defun pdflatex-mode-hook ()
   (add-to-list 'TeX-command-list
-	       '("PDFLaTeX" "%'pdflatex%(mode)%' %t" TeX-run-TeX nil t)))
+               '("PDFLaTeX" "%'pdflatex%(mode)%' %t" TeX-run-TeX nil t)))
 
 ;; add Make to the command-list
 (add-hook 'LaTeX-mode-hook 'make-mode-hook)
 (defun make-mode-hook ()
   (add-to-list 'TeX-command-list
-	       '("Make" "%'make all%'" TeX-run-TeX nil t)))
+               '("Make" "%'make all%'" TeX-run-TeX nil t)))
 
 ;; set evince to be the default view program
 (custom-set-variables

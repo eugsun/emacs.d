@@ -1,6 +1,39 @@
-;; Interactively Do Things!
-(ido-mode t)
-(setq ido-enable-flex-matching t)
+;;
+;; PACKAGE SETTINGS
+;;
+(when (>= emacs-major-version 24)
+  (require 'package)
+  (add-to-list 'package-archives
+               '("melpa" . "http://melpa.milkbox.net/packages/") t)
+
+  ;; the required packages
+  (setq package-list '(dired+ flx-ido highlight-indentation yasnippet
+                               smartparens projectile auto-complete
+                               multiple-cursors
+                               enh-ruby-mode robe ruby-block ruby-end rvm
+                               js3-mode json-mode
+                               markdown-mode web-mode))
+
+  ;; activate all the packages (in particular autoloads)
+  (package-initialize)
+
+  ;; fetch the list of packages available
+  (or (file-exists-p package-user-dir)
+      (package-refresh-contents))
+
+  ;; install the missing packages
+  (dolist (package package-list)
+    (unless (package-installed-p package)
+      (package-install package)))
+  )
+
+(add-to-list 'load-path "~/.emacs.d/")
+(add-to-list 'load-path "~/.emacs.d/elpa/")
+(add-to-list 'load-path "~/.emacs.d/custom/")
+
+
+;; No splash screen
+(setq inhibit-startup-message t)
 
 ;; Uniquify file names by with directory
 (require 'uniquify)
@@ -13,6 +46,7 @@
 ;; Better default shortcuts
 (global-set-key (kbd "M-/") 'hippie-expand)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
+(global-set-key (kbd "C-x f") 'find-file-in-repository)
 
 ;; Defaults to regex search
 (global-set-key (kbd "C-s") 'isearch-forward-regexp)
@@ -38,36 +72,6 @@
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
-;; No splash screen
-(setq inhibit-startup-message t)
-
-;; Package manager settings
-(when (>= emacs-major-version 24)
-  (require 'package)
-  (add-to-list 'package-archives
-               '("melpa" . "http://melpa.milkbox.net/packages/") t)
-
-  ;; the required packages
-  (setq package-list '(auctex multiple-cursors
-                              auto-complete auto-complete-auctex))
-
-  ;; activate all the packages (in particular autoloads)
-  (package-initialize)
-
-  ;; fetch the list of packages available
-  (or (file-exists-p package-user-dir)
-      (package-refresh-contents))
-
-  ;; install the missing packages
-  (dolist (package package-list)
-    (unless (package-installed-p package)
-      (package-install package)))
-  )
-
-;; set load-path
-(add-to-list 'load-path "~/.emacs.d/")
-(add-to-list 'load-path "~/.emacs.d/elpa/")
-
 ;; tab settings
 (setq-default indent-tabs-mode nil) ;use space
 (setq-default tab-width 4)
@@ -75,10 +79,12 @@
 (defvaralias 'cperl-indent-level 'tab-width)
 (setq-default indent-line-function 'insert-tab)
 
-;; 80 column rule
+;; column rule
+(setq column-number-mode t)
 (require 'whitespace)
 (setq whitespace-style '(face empty tabs lines-tail trailing))
-(setq whitespace-line-column 100)
+(setq whitespace-line-column 80)
+(setq-default fill-column 80)
 (global-whitespace-mode t)
 
 ;; set colors
@@ -92,20 +98,26 @@
 (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
 
-;; emacs <-> system copy
-(setq x-select-enable-clipboard t)
-
 ;; mouse avoidence mode
 (mouse-avoidance-mode 'animate)
 
-;; init auto-complete
-(load "init-ac.el")
+;; set font for all windows
+(add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-10"))
 
-;; init auctex
-(load "init-auctex-config.el")
+;;
+;; Customizations
+;;
+(load "c-diredp.el")
+(load "c-ido.el")
+(load "c-highlight-indentation.el")
+(load "c-smartparens.el")
+(load "c-projectile.el")
+(load "c-ac.el")
+;; (load "c-auctex-config.el")
+(load "c-ibus.el")
+(load "c-multiple-cursors.el")
 
-;; init ibus
-(load "init-ibus.el")
-
-;; init multiple-cursors
-(load "init-multiple-cursors.el")
+(load "c-js.el")
+(load "c-python.el")
+(load "c-ruby.el")
+(load "c-web.el")
