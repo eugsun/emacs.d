@@ -8,11 +8,11 @@
 
   ;; the required packages
   (setq package-list '(dired+ flx-ido highlight-indentation yasnippet
-                               smartparens projectile auto-complete
-                               multiple-cursors
-                               enh-ruby-mode robe ruby-block ruby-end rvm
-                               js3-mode json-mode
-                               markdown-mode web-mode))
+                              smartparens projectile auto-complete
+                              multiple-cursors
+                              enh-ruby-mode robe ruby-block ruby-end rvm
+                              jedi jedi-direx js3-mode json-mode
+                              markdown-mode web-mode))
 
   ;; activate all the packages (in particular autoloads)
   (package-initialize)
