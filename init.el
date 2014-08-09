@@ -7,11 +7,12 @@
                '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
   ;; the required packages
-  (setq package-list '(dired+ flx-ido highlight-indentation yasnippet
-                              smartparens projectile auto-complete
-                              multiple-cursors
-                              enh-ruby-mode robe ruby-block ruby-end rvm
-                              jedi jedi-direx js3-mode json-mode
+  (setq package-list '(dired+ flx-ido highlight-indentation
+                              yasnippet smartparens projectile
+                              auto-complete find-file-in-repository
+                              multiple-cursors enh-ruby-mode robe
+                              ruby-block ruby-end rvm jedi
+                              jedi-direx js3-mode json-mode
                               markdown-mode web-mode))
 
   ;; activate all the packages (in particular autoloads)
@@ -103,6 +104,9 @@
 
 ;; set font for all windows
 (add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-10"))
+
+;; delete all trailing whitespace before every save
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;;
 ;; Customizations

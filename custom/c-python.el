@@ -2,6 +2,7 @@
   "Hooks on indentations for python-mode."
   (setq tab-width 2)
   (setq python-indent 2)
+  (setq python-indent-offset 2)
 )
 
 (add-hook 'python-mode-hook 'python-mode-indent-hook)
