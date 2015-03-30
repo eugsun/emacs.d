@@ -7,13 +7,12 @@
                '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
   ;; the required packages
-  (setq package-list '(dired+ flx-ido highlight-indentation
-                              yasnippet smartparens projectile
-                              auto-complete find-file-in-repository
-                              multiple-cursors enh-ruby-mode robe
-                              ruby-block ruby-end rvm jedi
-                              jedi-direx js3-mode json-mode
-                              markdown-mode web-mode))
+  (setq package-list '(dired+ flx-ido highlight-indentation yasnippet
+                              smartparens projectile auto-complete
+                              auto-complete-auctex find-file-in-repository
+                              multiple-cursors editorconfig enh-ruby-mode robe
+                              ruby-block ruby-end rvm jedi jedi-direx js3-mode
+                              json-mode markdown-mode web-mode))
 
   ;; activate all the packages (in particular autoloads)
   (package-initialize)
@@ -31,7 +30,6 @@
 (add-to-list 'load-path "~/.emacs.d/")
 (add-to-list 'load-path "~/.emacs.d/elpa/")
 (add-to-list 'load-path "~/.emacs.d/custom/")
-
 
 ;; No splash screen
 (setq inhibit-startup-message t)
@@ -73,14 +71,11 @@
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
-;; tab settings
+;; Tab settings
 (setq-default indent-tabs-mode nil) ;use space
-(setq-default tab-width 4)
-(defvaralias 'c-basic-offset 'tab-width)
-(defvaralias 'cperl-indent-level 'tab-width)
-(setq-default indent-line-function 'insert-tab)
+(setq-default tab-width 2)
 
-;; column rule
+;; Column rule
 (setq column-number-mode t)
 (require 'whitespace)
 (setq whitespace-style '(face empty tabs lines-tail trailing))
@@ -88,40 +83,28 @@
 (setq-default fill-column 80)
 (global-whitespace-mode t)
 
-;; set colors
+;; Set colors
 (set-background-color "black")
 (set-foreground-color "white")
 (set-cursor-color "white")
 
-;; put temp files to system temp folder
+;; Put temp files to system temp folder
 (setq backup-directory-alist
       `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
 
-;; mouse avoidence mode
+;; Mouse avoidence mode
 (mouse-avoidance-mode 'animate)
 
-;; set font for all windows
+;; Set font for all windows
 (add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-10"))
 
-;; delete all trailing whitespace before every save
+;; Delete all trailing whitespace before every save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-;;
-;; Customizations
-;;
-(load "c-diredp.el")
-(load "c-ido.el")
-(load "c-highlight-indentation.el")
-(load "c-smartparens.el")
-(load "c-projectile.el")
-(load "c-ac.el")
-;; (load "c-auctex-config.el")
-(load "c-ibus.el")
-(load "c-multiple-cursors.el")
+;; Use editorconfig
+(load "editorconfig")
 
-(load "c-js.el")
-(load "c-python.el")
-(load "c-ruby.el")
-(load "c-web.el")
+;; Load customizations
+(mapc 'load (file-expand-wildcards "~/.emacs.d/custom/*.el"))

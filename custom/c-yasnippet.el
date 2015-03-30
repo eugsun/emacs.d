@@ -3,4 +3,4 @@
 ;;              "~/.emacs.d/snippets")
 ;; (setq yas-snippet-dirs
 ;;       '("~/.emacs.d/snippets"))
-(yas-global-mode)
+;; (yas-global-mode)

@@ -1,4 +1,4 @@
-(setq-default js3-indent-level 4)
+(setq-default js3-indent-level 2)
 
 (defvar *quasi-js-current-pos* nil)
 
