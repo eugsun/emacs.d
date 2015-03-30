@@ -31,6 +31,7 @@
 (add-to-list 'load-path "~/.emacs.d/elpa/")
 (add-to-list 'load-path "~/.emacs.d/custom/")
 
+
 ;; No splash screen
 (setq inhibit-startup-message t)
 
@@ -99,6 +100,7 @@
 
 ;; Set font for all windows
 (add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-10"))
+(set-fontset-font t 'han (font-spec :family "WenQuanYi Micro Hei" :size 16))
 
 ;; Delete all trailing whitespace before every save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
