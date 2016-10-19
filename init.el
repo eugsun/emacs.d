@@ -12,7 +12,11 @@
                               find-file-in-repository
                               multiple-cursors enh-ruby-mode robe
                               ruby-block ruby-end rvm jedi jedi-direx js2-mode
-                              json-mode markdown-mode web-mode))
+                              elpy emmet-mode neotree
+                              json-mode markdown-mode web-mode
+                              color-theme-sanityinc-tomorrow window-number
+                              magit magit-gh-pulls
+                              org-journal))
 
   ;; activate all the packages (in particular autoloads)
   (package-initialize)
@@ -138,10 +142,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-journal-dir "~/Dropbox/Private/journal/")
  '(package-selected-packages
    (quote
-    (org-journal window-number web-mode smartparens rvm ruby-end ruby-block robe projectile php-mode neotree multiple-cursors material-theme markdown-mode magit-gh-pulls json-mode js2-mode jedi-direx ido-vertical-mode ido-ubiquitous flycheck flx-ido find-file-in-repository enh-ruby-mode emmet-mode elpy dired+ color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized auto-complete-auctex angularjs-mode angular-mode ag))))
+    (react-snippets org-journal window-number web-mode smartparens rvm ruby-end ruby-block robe projectile neotree multiple-cursors markdown-mode magit-gh-pulls json-mode js3-mode js2-mode jedi-direx flx-ido find-file-in-repository enh-ruby-mode emmet-mode elpy editorconfig dired+ color-theme-sanityinc-tomorrow auto-complete-auctex))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
