@@ -1,4 +1,4 @@
-(setq-default js3-indent-level 2)
+(setq-default js2-indent-level 4)
 
 (defvar *quasi-js-current-pos* nil)
 
@@ -23,7 +23,7 @@ only for current buffer. Works recurcively too :)"
     (message "Nowhere to jump!")))
 
 ;; Add hooks to js3-mode. It will cobbler the default tag-search bindings. Beware.
-(add-hook 'js3-mode-hook
+(add-hook 'js2-mode-hook
           (lambda ()
             (local-set-key (kbd "M-.") #'quasi-js-function-search)
             (local-set-key (kbd "M-,") #'quasi-js-function-go-back)))

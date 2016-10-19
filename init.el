@@ -9,9 +9,9 @@
   ;; the required packages
   (setq package-list '(dired+ flx-ido highlight-indentation yasnippet
                               smartparens projectile auto-complete
-                              auto-complete-auctex find-file-in-repository
-                              multiple-cursors editorconfig enh-ruby-mode robe
-                              ruby-block ruby-end rvm jedi jedi-direx js3-mode
+                              find-file-in-repository
+                              multiple-cursors enh-ruby-mode robe
+                              ruby-block ruby-end rvm jedi jedi-direx js2-mode
                               json-mode markdown-mode web-mode))
 
   ;; activate all the packages (in particular autoloads)
@@ -27,7 +27,6 @@
       (package-install package)))
   )
 
-(add-to-list 'load-path "~/.emacs.d/")
 (add-to-list 'load-path "~/.emacs.d/elpa/")
 (add-to-list 'load-path "~/.emacs.d/custom/")
 
@@ -42,17 +41,6 @@
 ;; Save the last-visited position in a file
 (require 'saveplace)
 (setq-default save-place t)
-
-;; Better default shortcuts
-(global-set-key (kbd "M-/") 'hippie-expand)
-(global-set-key (kbd "C-x C-b") 'ibuffer)
-(global-set-key (kbd "C-x f") 'find-file-in-repository)
-
-;; Defaults to regex search
-(global-set-key (kbd "C-s") 'isearch-forward-regexp)
-(global-set-key (kbd "C-r") 'isearch-backward-regexp)
-(global-set-key (kbd "C-M-s") 'isearch-forward)
-(global-set-key (kbd "C-M-r") 'isearch-backward)
 
 ;; Show matching pairs of parentheses
 (show-paren-mode 1)
@@ -74,7 +62,7 @@
 
 ;; Tab settings
 (setq-default indent-tabs-mode nil) ;use space
-(setq-default tab-width 2)
+(setq-default tab-width 4)
 
 ;; Column rule
 (setq column-number-mode t)
@@ -85,9 +73,10 @@
 (global-whitespace-mode t)
 
 ;; Set colors
-(set-background-color "black")
-(set-foreground-color "white")
-(set-cursor-color "white")
+;; (set-background-color "black")
+;; (set-foreground-color "white")
+;; (set-cursor-color "white")
+(load-theme `sanityinc-tomorrow-night t)
 
 ;; Put temp files to system temp folder
 (setq backup-directory-alist
@@ -99,14 +88,63 @@
 (mouse-avoidance-mode 'animate)
 
 ;; Set font for all windows
-(add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-10"))
-(set-fontset-font t 'han (font-spec :family "WenQuanYi Micro Hei" :size 16))
+;; (add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-10"))
+;; (set-fontset-font t 'han (font-spec :family "WenQuanYi Micro Hei" :size 16))
 
 ;; Delete all trailing whitespace before every save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-;; Use editorconfig
-(load "editorconfig")
+;; Set default mode
+(setq-default major-mode 'org-mode)
 
 ;; Load customizations
+(load "~/.emacs.d/shortcuts.el")
 (mapc 'load (file-expand-wildcards "~/.emacs.d/custom/*.el"))
+
+(defun set-exec-path-from-shell-PATH ()
+  (let ((path-from-shell (replace-regexp-in-string
+                          "[ \t\n]*$"
+                          ""
+                          (shell-command-to-string "$SHELL --login -i -c 'echo $PATH'"))))
+    (setenv "PATH" path-from-shell)
+    (setq eshell-path-env path-from-shell) ; for eshell users
+    (setq exec-path (split-string path-from-shell path-separator))))
+
+(when window-system (set-exec-path-from-shell-PATH))
+
+
+;; Neo Tree
+(require 'neotree)
+(global-set-key [f8] 'neotree-toggle)
+
+
+(defun find-first-non-ascii-char ()
+  "Find the first non-ascii character from point onwards."
+  (interactive)
+  (let (point)
+    (save-excursion
+      (setq point
+            (catch 'non-ascii
+              (while (not (eobp))
+                (or (eq (char-charset (following-char))
+                        'ascii)
+                    (throw 'non-ascii (point)))
+                (forward-char 1)))))
+    (if point
+        (goto-char point)
+        (message "No non-ascii characters."))))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-journal-dir "~/Dropbox/Private/journal/")
+ '(package-selected-packages
+   (quote
+    (org-journal window-number web-mode smartparens rvm ruby-end ruby-block robe projectile php-mode neotree multiple-cursors material-theme markdown-mode magit-gh-pulls json-mode js2-mode jedi-direx ido-vertical-mode ido-ubiquitous flycheck flx-ido find-file-in-repository enh-ruby-mode emmet-mode elpy dired+ color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized auto-complete-auctex angularjs-mode angular-mode ag))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

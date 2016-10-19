@@ -9,3 +9,5 @@ elpa
 eshell
 .python-environments
 snippets
+ido.last
+var/
