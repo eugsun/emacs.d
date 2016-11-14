@@ -1,3 +1,6 @@
+(setq elpy-rpc-timeout 2)
+(setq elpy-rpc-backend "jedi")
+
 (defun python-mode-indent-hook ()
   "Hooks on indentations for python-mode."
   (setq tab-width 4)
@@ -16,6 +19,9 @@
 ;; (ac-config-default)
 
 ;; (setq jedi:complete-on-dot t)
+;; (when (require 'flycheck nil t)
+;;   (remove-hook 'elpy-modules 'elpy-module-flymake))
+
 
 (elpy-enable)
 
