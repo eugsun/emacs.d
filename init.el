@@ -16,7 +16,7 @@
                               json-mode markdown-mode web-mode
                               color-theme-sanityinc-tomorrow window-number
                               magit magit-gh-pulls
-                              org-journal))
+                              org-journal solarized-theme helm helm-ag))
 
   ;; activate all the packages (in particular autoloads)
   (package-initialize)
@@ -80,7 +80,7 @@
 ;; (set-background-color "black")
 ;; (set-foreground-color "white")
 ;; (set-cursor-color "white")
-(load-theme `sanityinc-solarized-dark t)
+(load-theme `solarized-dark t)
 
 ;; Put temp files to a temp folder
 (defconst emacs-tmp-dir "~/.emacs.d/tmp/")
