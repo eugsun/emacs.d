@@ -5,18 +5,20 @@
   (require 'package)
   (add-to-list 'package-archives
                '("melpa" . "http://melpa.milkbox.net/packages/") t)
+  (add-to-list 'package-archives
+               '("elpy" . "https://jorgenschaefer.github.io/packages/"))
 
   ;; the required packages
   (setq package-list '(dired+ flx-ido highlight-indentation yasnippet
                               smartparens projectile auto-complete
-                              find-file-in-repository
                               multiple-cursors enh-ruby-mode robe
                               ruby-block ruby-end rvm jedi jedi-direx js2-mode
                               elpy emmet-mode neotree
                               json-mode markdown-mode web-mode
                               color-theme-sanityinc-tomorrow window-number
                               magit magit-gh-pulls
-                              org-journal solarized-theme helm helm-ag))
+                              org-journal solarized-theme
+                              helm-ls-git helm helm-ag))
 
   ;; activate all the packages (in particular autoloads)
   (package-initialize)
