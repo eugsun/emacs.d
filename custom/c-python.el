@@ -1,4 +1,4 @@
-(setq elpy-rpc-timeout 2)
+(setq elpy-rpc-timeout 5)
 (setq elpy-rpc-backend "jedi")
 
 (defun python-mode-indent-hook ()
