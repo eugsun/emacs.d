@@ -10,7 +10,7 @@
 
   ;; the required packages
   (setq package-list '(dired+ highlight-indentation yasnippet
-                              projectile auto-complete multiple-cursors
+                              projectile multiple-cursors
                               enh-ruby-mode robe
                               ruby-block ruby-end rvm jedi jedi-direx
                               elpy emmet-mode neotree
@@ -18,8 +18,10 @@
                               window-number
                               magit magit-gh-pulls
                               org-journal solarized-theme
-                              helm-ls-git helm helm-ag
-                              darkroom))
+                              avy ivy counsel swiper
+                              darkroom
+                              company company-ansible
+                              ))
 
   ;; activate all the packages (in particular autoloads)
   (package-initialize)
@@ -142,7 +144,6 @@
     (if point
         (goto-char point)
         (message "No non-ascii characters."))))
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -153,7 +154,7 @@
     ("4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" default)))
  '(package-selected-packages
    (quote
-    (ace-jump-mode darkroom-mode darkroom elm-yasnippets elm-mode org-brain writeroom-mode yaml-mode helm-ls-git helm helm-ag window-number web-mode smartparens rvm ruby-end ruby-block robe projectile php-mode org-journal neotree multiple-cursors material-theme markdown-mode magit-gh-pulls json-mode js2-mode jedi-direx ido-vertical-mode ido-ubiquitous flycheck flx-ido find-file-in-repository enh-ruby-mode emmet-mode elpy dired+ color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized auto-complete-auctex angularjs-mode angular-mode ag))))
+    (avy counsel swiper ivy company company-ansible darkroom-mode darkroom elm-yasnippets elm-mode org-brain writeroom-mode yaml-mode helm-ls-git helm helm-ag window-number web-mode smartparens rvm ruby-end ruby-block robe projectile php-mode org-journal neotree multiple-cursors material-theme markdown-mode magit-gh-pulls json-mode js2-mode jedi-direx ido-vertical-mode ido-ubiquitous flycheck flx-ido find-file-in-repository enh-ruby-mode emmet-mode elpy dired+ color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized auto-complete-auctex angularjs-mode angular-mode ag))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

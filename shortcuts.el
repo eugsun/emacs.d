@@ -8,3 +8,7 @@
 (global-set-key (kbd "C-r") 'isearch-backward-regexp)
 (global-set-key (kbd "C-M-s") 'isearch-forward)
 (global-set-key (kbd "C-M-r") 'isearch-backward)
+
+(global-set-key (kbd "M-*") 'pop-tag-mark)
+(global-set-key (kbd "C-(") 'previous-buffer)
+(global-set-key (kbd "C-)") 'next-buffer)
