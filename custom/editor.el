@@ -1,5 +1,6 @@
 ;; File management
 (require 'dired+)
+(setq diredp-hide-details-initially-flag nil)
 (diredp-toggle-find-file-reuse-dir t)
 
 ;; Jump to position
@@ -67,3 +68,7 @@
 (global-set-key (kbd "s-p") 'projectile-find-file)
 ;; Press Command-b for fuzzy switch buffer
 (global-set-key (kbd "s-b") 'projectile-switch-to-buffer)
+
+
+;; Smartparens
+(smartparens-global-mode t)
