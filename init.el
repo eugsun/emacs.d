@@ -7,15 +7,15 @@
 (setq initial-scratch-message nil)
 
 ;; (add-to-list 'default-frame-alist '(font . "mononoki-12"))
-(setq spam-file "~/.emacs.d/spam.el")
+(setq custom-file "~/.emacs.d/spam.el")
 
 ;; Packages
 (require 'package)
 (setq package-enable-at-startup nil)
 (setq package-archives '(("org" . "http://orgmode.org/elpa/")
-			 ;; ("gnu" . "http://elpa.gnu.org/packages/")
-			 ("melpa" . "https://melpa.org/packages/")
-			 ))
+                         ("gnu" . "http://elpa.gnu.org/packages/")
+                         ("melpa" . "https://melpa.org/packages/")
+                         ))
 (package-initialize)
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
@@ -47,14 +47,25 @@
   (load-theme 'doom-spacegrey t))
 
 
-;; Buffer completion
+;; Ivy
 (use-package ivy
   :ensure t
   :diminish ivy-mode
+  :init
+  (setq ivy-use-virtual-buffer t)
+  (setq enable-recursive-minibuffers t)
   :config
   (ivy-mode 1))
 (use-package counsel
   :ensure t)
+(use-package swiper
+  :ensure t)
+(use-package company
+  :ensure t
+  :config
+  (setq company-idle-delay 0)
+  (setq company-minimum-prefix-length 3)
+  (global-company-mode t))
 
 
 ;; Show next steps
@@ -96,10 +107,14 @@
 (require 'saveplace)
 (setq-default save-place t)
 
+(use-package multiple-cursors
+  :ensure t)
+
 (use-package olivetti
   :ensure t)
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+
 
 ;; Magit
 (use-package magit
@@ -109,6 +124,20 @@
 ;; Flair
 (mouse-avoidance-mode 'animate)
 
+;; Tab settings
+(setq-default indent-tabs-mode nil) ;use space
+(setq-default tab-width 4)
 
-(load-file spam-file)
+;; Column rule
+(setq column-number-mode t)
+(require 'whitespace)
+(setq whitespace-style '(face empty tabs lines-tail trailing))
+(setq whitespace-line-column 80)
+(setq-default fill-column 80)
+(global-whitespace-mode t)
+
+
+;;;;;;
+;;;;;;
+(load-file custom-file)
 (mapc 'load (file-expand-wildcards "~/.emacs.d/custom/*.el"))

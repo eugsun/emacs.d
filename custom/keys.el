@@ -26,6 +26,9 @@
   ;; Org
   "oo"  '(org-agenda :which-key "agenda home")
   "oj"  '(org-journal-new-entry :which-key "new journal entry")
+  ;; Search
+  "ss"  '(swiper :which-key "search buffer")
+  "sa"  '(swiper-all :which-key "search all buffers")
   ;; Others
   "'"   '(ansi-term :which-key "open terminal")
   "gs"  '(magit :which-key "magit")
