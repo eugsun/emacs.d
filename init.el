@@ -12,9 +12,9 @@
 ;; Packages
 (require 'package)
 (setq package-enable-at-startup nil)
-(setq package-archives '(("org" . "http://orgmode.org/elpa/")
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                         ("org" . "http://orgmode.org/elpa/")
                          ("gnu" . "http://elpa.gnu.org/packages/")
-                         ("melpa" . "https://melpa.org/packages/")
                          ))
 (package-initialize)
 (unless (package-installed-p 'use-package)
@@ -24,18 +24,25 @@
 
 
 ;; Paths
-(let ((path (shell-command-to-string ". ~/.dotfiles/paths.sh")))
-  (setenv "PATH" path)
-  (setq exec-path
-        (append
-         (split-string-and-unquote path ":")
-         exec-path)))
+(use-package exec-path-from-shell
+  :if (memq window-system '(mac ns x))
+  :ensure t
+  :config
+  (exec-path-from-shell-initialize)
+ )
 
 (setq backup-directory-alist '(("" . "~/.emacs.d/.backup")))
+
+(use-package iqa
+  :ensure t
+  :config
+  (iqa-setup-default))
 
 ;; Evil mode
 (use-package evil
   :ensure t
+  :init
+  (setq evil-disable-insert-state-bindings t)
   :config
   (evil-mode 1))
 
@@ -140,4 +147,5 @@
 ;;;;;;
 ;;;;;;
 (load-file custom-file)
+(load-file "~/.emacs.d/utils.el")
 (mapc 'load (file-expand-wildcards "~/.emacs.d/custom/*.el"))
