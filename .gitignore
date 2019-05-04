@@ -15,3 +15,5 @@ recentf
 tmp/
 spam.el
 transient/
+forge-database.sqlite
+.lsp-session-v1

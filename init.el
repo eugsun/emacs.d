@@ -55,6 +55,8 @@
 
 
 ;; Ivy
+(use-package rg
+  :ensure t)
 (use-package ivy
   :ensure t
   :diminish ivy-mode
@@ -64,7 +66,10 @@
   :config
   (ivy-mode 1))
 (use-package counsel
-  :ensure t)
+  :ensure t
+  :init
+  (setq counsel-rg-base-command
+        "rg -S -M 140 --no-heading --line-number --color never %s ."))
 (use-package swiper
   :ensure t)
 (use-package company
@@ -73,6 +78,9 @@
   (setq company-idle-delay 0)
   (setq company-minimum-prefix-length 3)
   (global-company-mode t))
+(use-package counsel-projectile
+  :ensure t
+  :requires counsel projectile)
 
 
 ;; Show next steps
@@ -120,16 +128,21 @@
 (use-package olivetti
   :ensure t)
 
+(use-package smartparens
+  :ensure t
+  :init
+  (smartparens-global-mode t)
+)
+
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 
-;; Magit
+;; Git
 (use-package magit
   :ensure t)
-
-
-;; Flair
-(mouse-avoidance-mode 'animate)
+(use-package forge
+  :requires magit
+  :ensure t)
 
 ;; Tab settings
 (setq-default indent-tabs-mode nil) ;use space
@@ -137,11 +150,13 @@
 
 ;; Column rule
 (setq column-number-mode t)
-(require 'whitespace)
-(setq whitespace-style '(face empty tabs lines-tail trailing))
-(setq whitespace-line-column 80)
-(setq-default fill-column 80)
-(global-whitespace-mode t)
+;; (use-package whitespace
+;;   :ensure t
+;;   :init
+;;   (setq whitespace-style '(face empty tabs lines-tail trailing))
+;;   (setq-default fill-column 80)
+;;   (setq whitespace-line-column 80)
+;;   )
 
 
 ;;;;;;

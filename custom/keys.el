@@ -10,6 +10,7 @@
    "/"   '(counsel-rg :which-key "ripgrep")
    "TAB" '(switch-to-prev-buffer :which-key "previous buffer")
    "SPC" '(counsel-M-x :which-key "M-x")
+   "p"  '(counsel-projectile-switch-project :which-key "switch to project")
    ;; Files
    "ff"  '(counsel-find-file :which-key "find file")
    "fe"  '(iqa-find-user-init-file :which-key "find init file")
@@ -34,10 +35,14 @@
    ;; Search
    "ss"  '(swiper :which-key "search buffer")
    "sa"  '(swiper-all :which-key "search all buffers")
+   "sp"  '(counsel-projectile-find-file :which-key "search file in project")
+   ;; Modes
+   "mo"  '(olivetti-mode :which-key "toggle olivetti mode")
+   "mm"  '(mc/edit-lines :which-key "toggle multiple cursors [mc] for lines")
+   "mn"  '(mc/mark-next-like-this :which-key "[mc] mark next like this")
    ;; Others
    "'"   '(ansi-term :which-key "open terminal")
    "gs"  '(magit :which-key "magit")
-   "mo"  '(olivetti-mode :which-key "toggle olivetti mode")
    "qq"  '(save-buffers-kill-terminal :which-key "save all and quit")
    ))
 
