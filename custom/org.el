@@ -19,11 +19,13 @@
 (use-package org-journal
   :ensure t
   :init
-  (setq org-journal-file-format "%Y%m%d.org")
-  (setq org-journal-dir (concat org-base "journal/"))
+  :custom
+  (org-journal-file-format "%Y%m%d.org")
+  (org-journal-dir (concat org-base "journal/"))
+  (org-journal-date-format "%A, %m/%d/%Y")
   )
 
-;; Customization 
+;; Customization
 (setq org-agenda-custom-commands
       '(
         ("h" "Home View"
