@@ -29,3 +29,8 @@
   ;;(add-to-list 'projectile-project-root-files-bottom-up "BUILD"))
   ;;(setq lsp-auto-guess-root t)
   )
+
+
+;; yaml
+(use-package yaml-mode
+  :ensure t)
