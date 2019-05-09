@@ -14,6 +14,7 @@
 
 ;; Notes
 (setq org-default-notes-file (concat org-base "agenda/notes.org"))
+(setq org-default-todos-file (concat org-base "agenda/todos.org"))
 
 ;; Journal
 (use-package org-journal
@@ -44,8 +45,12 @@
       '((sequence "TODO" "IN-PROGRESS" "|" "DONE")))
 
 (setq org-capture-templates
-      '(("t" "Todo" entry (file+headline org-default-notes-file "Tasks")
-         "* TODO %?\n  %i\n")
+      `(("t" "Todo" entry (file+headline org-default-todos-file "Tasks")
+         ,(concat "* TODO %?\n"
+                 "  DEADLINE: <%(org-read-date nil nil \"+1d\")>\n"
+                 "  SCHEDULED: <%(org-read-date nil nil \"\")>\n"
+                 "  Entered on %U  %i\n\n")
+         )
         ("n" "Note" entry (file+headline org-default-notes-file "Notes")
          "* %?\n  Entered on %U  %i\n")))
 

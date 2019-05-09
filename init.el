@@ -113,6 +113,7 @@
 
 
 ;; Editor
+(setq ring-bell-function 'ignore)
 (setq show-paren-delay 0)
 (show-paren-mode 1)
 

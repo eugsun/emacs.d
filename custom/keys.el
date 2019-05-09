@@ -30,8 +30,10 @@
    "w0"  '(delete-other-windows :which-key "delete other windows")
    "wb"  '(balance-windows :which-key "balance windows")
    ;; Org
-   "oo"  '(org-agenda :which-key "agenda home")
+   "oa"  '(org-agenda :which-key "agenda")
    "oj"  '(org-journal-new-entry :which-key "new journal entry")
+   "oo"  '(org-capture :which-key "capture")
+   "oh"  '(lambda () (interactive) (org-agenda nil "h") :which-key "agenda home")
    ;; Search
    "ss"  '(swiper :which-key "search buffer")
    "sa"  '(swiper-all :which-key "search all buffers")
