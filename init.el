@@ -139,6 +139,8 @@
 
 
 ;; Git
+(use-package ssh-agency
+  :ensure t)
 (use-package magit
   :ensure t)
 (use-package forge
