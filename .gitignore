@@ -19,3 +19,5 @@ forge-database.sqlite
 .lsp-session-v1
 bookmarks
 server/
+.org-id-locations
+url/

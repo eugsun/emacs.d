@@ -9,22 +9,13 @@
       (append
        (file-expand-wildcards (concat org-base "agenda/*.org"))
        (file-expand-wildcards (concat org-base "agenda/job/*.org"))
+       (file-expand-wildcards (concat org-base "agenda/mobile/*.org"))
       ))
 (setq org-agenda-file-regexp "\\`[^.].*\\.org'\\|[0-9]+")
 
 ;; Notes
 (setq org-default-notes-file (concat org-base "agenda/notes.org"))
 (setq org-default-todos-file (concat org-base "agenda/todos.org"))
-
-;; Journal
-(use-package org-journal
-  :ensure t
-  :init
-  :custom
-  (org-journal-file-format "%Y%m%d.org")
-  (org-journal-dir (concat org-base "journal/"))
-  (org-journal-date-format "%A, %m/%d/%Y")
-  )
 
 ;; Customization
 (setq org-agenda-custom-commands
@@ -55,3 +46,30 @@
          "* %?\n  Entered on %U  %i\n")))
 
 (add-hook 'org-mode-hook 'olivetti-mode)
+
+;; Journal
+(use-package org-journal
+  :ensure t
+  :init
+  :custom
+  (org-journal-file-format "%Y%m%d.org")
+  (org-journal-dir (concat org-base "journal"))
+  (org-journal-date-format "%A, %m/%d/%Y")
+  )
+
+;; Brain
+(use-package org-brain
+  :ensure t
+  :init
+  (setq org-brain-path (concat org-base "brain"))
+  (with-eval-after-load 'evil
+    (evil-set-initial-state 'org-brain-visualize-mode 'emacs))
+  :config
+  (setq org-id-track-globally t)
+  (setq org-id-locations-file "~/.emacs.d/.org-id-locations")
+  (push '("b" "Brain" plain (function org-brain-goto-end)
+          "* %i%?" :empty-lines 1)
+        org-capture-templates)
+  ;; (setq org-brain-visualize-default-choices 'all)
+  ;; (setq org-brain-title-max-length 12)
+  )

@@ -33,7 +33,8 @@
    "oa"  '(org-agenda :which-key "agenda")
    "oj"  '(org-journal-new-entry :which-key "new journal entry")
    "oo"  '(org-capture :which-key "capture")
-   "oh"  '(lambda () (interactive) (org-agenda nil "h") :which-key "agenda home")
+   "oh"  '((lambda () (interactive) (org-agenda nil "h")) :which-key "agenda home")
+   "ob"  '(org-brain-visualize :which-key "brain")
    ;; Search
    "ss"  '(swiper :which-key "search buffer")
    "sa"  '(swiper-all :which-key "search all buffers")
