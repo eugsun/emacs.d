@@ -34,3 +34,16 @@
 ;; yaml
 (use-package yaml-mode
   :ensure t)
+
+
+;; Racket
+(use-package racket-mode
+  :ensure t)
+
+
+;; Python
+(use-package elpy
+  :ensure t
+  :defer t
+  :init
+  (advice-add 'python-mode :before 'elpy-enable))
