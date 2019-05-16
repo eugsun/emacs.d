@@ -73,3 +73,12 @@
   ;; (setq org-brain-visualize-default-choices 'all)
   ;; (setq org-brain-title-max-length 12)
   )
+
+
+;; Noter
+(use-package org-noter
+  :ensure t
+  :config
+  (setq org-noter-notes-search-path `(,(concat org-base "reading/")))
+  (setq org-noter-doc-split-fraction '(0.67 . 0.67))
+  )

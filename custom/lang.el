@@ -47,3 +47,8 @@
   :defer t
   :init
   (advice-add 'python-mode :before 'elpy-enable))
+
+
+;; PDF
+(use-package pdf-tools
+  :ensure t)
