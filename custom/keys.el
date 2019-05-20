@@ -1,4 +1,3 @@
-;; Keybinding
 ;; Evil keybinding
 (use-package general
   :ensure t
@@ -10,7 +9,8 @@
    "/"   '(counsel-rg :which-key "ripgrep")
    "TAB" '(switch-to-prev-buffer :which-key "previous buffer")
    "SPC" '(counsel-M-x :which-key "M-x")
-   "p"  '(counsel-projectile-switch-project :which-key "switch to project")
+   "p"   '(counsel-projectile-switch-project :which-key "switch to project")
+   "0"   '(neotree-toggle :which-key "neotree")
    ;; Files
    "ff"  '(counsel-find-file :which-key "find file")
    "fe"  '(iqa-find-user-init-file :which-key "find init file")
@@ -45,15 +45,18 @@
    "mn"  '(mc/mark-next-like-this :which-key "[mc] mark next like this")
    ;; Others
    "'"   '(ansi-term :which-key "open terminal")
-   "gs"  '(magit :which-key "magit")
-   "qq"  '(save-buffers-kill-terminal :which-key "save all and quit")
+   "g"  '(magit :which-key "magit")
+   "q"  '(save-buffers-kill-terminal :which-key "save all and quit")
+   "k"   '(browse-kill-ring :which-key "browse kill ring")
+   "j"   '(avy-goto-char-timer :which-key "jump to char")
    ))
 
-;; Better default shortcuts
+;; Global keybinding
+(global-set-key (kbd "M-0") 'maximize-window)
+(global-set-key (kbd "M-p") 'ace-window)
 (global-set-key (kbd "M-/") 'hippie-expand)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
-;; Defaults to regex search
 (global-set-key (kbd "C-s") 'isearch-forward-regexp)
 (global-set-key (kbd "C-r") 'isearch-backward-regexp)
 (global-set-key (kbd "C-M-s") 'isearch-forward)

@@ -92,12 +92,6 @@
         "rg -S -M 140 --no-heading --line-number --color never %s ."))
 (use-package swiper
   :ensure t)
-(use-package company
-  :ensure t
-  :config
-  (setq company-idle-delay 0)
-  (setq company-minimum-prefix-length 3)
-  (global-company-mode t))
 (use-package counsel-projectile
   :ensure t
   :requires counsel projectile)
@@ -154,6 +148,13 @@
   :init
   (smartparens-global-mode t)
 )
+
+(use-package avy
+  :ensure t)
+(use-package ace-window
+  :ensure t)
+(use-package browse-kill-ring
+  :ensure t)
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 

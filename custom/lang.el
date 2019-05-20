@@ -1,22 +1,37 @@
 (use-package lsp-mode
   :ensure t
   :commands lsp
-  :init
+  :config
   (setq lsp-auto-guess-root t)
   (setq lsp-eldoc-render-all nil)
   (setq lsp-prefer-flymake nil)
-  )
-(use-package lsp-ui
-  :ensure t
-  :commands lsp-ui-mode)
-(use-package company-lsp
-  :ensure t
-  :commands company-lsp)
-(use-package flutter
-  :ensure t)
+  (setq lsp-enable-completion-at-point t)
 
+  (use-package lsp-ui
+    :ensure t
+    :commands lsp-ui-mode)
+  )
+
+(use-package company
+  :ensure t
+  :config
+  (setq company-idle-delay 0.1)
+  (setq company-dabbrev-downcase nil)
+  (setq company-minimum-prefix-length 3)
+  (global-company-mode t)
+
+  (use-package company-lsp
+    :ensure t
+    :commands company-lsp
+    :config
+    (setq company-lsp-cache-candidates t)
+    (setq company-lsp-async t)
+    )
+  )
 
 ;; Dart
+(use-package flutter
+  :ensure t)
 (use-package dart-mode
   :ensure t
   :init
@@ -29,7 +44,6 @@
   ;;(add-to-list 'projectile-project-root-files-bottom-up "BUILD"))
   ;;(setq lsp-auto-guess-root t)
   )
-
 
 ;; yaml
 (use-package yaml-mode

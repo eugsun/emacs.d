@@ -27,9 +27,9 @@
       '(
         ("h" "Home View"
          (
-          (tags "PRIORITY=\"A\""
-                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                 (org-agenda-overriding-header "High-Priority Items:")))
+          ;; (tags "PRIORITY=\"A\""
+          ;;       ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+          ;;        (org-agenda-overriding-header "High-Priority Items:")))
           (tags "plan" ((org-agenda-overriding-header "Plan")))
           (agenda "")
           (alltodo '(:timestamp))
@@ -69,6 +69,7 @@
   (setq org-brain-path (concat org-base "brain"))
   (with-eval-after-load 'evil
     (evil-set-initial-state 'org-brain-visualize-mode 'emacs))
+  (add-hook 'org-brain-visualize-mode-hook 'olivetti-mode)
   :config
   (setq org-id-track-globally t)
   (setq org-id-locations-file "~/.emacs.d/.org-id-locations")
