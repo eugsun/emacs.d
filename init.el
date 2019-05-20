@@ -51,7 +51,27 @@
 (use-package doom-themes
   :ensure t
   :config
-  (load-theme 'doom-spacegrey t))
+  (load-theme
+   'doom-dracula t
+   ))
+
+
+;; Typeface
+(set-language-environment "UTF-8")
+(set-default-coding-systems 'utf-8-unix)
+;; -- Default
+(when (member "DejaVu Sans Mono" (font-family-list))
+  (set-face-attribute 'default nil :font "DejaVu Sans Mono"))
+(when (member "Inconsolata" (font-family-list))
+  (set-face-attribute 'default nil :font "Inconsolata"))
+(when (member "Consolas" (font-family-list))
+  (set-face-attribute 'default nil :font "Consolas"))
+;; -- Unicode
+(when (member "Symbola" (font-family-list))
+  (set-fontset-font t 'unicode "Symbola" nil 'prepend))
+;; -- Chinese
+(when (member "WenQuanYi Micro Hei" (font-family-list))
+  (set-fontset-font t '(#x4e00 . #x9fff) "WenQuanYi Micro Hei" ))
 
 
 ;; Ivy

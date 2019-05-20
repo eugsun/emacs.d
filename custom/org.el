@@ -18,6 +18,11 @@
 (setq org-default-todos-file (concat org-base "agenda/todos.org"))
 
 ;; Customization
+(setq org-agenda-skip-deadline-prewarning-if-scheduled t)
+(setq org-agenda-skip-deadline-if-done t)
+(setq org-agenda-skip-scheduled-if-done t)
+(setq org-agenda-skip-scheduled-if-deadline-is-shown t)
+(setq org-deadline-warning-days 1)
 (setq org-agenda-custom-commands
       '(
         ("h" "Home View"
