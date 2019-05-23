@@ -66,3 +66,17 @@
 ;; PDF
 (use-package pdf-tools
   :ensure t)
+
+
+;; Fountain
+(use-package fountain-mode
+  :ensure t
+  :init
+  (add-hook 'fountain-mode-hook 'olivetti-mode)
+  )
+
+(use-package imenu-list
+  :ensure t
+  :config
+  ;; (setq imenu-list-focus-after-activation t)
+  )
