@@ -57,6 +57,7 @@
 (global-set-key (kbd "M-0") 'maximize-window)
 (global-set-key (kbd "M-p") 'ace-window)
 (global-set-key (kbd "M-/") 'hippie-expand)
+
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
 (global-set-key (kbd "C-s") 'isearch-forward-regexp)
@@ -65,7 +66,7 @@
 (global-set-key (kbd "C-M-r") 'isearch-backward)
 
 (global-set-key (kbd "M-*") 'pop-tag-mark)
-(global-set-key (kbd "C-(") 'previous-buffer)
-(global-set-key (kbd "C-)") 'next-buffer)
+(global-set-key (kbd "M-[") 'previous-buffer)
+(global-set-key (kbd "M-]") 'next-buffer)
 
 (global-set-key (kbd "C-'") #'imenu-list-smart-toggle)
