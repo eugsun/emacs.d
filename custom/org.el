@@ -43,12 +43,12 @@
 (setq org-capture-templates
       `(("t" "Todo" entry (file+headline org-default-todos-file "Tasks")
          ,(concat "* TODO %?\n"
-                 "  DEADLINE: <%(org-read-date nil nil \"+1d\")>\n"
-                 "  SCHEDULED: <%(org-read-date nil nil \"\")>\n"
-                 "  Entered on %U  %i\n\n")
+                 "  DEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+1d\"))"
+                 " SCHEDULED: %t\n"
+                 "  Entered on %U\n  %i")
          )
         ("n" "Note" entry (file+headline org-default-notes-file "Notes")
-         "* %?\n  Entered on %U  %i\n")))
+         "* %?\n  Entered on %U\n  %i")))
 
 (add-hook 'org-mode-hook 'olivetti-mode)
 
