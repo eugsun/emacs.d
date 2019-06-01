@@ -1,8 +1,14 @@
+;; Location
 (setq org-base "~/Dropbox/Private/org/")
-(setq org-log-done t)
-
 (setq org-refile-targets (quote ((nil :maxlevel . 9)
                                  (org-agenda-files :maxlevel . 9))))
+(setq org-default-notes-file (concat org-base "agenda/notes.org"))
+(setq org-default-todos-file (concat org-base "agenda/todos.org"))
+
+;; Editor
+(setq org-log-done t)
+(add-hook 'org-mode-hook 'olivetti-mode)
+(setq org-tags-column 2)
 
 ;; Agenda
 (setq org-agenda-files
@@ -12,13 +18,6 @@
        (file-expand-wildcards (concat org-base "agenda/mobile/*.org"))
       ))
 (setq org-agenda-file-regexp "\\`[^.].*\\.org'\\|[0-9]+")
-
-;; Notes
-(setq org-default-notes-file (concat org-base "agenda/notes.org"))
-(setq org-default-todos-file (concat org-base "agenda/todos.org"))
-
-;; Customization
-(setq org-tags-column 2)
 (setq org-agenda-skip-deadline-prewarning-if-scheduled t)
 (setq org-agenda-skip-scheduled-if-deadline-is-shown t)
 (setq org-deadline-warning-days 1)
@@ -29,7 +28,7 @@
           ;; (tags "PRIORITY=\"A\""
           ;;       ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
           ;;        (org-agenda-overriding-header "High-Priority Items:")))
-          (tags "plan" ((org-agenda-overriding-header "Plan")))
+          (tags "goal" ((org-agenda-overriding-header "Goals")))
           (agenda "")
           (alltodo '(:timestamp))
           )
@@ -49,7 +48,6 @@
         ("n" "Note" entry (file+headline org-default-notes-file "Notes")
          "* %?\n  Entered on %U\n  %i")))
 
-(add-hook 'org-mode-hook 'olivetti-mode)
 
 ;; Journal
 (use-package org-journal
@@ -86,4 +84,25 @@
   :config
   (setq org-noter-notes-search-path `(,(concat org-base "reading/")))
   (setq org-noter-doc-split-fraction '(0.67 . 0.67))
+  )
+
+
+;; Habit
+(require 'org-habit)
+(setq org-habit-preceding-days 14
+      org-habit-following-days 1
+      org-habit-graph-column 80
+      org-habit-show-habits-only-for-today t
+      org-habit-show-all-today nil
+      )
+
+(use-package org-edna
+  :ensure t
+  :init
+  ;; This missing function causes malfunction when scheduling.
+  (defun org-timestamp-from-string (ts)
+    (org-read-date nil t ts)
+    )
+  :config
+  (org-edna-load)
   )

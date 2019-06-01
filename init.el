@@ -69,6 +69,8 @@
 ;; -- Unicode
 (when (member "Symbola" (font-family-list))
   (set-fontset-font t 'unicode "Symbola" nil 'prepend))
+(when (member "Segoe UI Emoji" (font-family-list))
+  (set-fontset-font t 'unicode "Segoe UI Emoji" nil 'prepend))
 ;; -- Chinese
 (when (member "WenQuanYi Micro Hei" (font-family-list))
   (set-fontset-font t '(#x4e00 . #x9fff) "WenQuanYi Micro Hei" ))
