@@ -80,3 +80,11 @@
   :config
   ;; (setq imenu-list-focus-after-activation t)
   )
+
+
+;; Markdown
+(use-package markdown-mode
+  :ensure t
+  :init
+  (add-hook 'markdown-mode-hook 'olivetti-mode)
+  )
