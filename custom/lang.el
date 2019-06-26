@@ -1,16 +1,19 @@
-(use-package lsp-mode
-  :ensure t
-  :commands lsp
-  :config
-  (setq lsp-auto-guess-root t)
-  (setq lsp-eldoc-render-all nil)
-  (setq lsp-prefer-flymake nil)
-  (setq lsp-enable-completion-at-point t)
+(use-package eglot
+  :ensure t)
 
-  (use-package lsp-ui
-    :ensure t
-    :commands lsp-ui-mode)
-  )
+;; (use-package lsp-mode
+;;   :ensure t
+;;   :commands lsp
+;;   :config
+;;   (setq lsp-auto-guess-root t)
+;;   (setq lsp-eldoc-render-all nil)
+;;   (setq lsp-prefer-flymake nil)
+;;   (setq lsp-enable-completion-at-point t)
+
+;;   (use-package lsp-ui
+;;     :ensure t
+;;     :commands lsp-ui-mode)
+;;   )
 
 (use-package company
   :ensure t
@@ -20,13 +23,13 @@
   (setq company-minimum-prefix-length 3)
   (global-company-mode t)
 
-  (use-package company-lsp
-    :ensure t
-    :commands company-lsp
-    :config
-    (setq company-lsp-cache-candidates t)
-    (setq company-lsp-async t)
-    )
+  ;; (use-package company-lsp
+  ;;   :ensure t
+  ;;   :commands company-lsp
+  ;;   :config
+  ;;   (setq company-lsp-cache-candidates t)
+  ;;   (setq company-lsp-async t)
+  ;;   )
   )
 
 ;; Dart
@@ -34,15 +37,15 @@
   :ensure t)
 (use-package dart-mode
   :ensure t
-  :init
+  :config
   (setq dart-sdk-path "~/Apps/flutter/bin/cache/dart-sdk/")
-  (add-hook 'dart-mode-hook #'lsp)
+  ;; (add-hook 'dart-mode-hook #'lsp)
+  (add-hook 'dart-mode-hook 'eglot-ensure)
   (add-hook 'dart-mode-hook 'flycheck-mode)
-  ;;(add-hook 'dart-mode-hook (lambda () (flymake-mode -1)))
-  ;;(with-eval-after-load "projectile"
-  ;;(add-to-list 'projectile-project-root-files-bottom-up "pubspec.yaml")
-  ;;(add-to-list 'projectile-project-root-files-bottom-up "BUILD"))
-  ;;(setq lsp-auto-guess-root t)
+  (add-hook 'dart-mode-hook (lambda () (flymake-mode -1)))
+  (with-eval-after-load "projectile"
+    (add-to-list 'projectile-project-root-files-bottom-up "pubspec.yaml")
+    (add-to-list 'projectile-project-root-files-bottom-up "BUILD"))
   )
 
 ;; yaml
