@@ -91,3 +91,9 @@
   :init
   (add-hook 'markdown-mode-hook 'olivetti-mode)
   )
+
+
+;; Ink
+(use-package ink-mode
+  :ensure t
+  :mode "\\.ink\\'")
