@@ -96,4 +96,7 @@
 ;; Ink
 (use-package ink-mode
   :ensure t
-  :mode "\\.ink\\'")
+  :mode "\\.ink\\'"
+  :config
+  (add-hook 'ink-mode-hook 'olivetti-mode)
+)

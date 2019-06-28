@@ -20,6 +20,7 @@
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
+
 (require 'use-package)
 
 
@@ -97,7 +98,6 @@
 (use-package counsel-projectile
   :ensure t
   :requires counsel projectile)
-
 
 ;; Show next steps
 (use-package which-key
@@ -183,6 +183,14 @@
 ;;   (setq-default fill-column 80)
 ;;   (setq whitespace-line-column 80)
 ;;   )
+
+
+;; Terminals
+(use-package multi-term
+  :ensure t
+  :config
+  (setq multi-term-dedicated-select-after-open-p t)
+  )
 
 
 ;;;;;;

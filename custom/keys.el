@@ -46,10 +46,14 @@
    "mo"  '(olivetti-mode :which-key "toggle olivetti mode")
    "mm"  '(mc/edit-lines :which-key "toggle multiple cursors [mc] for lines")
    "mn"  '(mc/mark-next-like-this :which-key "[mc] mark next like this")
+   ;; Terminal
+   "tt"  '(multi-term :which-key "open terminal")
+   "tn"  '(multi-term-next :which-key "next terminal")
+   "tp"  '(multi-term-prev :which-key "prev terminal")
    ;; Others
-   "'"   '(ansi-term :which-key "open terminal")
-   "g"  '(magit :which-key "magit")
-   "q"  '(save-buffers-kill-terminal :which-key "save all and quit")
+   "'"   '(multi-term-dedicated-toggle :which-key "open terminal")
+   "g"   '(magit :which-key "magit")
+   "q"   '(save-buffers-kill-terminal :which-key "save all and quit")
    "k"   '(browse-kill-ring :which-key "browse kill ring")
    "j"   '(avy-goto-char-timer :which-key "jump to char")
    ))
