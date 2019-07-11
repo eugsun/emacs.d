@@ -32,7 +32,10 @@
   (exec-path-from-shell-initialize)
  )
 
-(setq backup-directory-alist '(("" . "~/.emacs.d/.backup")))
+(setq backup-directory-alist
+      `(("." . ,(concat user-emacs-directory ".backup"))))
+(setq auto-save-file-name-transforms
+      `((".*" ,(concat user-emacs-directory ".backup") t)))
 
 (use-package iqa
   :ensure t
