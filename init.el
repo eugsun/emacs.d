@@ -36,6 +36,7 @@
       `(("." . ,(concat user-emacs-directory ".backup"))))
 (setq auto-save-file-name-transforms
       `((".*" ,(concat user-emacs-directory ".backup") t)))
+(setq save-place-file (concat user-emacs-directory ".places"))
 
 (use-package iqa
   :ensure t
@@ -195,6 +196,16 @@
   (setq multi-term-dedicated-select-after-open-p t)
   )
 
+
+;; Copied from better defaults
+(setq save-interprogram-paste-before-kill t
+      apropos-do-all t
+      mouse-yank-at-point t
+      require-final-newline t
+      visible-bell t
+      load-prefer-newer t
+      ediff-window-setup-function 'ediff-setup-windows-plain
+      )
 
 ;;;;;;
 ;;;;;;

@@ -100,3 +100,11 @@
   :config
   (add-hook 'ink-mode-hook 'olivetti-mode)
 )
+
+
+;; Clojure
+(use-package clojure-mode
+  :ensure t
+  :mode "\\.clj\\'")
+(use-package cider
+  :ensure t)

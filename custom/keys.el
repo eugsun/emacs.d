@@ -2,6 +2,7 @@
 (use-package general
   :ensure t
   :config
+  (general-evil-setup)
   (general-define-key
    :states '(normal visual insert emacs)
    :prefix "SPC"
@@ -42,6 +43,8 @@
    "ss"  '(swiper :which-key "search buffer")
    "sa"  '(swiper-all :which-key "search all buffers")
    "sp"  '(counsel-projectile-find-file :which-key "search file in project")
+   "sd"  '(xref-find-definitions :which-key "find definition")
+   "sD"  '(xref-find-definitions-other-window :which-key "find definition in other frame")
    ;; Modes
    "mo"  '(olivetti-mode :which-key "toggle olivetti mode")
    "mm"  '(mc/edit-lines :which-key "toggle multiple cursors [mc] for lines")
