@@ -9,6 +9,7 @@
 (setq org-log-done t)
 (add-hook 'org-mode-hook 'olivetti-mode)
 (setq org-tags-column 2)
+(setq org-startup-indented t)
 
 ;; Agenda
 (setq org-agenda-files
