@@ -12,6 +12,7 @@
    "SPC" '(counsel-M-x :which-key "M-x")
    "p"   '(counsel-projectile-switch-project :which-key "switch to project")
    "0"   '(neotree-toggle :which-key "neotree")
+   "n"   (general-simulate-key "C-c" :which-key "minor mode prefix")
    ;; Files
    "ff"  '(counsel-find-file :which-key "find file")
    "fe"  '(iqa-find-user-init-file :which-key "find init file")
@@ -59,6 +60,7 @@
    "q"   '(save-buffers-kill-terminal :which-key "save all and quit")
    "k"   '(browse-kill-ring :which-key "browse kill ring")
    "j"   '(avy-goto-char-timer :which-key "jump to char")
+   "T"   '(powerthesaurus-lookup-word-at-point :which-key "look up thesaurus")
    ))
 
 ;; Global keybinding

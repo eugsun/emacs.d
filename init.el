@@ -56,9 +56,28 @@
 (use-package doom-themes
   :ensure t
   :config
-  (load-theme
-   'doom-dracula t
-   ))
+  ;; (load-theme 'doom-peacock t)
+  (setq current-theme 'doom-peacock)
+  (defun sync-theme-with-time ()
+    (setq hour (string-to-number (substring (current-time-string) 11 13)))
+    (if (member hour (number-sequence 6 16))
+        (setq now 'doom-solarized-light)
+      (setq now 'doom-peacock))
+    (if (or (not (boundp 'current-theme)) (eq now current-theme))
+        nil
+      (setq current-theme now))
+    (load-theme now t)
+    )
+  (run-with-timer 0 3600 #'sync-theme-with-time)
+  )
+
+
+(use-package smart-mode-line
+  :ensure t
+  :config
+  (setq sml/theme 'respectful)
+  (setq sml/no-confirm-load-theme t)
+  (sml/setup))
 
 
 ;; Typeface
@@ -195,6 +214,11 @@
   :config
   (setq multi-term-dedicated-select-after-open-p t)
   )
+
+
+;; Thesaurus
+(use-package powerthesaurus
+  :ensure t)
 
 
 ;; Copied from better defaults
