@@ -62,19 +62,19 @@
 (use-package elpy
   :ensure t
   :defer t
-  :init
+  :config
   (advice-add 'python-mode :before 'elpy-enable))
 
 
 ;; PDF
-(use-package pdf-tools
-  :ensure t)
+;; (use-package pdf-tools
+;;   :ensure t)
 
 
 ;; Fountain
 (use-package fountain-mode
   :ensure t
-  :init
+  :config
   (add-hook 'fountain-mode-hook 'olivetti-mode)
   )
 
@@ -88,7 +88,7 @@
 ;; Markdown
 (use-package markdown-mode
   :ensure t
-  :init
+  :config
   (add-hook 'markdown-mode-hook 'olivetti-mode)
   )
 
@@ -107,4 +107,5 @@
   :ensure t
   :mode "\\.clj\\'")
 (use-package cider
-  :ensure t)
+  :ensure t
+  :defer t)

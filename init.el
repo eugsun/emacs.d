@@ -24,6 +24,11 @@
 (require 'use-package)
 
 
+;; Benchmark initialization
+;; (use-package benchmark-init
+;;   :ensure t)
+
+
 ;; Paths
 (use-package exec-path-from-shell
   :if (memq window-system '(mac ns x))
