@@ -49,6 +49,8 @@
         ("n" "Note" entry (file+headline org-default-notes-file "Notes")
          "* %?\n  Entered on %U\n  %i")))
 
+;; - Auto-save after toggling todo status
+(advice-add 'org-agenda-todo :after #'org-save-all-org-buffers)
 
 ;; Journal
 (use-package org-journal
