@@ -109,3 +109,17 @@
 (use-package cider
   :ensure t
   :defer t)
+
+
+;; CSharp
+(use-package csharp-mode
+  :ensure t
+  :mode "\\.cs\\'"
+  :config
+  (add-hook 'csharp-mode-hook 'flycheck-mode))
+
+(use-package omnisharp
+  :ensure t
+  :config
+  (add-hook 'csharp-mode-hook 'omnisharp-mode)
+  (add-to-list 'company-backends 'company-omnisharp))
