@@ -184,6 +184,7 @@
 (use-package olivetti
   :ensure t
   :config
+  (add-hook 'text-mode-hook 'olivetti-mode)
   (add-hook 'olivetti-mode-hook 'set-reader-view)
   )
 

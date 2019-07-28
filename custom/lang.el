@@ -74,8 +74,8 @@
 ;; Fountain
 (use-package fountain-mode
   :ensure t
-  :config
-  (add-hook 'fountain-mode-hook 'olivetti-mode)
+  ;; :config
+  ;; (add-hook 'fountain-mode-hook 'olivetti-mode)
   )
 
 (use-package imenu-list
@@ -88,8 +88,8 @@
 ;; Markdown
 (use-package markdown-mode
   :ensure t
-  :config
-  (add-hook 'markdown-mode-hook 'olivetti-mode)
+  ;; :config
+  ;; (add-hook 'markdown-mode-hook 'olivetti-mode)
   )
 
 
@@ -97,8 +97,8 @@
 (use-package ink-mode
   :ensure t
   :mode "\\.ink\\'"
-  :config
-  (add-hook 'ink-mode-hook 'olivetti-mode)
+  ;; :config
+  ;; (add-hook 'ink-mode-hook 'olivetti-mode)
 )
 
 
