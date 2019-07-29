@@ -54,6 +54,9 @@
    "tt"  '(multi-term :which-key "open terminal")
    "tn"  '(multi-term-next :which-key "next terminal")
    "tp"  '(multi-term-prev :which-key "prev terminal")
+   ;; LSP
+   "ll"  '(lsp-execute-code-action :which-key "lsp action")
+   "li"  '(lsp-organize-imports :which-key "organize imports")
    ;; Others
    "'"   '(multi-term-dedicated-toggle :which-key "open terminal")
    "g"   '(magit :which-key "magit")
