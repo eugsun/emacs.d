@@ -5,7 +5,7 @@
   :requires emmet-mode
   :ensure t
   :init
-  (add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.jsp\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
   (setq web-mode-markup-indent-offset 4)
@@ -15,4 +15,11 @@
   (emmet-mode 1)
   )
 
-  
+
+;; Javascript
+(use-package js2-mode
+  :ensure t
+  :mode ("\\.json\\'" "\\.js\\'")
+  :config
+  (setq js2-basic-offset 2)
+  )
