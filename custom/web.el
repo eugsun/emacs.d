@@ -19,7 +19,7 @@
 ;; Javascript
 (use-package js2-mode
   :ensure t
-  :mode ("\\.json\\'" "\\.js\\'")
+  :mode "\\.js\\'"
   :config
   (setq js2-basic-offset 2)
   )

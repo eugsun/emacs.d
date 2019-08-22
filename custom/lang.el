@@ -129,3 +129,8 @@
   :config
   (add-hook 'csharp-mode-hook 'omnisharp-mode)
   (add-to-list 'company-backends 'company-omnisharp))
+
+(use-package json-mode
+  :ensure t
+  :mode "\\.json\\'"
+  )

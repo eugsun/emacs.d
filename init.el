@@ -209,15 +209,11 @@
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-
-;; Git
-(use-package ssh-agency
-  :ensure t)
-(use-package magit
-  :ensure t)
-(use-package forge
-  :requires magit
-  :ensure t)
+(use-package indent-guide
+  :ensure t
+  :config
+  (indent-guide-global-mode t)
+  )
 
 ;; Tab settings
 (setq-default indent-tabs-mode nil) ;use space
@@ -245,6 +241,10 @@
 ;; Thesaurus
 (use-package powerthesaurus
   :ensure t)
+(dolist (hook '(text-mode-hook))
+  (add-hook hook (lambda () (flyspell-mode 1))))
+(dolist (hook '(change-log-mode-hook log-edit-mode-hook))
+  (add-hook hook (lambda () (flyspell-mode -1))))
 
 
 ;; Copied from better defaults
