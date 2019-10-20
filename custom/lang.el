@@ -103,8 +103,8 @@
 (use-package ink-mode
   :ensure t
   :mode "\\.ink\\'"
-  ;; :config
-  ;; (add-hook 'ink-mode-hook 'olivetti-mode)
+  :config
+  (add-hook 'ink-mode-hook 'olivetti-mode)
 )
 
 
@@ -134,3 +134,7 @@
   :ensure t
   :mode "\\.json\\'"
   )
+
+(use-package haskell-mode
+  :ensure t
+  :mode "\\.hs\\'")

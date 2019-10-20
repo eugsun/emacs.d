@@ -76,19 +76,25 @@
   (setq sml/no-confirm-load-theme t)
   (sml/setup))
 
-(when (display-graphic-p)
-  (setq current-theme 'doom-peacock)
-  (defun sync-theme-with-time ()
-    (setq hour (string-to-number (substring (current-time-string) 11 13)))
-    (if (member hour (number-sequence 6 17))
-        (setq now 'doom-nord-light)
-      (setq now 'doom-peacock))
-    (if (or (not (boundp 'current-theme)) (eq now current-theme))
-        nil
-      (setq current-theme now))
-    (load-theme now t)
-    )
-  (run-with-timer 0 3600 #'sync-theme-with-time)
+
+;; -- Automatically switch between ligh and dark theme based on time of day
+(setq theme-autoswitch nil)
+(if (and theme-autoswitch (display-graphic-p))
+    (progn
+      (setq current-theme 'doom-peacock)
+      (defun sync-theme-with-time ()
+        (setq hour (string-to-number (substring (current-time-string) 11 13)))
+        (if (member hour (number-sequence 6 14))
+            (setq now 'doom-nord-light)
+          (setq now 'doom-peacock))
+        (if (or (not (boundp 'current-theme)) (eq now current-theme))
+            nil
+          (setq current-theme now))
+        (load-theme now t)
+        )
+      (run-with-timer 0 3600 #'sync-theme-with-time)
+      )
+  (load-theme 'doom-peacock t)
   )
 
 
