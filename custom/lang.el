@@ -1,24 +1,24 @@
-;; (use-package eglot
-;;   :ensure t
-;;   :config
-;;   (setq eglot-connect-timeout 2)
-;;   (setq eglot-sync-connect nil)
-;;   (setq eglot-auto-display-help-buffer t)
-;;   )
-
-(use-package lsp-mode
+(use-package eglot
   :ensure t
-  :commands lsp
   :config
-  (setq lsp-auto-guess-root t)
-  (setq lsp-eldoc-render-all nil)
-  (setq lsp-prefer-flymake nil)
-  (setq lsp-enable-completion-at-point t)
-
-  (use-package lsp-ui
-    :ensure t
-    :commands lsp-ui-mode)
+  (setq eglot-connect-timeout 2)
+  (setq eglot-sync-connect nil)
+  (setq eglot-auto-display-help-buffer t)
   )
+
+;; (use-package lsp-mode
+;;   :ensure t
+;;   :commands lsp
+;;   :config
+;;   (setq lsp-auto-guess-root t)
+;;   (setq lsp-eldoc-render-all nil)
+;;   (setq lsp-prefer-flymake nil)
+;;   (setq lsp-enable-completion-at-point t)
+
+;;   (use-package lsp-ui
+;;     :ensure t
+;;     :commands lsp-ui-mode)
+;;   )
 
 (use-package company
   :ensure t
@@ -28,13 +28,13 @@
   (setq company-minimum-prefix-length 3)
   (global-company-mode t)
 
-  (use-package company-lsp
-    :ensure t
-    :commands company-lsp
-    :config
-    (setq company-lsp-cache-candidates 'auto)
-    (setq company-lsp-async t)
-    )
+  ;; (use-package company-lsp
+  ;;   :ensure t
+  ;;   :commands company-lsp
+  ;;   :config
+  ;;   (setq company-lsp-cache-candidates 'auto)
+  ;;   (setq company-lsp-async t)
+  ;;   )
   )
 
 ;; Dart
@@ -45,8 +45,9 @@
   :config
   (setq dart-debug t)
   (setq dart-sdk-path "~/Apps/flutter/bin/cache/dart-sdk/")
-  (add-hook 'dart-mode-hook #'lsp)
-  ;; (add-hook 'dart-mode-hook 'eglot-ensure)
+  (add-to-list 'eglot-server-programs '(dart-mode . ("dart-analysis-server" "")))
+  ;(add-hook 'dart-mode-hook #'lsp)
+  ;(add-hook 'dart-mode-hook 'eglot-ensure)
   (add-hook 'dart-mode-hook 'flycheck-mode)
   (add-hook 'dart-mode-hook '(lambda () (flymake-mode nil)))
   (with-eval-after-load "projectile"
