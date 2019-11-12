@@ -21,7 +21,9 @@
 (package-initialize)
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
-  (package-install 'use-package))
+  (package-install 'use-package)
+  (package-install 'org-plus-contrib)
+  )
 
 (require 'use-package)
 
@@ -78,7 +80,7 @@
 
 
 ;; -- Automatically switch between ligh and dark theme based on time of day
-(setq theme-autoswitch nil)
+(setq theme-autoswitch t)
 (if (and theme-autoswitch (display-graphic-p))
     (progn
       (setq current-theme 'doom-peacock)
@@ -198,6 +200,12 @@
   (add-hook 'olivetti-mode-hook 'set-reader-view)
   )
 (use-package yasnippet
+  :ensure t
+  :config
+  (yas-global-mode 1)
+  )
+(use-package yasnippet-snippets
+  :after yasnippet
   :ensure t)
 
 (use-package smartparens
@@ -262,6 +270,12 @@
       load-prefer-newer t
       ediff-window-setup-function 'ediff-setup-windows-plain
       )
+
+
+;; Editor
+(setq-default line-spacing 2)
+(setq-default cursor-type '(bar . 2))
+
 
 ;;;;;;
 ;;;;;;

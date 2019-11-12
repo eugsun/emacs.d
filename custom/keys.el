@@ -57,6 +57,8 @@
    ;; LSP
    "ll"  '(lsp-execute-code-action :which-key "lsp action")
    "li"  '(lsp-organize-imports :which-key "organize imports")
+   ;; Yasnippet
+   "y"   '(yas-insert-snippet :which-key "yasnippet insert")
    ;; Others
    "'"   '(multi-term-dedicated-toggle :which-key "open terminal")
    "g"   '(magit :which-key "magit")

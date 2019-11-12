@@ -108,3 +108,13 @@
   :config
   (org-edna-load)
   )
+
+
+;; Presentation
+(use-package org-re-reveal
+  :ensure t
+  )
+(use-package org-re-reveal-ref
+  :ensure t
+  :after org-re-reveal
+  )
