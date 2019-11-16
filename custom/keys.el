@@ -3,12 +3,19 @@
   :ensure t
   :config
   (general-evil-setup)
+
+  (general-define-key
+    :states '(normal visual)
+    :prefix nil
+    "TAB" 'indent-for-tab-command
+    )
+
   (general-define-key
    :states '(normal visual insert emacs)
    :prefix "SPC"
    :non-normal-prefix "M-SPC"
    "/"   '(counsel-rg :which-key "ripgrep")
-   "TAB" '(switch-to-prev-buffer :which-key "previous buffer")
+   "TAB" '(evil-switch-to-windows-last-buffer :which-key "previous buffer")
    "SPC" '(counsel-M-x :which-key "M-x")
    "p"   '(counsel-projectile-switch-project :which-key "switch to project")
    "0"   '(neotree-toggle :which-key "neotree")
