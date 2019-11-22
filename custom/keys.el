@@ -5,10 +5,12 @@
   (general-evil-setup)
 
   (general-define-key
-    :states '(normal visual)
-    :prefix nil
-    "TAB" 'indent-for-tab-command
-    )
+   :states '(normal visual)
+   :prefix nil
+   "TAB" 'indent-for-tab-command
+   "gd"  'xref-find-definitions
+   "gD"  'xref-find-definitions-other-window
+   )
 
   (general-define-key
    :states '(normal visual insert emacs)
@@ -22,9 +24,10 @@
    "n"   (general-simulate-key "C-c" :which-key "minor mode prefix")
    ;; Files
    "ff"  '(counsel-find-file :which-key "find file")
-   "fe"  '(iqa-find-user-init-file :which-key "find init file")
-   "fr"  '(iqa-reload-user-init-file :which-key "reload init file")
+   "fi"  '(iqa-find-user-init-file :which-key "find init file")
+   "fe"  '(iqa-reload-user-init-file :which-key "eval init file")
    ;; Buffers
+   "bi"  '(ibuffer :which-key "ibuffer")
    "bb"  '(counsel-ibuffer :which-key "switch buffer")
    "be"  '(eval-buffer :which-key "eval buffer")
    "bk"  '(kill-current-buffer :which-key "kill buffer")
