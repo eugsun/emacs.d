@@ -46,10 +46,13 @@
   (setq dart-debug t)
   (setq dart-sdk-path "~/Apps/flutter/bin/cache/dart-sdk/")
   (add-to-list 'eglot-server-programs '(dart-mode . ("dart-analysis-server" "")))
+  (advice-add 'dart-mode :after #'flymake-mode-off)
+  (advice-add 'dart-mode :after #'flycheck-mode-on-safe)
+  (advice-add 'dart-mode :after #'eglot)
   ;(add-hook 'dart-mode-hook #'lsp)
-  ;(add-hook 'dart-mode-hook 'eglot-ensure)
-  (add-hook 'dart-mode-hook 'flycheck-mode)
-  (add-hook 'dart-mode-hook '(lambda () (flymake-mode nil)))
+  ;; (add-hook 'dart-mode-hook 'eglot-ensure)
+  ;; (add-hook 'dart-mode-hook 'flycheck-mode)
+  ;; (add-hook 'dart-mode-hook '(lambda () (flymake-mode nil)))
   (with-eval-after-load "projectile"
     (add-to-list 'projectile-project-root-files-bottom-up "pubspec.yaml")
     (add-to-list 'projectile-project-root-files-bottom-up "BUILD"))
@@ -68,9 +71,11 @@
 ;; Python
 (use-package elpy
   :ensure t
-  :defer t
   :config
-  (advice-add 'python-mode :before 'elpy-enable))
+  (advice-add 'python-mode :after #'elpy-enable)
+  (advice-add 'python-mode :after #'flymake-mode-off)
+  (advice-add 'python-mode :after #'flycheck-mode-on-safe)
+  )
 
 
 ;; PDF
