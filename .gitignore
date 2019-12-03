@@ -21,3 +21,7 @@ bookmarks
 server/
 .org-id-locations
 url/
+
+\#!*#
+elpy/
+*.cache

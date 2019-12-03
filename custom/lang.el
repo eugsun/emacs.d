@@ -1,8 +1,8 @@
 (use-package eglot
   :ensure t
   :config
-  (setq eglot-connect-timeout 2)
-  (setq eglot-sync-connect nil)
+  (setq eglot-connect-timeout 3)
+  ;; (setq eglot-sync-connect nil)
   (setq eglot-auto-display-help-buffer t)
   )
 
@@ -23,7 +23,7 @@
 (use-package company
   :ensure t
   :config
-  (setq company-idle-delay 0.1)
+  (setq company-idle-delay 0.5)
   (setq company-dabbrev-downcase nil)
   (setq company-minimum-prefix-length 3)
   (global-company-mode t)
@@ -143,4 +143,7 @@
 
 (use-package haskell-mode
   :ensure t
-  :mode "\\.hs\\'")
+  :mode "\\.hs\\'"
+  :config
+  (advice-add 'haskell-mode :after #'eglot-ensure)
+  )
