@@ -48,7 +48,7 @@
   (add-to-list 'eglot-server-programs '(dart-mode . ("dart-analysis-server" "")))
   (advice-add 'dart-mode :after #'flymake-mode-off)
   (advice-add 'dart-mode :after #'flycheck-mode-on-safe)
-  (advice-add 'dart-mode :after #'eglot)
+  (advice-add 'dart-mode :after #'eglot-ensure)
   ;(add-hook 'dart-mode-hook #'lsp)
   ;; (add-hook 'dart-mode-hook 'eglot-ensure)
   ;; (add-hook 'dart-mode-hook 'flycheck-mode)
