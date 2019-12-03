@@ -229,11 +229,12 @@
   (indent-guide-global-mode t)
   )
 
-;; Tab settings
+;; -- Display settings
+(global-hl-line-mode t)
+(setq-default line-spacing 2)
+(setq-default cursor-type '(bar . 2))
 (setq-default indent-tabs-mode nil) ;use space
 (setq-default tab-width 4)
-
-;; Column rule
 (setq column-number-mode t)
 ;; (use-package whitespace
 ;;   :ensure t
@@ -275,11 +276,6 @@
       load-prefer-newer t
       ediff-window-setup-function 'ediff-setup-windows-plain
       )
-
-
-;; Editor
-(setq-default line-spacing 2)
-(setq-default cursor-type '(bar . 2))
 
 
 ;;;;;;
