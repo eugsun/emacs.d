@@ -132,6 +132,7 @@
 
 (use-package omnisharp
   :ensure t
+  :after csharp-mode
   :config
   (add-hook 'csharp-mode-hook 'omnisharp-mode)
   (add-to-list 'company-backends 'company-omnisharp))

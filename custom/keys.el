@@ -76,7 +76,15 @@
    "k"   '(browse-kill-ring :which-key "browse kill ring")
    "j"   '(avy-goto-char-timer :which-key "jump to char")
    "T"   '(powerthesaurus-lookup-word-at-point :which-key "look up thesaurus")
-   ))
+   )
+
+  (general-define-key
+   :keymaps 'omnisharp-mode-map
+   "C-," '(omnisharp-run-code-action-refactoring :which-key "code action")
+   "C-=" '(omnisharp-code-format-entire-file :which-key "reformat")
+   )
+
+  )
 
 ;; Global keybinding
 (global-set-key (kbd "M-0") 'maximize-window)
