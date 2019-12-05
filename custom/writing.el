@@ -5,7 +5,11 @@
 (use-package olivetti
   :ensure t
   :init
-  (setq olivetti-body-width 88)
+  (if (memq window-system '(mac ns x))
+      (setq olivetti-body-width 88)
+    ;; TODO: Revisit when Emacs 27 fixes window-set-margins
+    (setq olivetti-body-width 1.0)
+    )
   :config
   (add-hook 'text-mode-hook 'olivetti-mode)
   (add-hook 'olivetti-mode-hook 'set-reader-view)
