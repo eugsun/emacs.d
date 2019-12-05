@@ -12,8 +12,6 @@
 (menu-bar-mode -1)
 (setq inhibit-startup-message t)
 (setq initial-scratch-message nil)
-
-;; (add-to-list 'default-frame-alist '(font . "mononoki-12"))
 (setq custom-file "~/.emacs.d/spam.el")
 
 ;; Packages
@@ -29,13 +27,12 @@
   (package-install 'use-package)
   (package-install 'org-plus-contrib)
   )
-
 (require 'use-package)
 
 
 ;; Benchmark initialization
-;; (use-package benchmark-init
-;;   :ensure t)
+;;(use-package benchmark-init
+;;  :ensure t)
 
 
 ;; Paths
@@ -52,6 +49,7 @@
       `((".*" ,(concat user-emacs-directory ".backup") t)))
 (setq save-place-file (concat user-emacs-directory ".places"))
 
+;; iqa allows quick interaction with init file.
 (use-package iqa
   :ensure t
   :config
@@ -66,67 +64,12 @@
   (setq evil-want-keybinding nil)
   :config
   (evil-mode 1))
-
 (use-package evil-collection
   :after evil
   :ensure t
   :config
   (evil-collection-init))
 
-
-;; Theme
-(use-package doom-themes
-  :ensure t)
-(use-package smart-mode-line
-  :ensure t
-  :config
-  (setq sml/no-confirm-load-theme t)
-  (sml/setup))
-
-
-;; -- Automatically switch between ligh and dark theme based on time of day
-(setq theme-autoswitch t)
-(if (and theme-autoswitch (display-graphic-p))
-    (progn
-      (setq current-theme 'doom-peacock)
-      (defun sync-theme-with-time ()
-        (setq hour (string-to-number (substring (current-time-string) 11 13)))
-        (if (member hour (number-sequence 6 14))
-            (setq now 'doom-nord-light)
-          (setq now 'doom-peacock))
-        (if (or (not (boundp 'current-theme)) (eq now current-theme))
-            nil
-          (setq current-theme now))
-        (load-theme now t)
-        )
-      (run-with-timer 0 3600 #'sync-theme-with-time)
-      )
-  (load-theme 'doom-peacock t)
-  )
-
-
-;; Typeface
-(set-language-environment "UTF-8")
-(set-default-coding-systems 'utf-8-unix)
-;; -- Default
-(when (member "Source Code Pro" (font-family-list))
-  (set-face-attribute 'default nil :font "Source Code Pro"))
-(when (member "DejaVu Sans Mono" (font-family-list))
-  (set-face-attribute 'default nil :font "DejaVu Sans Mono"))
-(when (member "Inconsolata" (font-family-list))
-  (set-face-attribute 'default nil :font "Inconsolata"))
-(when (member "Consolas" (font-family-list))
-  (set-face-attribute 'default nil :font "Consolas"))
-;; -- Unicode
-(when (member "Symbola" (font-family-list))
-  (set-fontset-font t 'unicode "Symbola" nil 'prepend))
-(when (member "Segoe UI Emoji" (font-family-list))
-  (set-fontset-font t 'unicode "Segoe UI Emoji" nil 'prepend))
-;; -- Chinese
-(when (member "WenQuanYi Micro Hei" (font-family-list))
-  (set-fontset-font t '(#x4e00 . #x9fff) "WenQuanYi Micro Hei" ))
-
-(font-family-list)
 
 ;; Ivy
 (use-package rg
@@ -150,12 +93,10 @@
   :ensure t
   :requires counsel projectile)
 
-;; Show next steps
+
+;; Show keybinding hints
 (use-package which-key
   :ensure t
-  :init
-  (setq which-key-separator " ")
-  (setq which-key-prefix-prefix "+")
   :config
   (which-key-mode 1))
 
@@ -170,9 +111,10 @@
 
 
 ;; All The Icons
-(use-package all-the-icons :ensure t)
-
-;; NeoTree
+(use-package all-the-icons
+  :ensure t
+  )
+;; NeoTree (which uses the icons)
 (use-package neotree
   :ensure t
   :init
@@ -183,7 +125,9 @@
 (global-undo-tree-mode)
 (setq ring-bell-function 'ignore)
 (setq show-paren-delay 0)
+(setq show-paren-when-point-inside-paren t)
 (show-paren-mode 1)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
@@ -191,20 +135,16 @@
 (require 'saveplace)
 (setq-default save-place t)
 
+(global-hl-line-mode t)
+(setq-default line-spacing 2)
+(setq-default cursor-type '(bar . 2))
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+(setq column-number-mode t)
+
 (use-package multiple-cursors
   :ensure t)
 
-(defun set-reader-view ()
-  (text-scale-set 1)
-  (setq line-spacing 4)
-  (olivetti-set-width 80)
-  )
-(use-package olivetti
-  :ensure t
-  :config
-  (add-hook 'text-mode-hook 'olivetti-mode)
-  (add-hook 'olivetti-mode-hook 'set-reader-view)
-  )
 (use-package yasnippet
   :ensure t
   :config
@@ -227,60 +167,26 @@
 (use-package browse-kill-ring
   :ensure t)
 
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-
 (use-package indent-guide
   :ensure t
   :config
   (indent-guide-global-mode t)
   )
 
-;; -- Display settings
-(global-hl-line-mode t)
-(setq-default line-spacing 2)
-(setq-default cursor-type '(bar . 2))
-(setq-default indent-tabs-mode nil) ;use space
-(setq-default tab-width 4)
-(setq column-number-mode t)
 ;; (use-package whitespace
 ;;   :ensure t
 ;;   :init
 ;;   (setq whitespace-style '(face empty tabs lines-tail trailing))
-;;   (setq-default fill-column 80)
-;;   (setq whitespace-line-column 80)
+;;   (setq whitespace-line-column 88)
+;;   :config
+;;   (global-whitespace-mode t)
 ;;   )
 
 
-;; Terminals
-(use-package multi-term
-  :ensure t
-  :init
-  (unless (memq window-system '(mac ns x))
-    (setenv "SHELL" "powershell")
-    (setq multi-term-program "powershell")
-    )
-  :config
-  (setq multi-term-dedicated-select-after-open-p t)
-  )
-
-
-;; Thesaurus
-(use-package powerthesaurus
-  :ensure t)
-(dolist (hook '(text-mode-hook))
-  (add-hook hook (lambda () (flyspell-mode 1))))
-(dolist (hook '(change-log-mode-hook log-edit-mode-hook))
-  (add-hook hook (lambda () (flyspell-mode -1))))
-
-
-;; Copied from better defaults
+;; Misc. variables
 (setq save-interprogram-paste-before-kill t
-      apropos-do-all t
-      mouse-yank-at-point t
       require-final-newline t
-      visible-bell t
       load-prefer-newer t
-      ediff-window-setup-function 'ediff-setup-windows-plain
       )
 
 
