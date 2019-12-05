@@ -67,6 +67,7 @@
 ;; Brain
 (use-package org-brain
   :ensure t
+  :after olivetti
   :init
   (setq org-brain-path (concat org-base "brain"))
   (with-eval-after-load 'evil
