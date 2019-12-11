@@ -1,0 +1,3 @@
+[submodule "library/aweshell"]
+	path = library/aweshell
+	url = git@github.com:manateelazycat/aweshell.git
