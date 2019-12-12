@@ -1,9 +1,9 @@
 ;; Stolen from @purcell. Keep gc-cons-threshold reasonable unless necessary.
-(let ((normal-gc-cons-threshold (* 20 1024 1024))
-      (init-gc-cons-threshold (* 128 1024 1024)))
-  (setq gc-cons-threshold init-gc-cons-threshold)
-  (add-hook 'emacs-startup-hook
-            (lambda () (setq gc-cons-threshold normal-gc-cons-threshold))))
+(setq normal-gc-cons-threshold (* 20 1024 1024))
+(setq init-gc-cons-threshold (* 128 1024 1024))
+(setq gc-cons-threshold init-gc-cons-threshold)
+(add-hook 'emacs-startup-hook
+          (lambda () (setq gc-cons-threshold normal-gc-cons-threshold)))
 
 ;; Disable ugly UI
 (scroll-bar-mode -1)
@@ -17,7 +17,7 @@
 ;; Packages
 (require 'package)
 (setq package-enable-at-startup nil)
-(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+(setq package-archives '(("melpa" . "http://melpa.org/packages/")
                          ("org" . "http://orgmode.org/elpa/")
                          ("gnu" . "http://elpa.gnu.org/packages/")
                          ))
@@ -107,7 +107,9 @@
   :init
   (setq projectile-require-project-root nil)
   :config
-  (projectile-mode 1))
+  (projectile-mode 1)
+  (setq projectile-indexing-method 'alien)
+  )
 
 
 ;; All The Icons
