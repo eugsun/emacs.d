@@ -110,7 +110,19 @@
   :mode "\\.ink\\'"
   :config
   (add-hook 'ink-mode-hook 'olivetti-mode)
-)
+  (defun ink-mode-open ()
+    (interactive)
+    (let (($path (buffer-file-name)))
+      (when (executable-find "open")
+        (shell-command (format "open -a Inky \"%s\"" $path))
+        )
+      )
+    )
+  (general-define-key
+   :keymaps 'ink-mode-map
+   "C-c C-c" 'ink-mode-open
+   )
+  )
 
 
 ;; Clojure
@@ -139,6 +151,8 @@
 (use-package json-mode
   :ensure t
   :mode "\\.json\\'"
+  :config
+  (setq js-indent-level 2)
   )
 
 (use-package haskell-mode
