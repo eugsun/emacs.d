@@ -45,7 +45,9 @@
   :config
   (setq dart-debug t)
   (setq dart-sdk-path "~/Apps/flutter/bin/cache/dart-sdk/")
-  (add-to-list 'eglot-server-programs '(dart-mode . ("dart-analysis-server" "")))
+  (setq dart-analysis-server-bin (concat "dart " dart-sdk-path "bin/snapshots/analysis_server.dart.snapshot"))
+  (add-to-list 'eglot-server-programs '(dart-mode . ((concat "dart " dart-sdk-path "bin/snapshots/analysis_server.dart.snapshot") "")))
+  ;; (add-to-list 'eglot-server-programs '(dart-mode . ("dart-analysis-server" "")))
   (advice-add 'dart-mode :after #'flymake-mode-off)
   (advice-add 'dart-mode :after #'flycheck-mode-on-safe)
   (advice-add 'dart-mode :after #'eglot-ensure)
