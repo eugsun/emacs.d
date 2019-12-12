@@ -70,7 +70,8 @@
    ;; Yasnippet
    "y"   '(yas-insert-snippet :which-key "yasnippet insert")
    ;; Others
-   "'"   '(multi-term-dedicated-toggle :which-key "open terminal")
+   ";"   '(aweshell-dedicated-toggle :which-key "toggle eshell")
+   "'"   '(multi-term-dedicated-toggle :which-key "toggle terminal")
    "g"   '(magit :which-key "magit")
    "q"   '(save-buffers-kill-terminal :which-key "save all and quit")
    "k"   '(browse-kill-ring :which-key "browse kill ring")
