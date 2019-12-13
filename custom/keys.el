@@ -79,12 +79,6 @@
    "T"   '(powerthesaurus-lookup-word-at-point :which-key "look up thesaurus")
    )
 
-  (general-define-key
-   :keymaps 'omnisharp-mode-map
-   "C-," '(omnisharp-run-code-action-refactoring :which-key "code action")
-   "C-=" '(omnisharp-code-format-entire-file :which-key "reformat")
-   )
-
   )
 
 ;; Global keybinding

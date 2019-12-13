@@ -145,8 +145,37 @@
   :ensure t
   :after csharp-mode
   :config
-  (add-hook 'csharp-mode-hook 'omnisharp-mode)
-  (add-to-list 'company-backends 'company-omnisharp))
+  (add-to-list 'company-backends 'company-omnisharp)
+  (defun my-csharp-mode-setup ()
+    (omnisharp-mode)
+    (company-mode)
+    (flycheck-mode)
+
+    (setq indent-tabs-mode nil)
+    (setq c-syntactic-indentation t)
+    (c-set-style "ellemtel")
+    (setq c-basic-offset 4)
+    (setq truncate-lines t)
+    (setq tab-width 4)
+    (setq evil-shift-width 4)
+    (electric-pair-local-mode 1)
+
+    (local-set-key (kbd "C-c r r") 'omnisharp-run-code-action-refactoring)
+    (local-set-key (kbd "C-c C-c") 'recompile))
+  (add-hook 'csharp-mode-hook 'my-csharp-mode-setup t)
+
+  (general-define-key
+   :keymaps 'omnisharp-mode-map
+   "C-," '(omnisharp-run-code-action-refactoring :which-key "code action")
+   "C-=" '(omnisharp-code-format-entire-file :which-key "reformat")
+   )
+  (general-define-key
+   :keymaps 'omnisharp-mode-map
+   :states '(normal visual)
+   "gd"  'omnisharp-go-to-definition
+   "gD"  'omnisharp-go-to-definition-other-window
+   )
+  )
 
 (use-package json-mode
   :ensure t
