@@ -1,6 +1,7 @@
 (defun set-reader-view ()
   (text-scale-set 1)
   (setq line-spacing 4)
+  (olivetti-set-width 88)
   )
 (use-package olivetti
   :ensure t

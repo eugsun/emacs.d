@@ -1,8 +1,5 @@
 ;; Location
 (setq org-base "~/Dropbox/Private/org/")
-(when (string-equal system-name "bed-pc")
-  (setq org-base "/mnt/c/Users/Eugene/Dropbox/Private/org/")
-  )
 (setq org-refile-targets (quote ((nil :maxlevel . 9)
                                  (org-agenda-files :maxlevel . 9))))
 (setq org-default-notes-file (concat org-base "agenda/notes.org"))

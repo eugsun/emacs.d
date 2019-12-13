@@ -9,22 +9,24 @@
 
 ;; -- Automatically switch between ligh and dark theme based on time of day
 (setq theme-autoswitch t)
+(setq theme-autoswitch/light-theme 'doom-solarized-light)
+(setq theme-autoswitch/dark-theme 'doom-peacock)
 (if (and theme-autoswitch (display-graphic-p))
     (progn
-      (setq current-theme 'doom-peacock)
+      (setq current-theme theme-autoswitch/dark-theme)
       (defun sync-theme-with-time ()
-        (setq hour (string-to-number (substring (current-time-string) 11 13)))
-        (if (member hour (number-sequence 6 14))
-            (setq now 'doom-nord-light)
-          (setq now 'doom-peacock))
-        (if (or (not (boundp 'current-theme)) (eq now current-theme))
+        (setq theme-autoswitch/hour (string-to-number (substring (current-time-string) 11 13)))
+        (if (member theme-autoswitch/hour (number-sequence 6 14))
+            (setq theme-autoswitch/now theme-autoswitch/light-theme)
+          (setq theme-autoswitch/now theme-autoswitch/dark-theme))
+        (if (or (not (boundp 'current-theme)) (eq theme-autoswitch/now current-theme))
             nil
-          (setq current-theme now))
-        (load-theme now t)
+          (setq current-theme theme-autoswitch/now))
+        (load-theme theme-autoswitch/now t)
         )
       (run-with-timer 0 3600 #'sync-theme-with-time)
       )
-  (load-theme 'doom-peacock t)
+  (load-theme theme-autoswitch/dark-theme t)
   )
 
 ;; Typeface
