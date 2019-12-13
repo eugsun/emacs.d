@@ -175,6 +175,10 @@
   (indent-guide-global-mode t)
   )
 
+(use-package expand-region
+  :ensure t
+  )
+
 ;; (use-package whitespace
 ;;   :ensure t
 ;;   :init

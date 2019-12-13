@@ -104,3 +104,5 @@
 (global-set-key (kbd "M-]") 'next-buffer)
 
 (global-set-key (kbd "C-'") #'imenu-list-smart-toggle)
+
+(global-set-key (kbd "M-@") #'er/expand-region)
