@@ -4,6 +4,7 @@
                                  (org-agenda-files :maxlevel . 9))))
 (setq org-default-notes-file (concat org-base "agenda/notes.org"))
 (setq org-default-todos-file (concat org-base "agenda/todos.org"))
+(setq org-default-ideas-file (concat org-base "agenda/ideas.org"))
 
 ;; Editor
 (setq org-log-done t)
@@ -39,14 +40,19 @@
       '((sequence "TODO" "IN-PROGRESS" "|" "DONE")))
 
 (setq org-capture-templates
-      `(("t" "Todo" entry (file+headline org-default-todos-file "Tasks")
+      `(
+        ("t" "Todo" entry (file+headline org-default-todos-file "Tasks")
          ,(concat "* TODO %?\n"
-                 "  DEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+1d\"))"
-                 " SCHEDULED: %t\n"
-                 "  Entered on %U\n  %i")
+                  "  DEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+1d\"))"
+                  " SCHEDULED: %t\n"
+                  "  Entered on %U\n  %i")
          )
         ("n" "Note" entry (file+headline org-default-notes-file "Notes")
-         "* %?\n  Entered on %U\n  %i")))
+         "* %?\n  Entered on %U\n  %i")
+        ("i" "Idea" entry (file+headline org-default-ideas-file "Ideas")
+         "* %?\n  Entered on %U\n  %i")
+        )
+      )
 
 ;; - Auto-save after toggling todo status
 (advice-add 'org-agenda-todo :after #'org-save-all-org-buffers)

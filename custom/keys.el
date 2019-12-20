@@ -49,6 +49,7 @@
    "ob"  '(org-brain-visualize :which-key "brain")
    "on"  '((lambda () (interactive)(find-file org-default-notes-file)) :which-key "open notes")
    "ot"  '((lambda () (interactive)(find-file org-default-todos-file)) :which-key "open todos")
+   "oi"  '((lambda () (interactive)(find-file org-default-ideas-file)) :which-key "open ideas")
    "or"  '(org-refile :which-key "refile")
    ;; Search
    "ss"  '(swiper :which-key "search buffer")
