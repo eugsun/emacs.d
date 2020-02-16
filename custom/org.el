@@ -5,6 +5,7 @@
 (setq org-default-notes-file (concat org-base "agenda/notes.org"))
 (setq org-default-todos-file (concat org-base "agenda/todos.org"))
 (setq org-default-ideas-file (concat org-base "agenda/ideas.org"))
+(setq org-default-games-file (concat org-base "agenda/games.org"))
 
 ;; Editor
 (setq org-log-done t)

@@ -41,6 +41,8 @@
   (set-face-attribute 'default nil :font "Inconsolata"))
 (when (member "Consolas" (font-family-list))
   (set-face-attribute 'default nil :font "Consolas"))
+(when (member "MesloLGS NF" (font-family-list))
+  (set-face-attribute 'default nil :font "MesloLGS NF"))
 ;; -- Unicode
 (when (member "Symbola" (font-family-list))
   (set-fontset-font t 'unicode "Symbola" nil 'prepend))

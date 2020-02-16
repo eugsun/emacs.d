@@ -50,6 +50,7 @@
    "on"  '((lambda () (interactive)(find-file org-default-notes-file)) :which-key "open notes")
    "ot"  '((lambda () (interactive)(find-file org-default-todos-file)) :which-key "open todos")
    "oi"  '((lambda () (interactive)(find-file org-default-ideas-file)) :which-key "open ideas")
+   "og"  '((lambda () (interactive)(find-file org-default-games-file)) :which-key "open games")
    "or"  '(org-refile :which-key "refile")
    ;; Search
    "ss"  '(swiper :which-key "search buffer")
@@ -98,6 +99,6 @@
 (global-set-key (kbd "M-[") 'previous-buffer)
 (global-set-key (kbd "M-]") 'next-buffer)
 
-(global-set-key (kbd "C-'") #'imenu-list-smart-toggle)
+(global-set-key (kbd "C-\"") #'imenu-list-smart-toggle)
 
 (global-set-key (kbd "M-@") #'er/expand-region)

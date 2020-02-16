@@ -3,7 +3,15 @@
   :config
   (setq eglot-connect-timeout 3)
   ;; (setq eglot-sync-connect nil)
-  (setq eglot-auto-display-help-buffer t)
+  ;; (setq eglot-auto-display-help-buffer t)
+  (general-define-key
+   :states '(normal visual insert emacs)
+   :prefix "SPC"
+   :non-normal-prefix "M-SPC"
+   "ef"  'eglot-format-buffer
+   "eh"  'eglot-help-at-point
+   "ee"  'eglot-code-actions
+   )
   )
 
 ;; (use-package lsp-mode
