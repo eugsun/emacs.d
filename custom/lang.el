@@ -83,9 +83,11 @@
   :ensure t
   :config
   (advice-add 'python-mode :after #'elpy-enable)
-  (advice-add 'python-mode :after #'flymake-mode-off)
-  (advice-add 'python-mode :after #'flycheck-mode-on-safe)
+  ;; (advice-add 'python-mode :after #'flymake-mode-off)
+  ;; (advice-add 'python-mode :after #'flycheck-mode-on-safe)
   )
+(use-package auto-virtualenvwrapper
+  :ensure t)
 
 
 ;; PDF

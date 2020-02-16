@@ -40,6 +40,8 @@
   :if (memq window-system '(mac ns x))
   :ensure t
   :config
+  (setq exec-path-from-shell-variables
+        `("PATH" "MANPATH" "WORKON_HOME"))
   (exec-path-from-shell-initialize)
  )
 
