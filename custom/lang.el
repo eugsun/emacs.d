@@ -50,22 +50,20 @@
   :ensure t)
 (use-package dart-mode
   :ensure t
+  :after projectile
   :config
   (setq dart-debug t)
-  (setq dart-sdk-path "~/Apps/flutter/bin/cache/dart-sdk/")
-  (setq dart-analysis-server-bin (concat "dart " dart-sdk-path "bin/snapshots/analysis_server.dart.snapshot"))
-  (add-to-list 'eglot-server-programs '(dart-mode . ((concat "dart " dart-sdk-path "bin/snapshots/analysis_server.dart.snapshot") "")))
-  ;; (add-to-list 'eglot-server-programs '(dart-mode . ("dart-analysis-server" "")))
+  ;; server program
+  (setq dart-sdk-path (concat (getenv "HOME") "/Apps/flutter/bin/cache/dart-sdk/"))
+  (setq dart-analysis-server-bin (concat dart-sdk-path "bin/snapshots/analysis_server.dart.snapshot"))
+  (add-to-list 'eglot-server-programs `(dart-mode . ("dart" ,dart-analysis-server-bin "--lsp")))
+  ;; project config
+  (add-to-list 'projectile-project-root-files-bottom-up "pubspec.yaml")
+  (add-to-list 'projectile-project-root-files-bottom-up "BUILD")
+  ;; hooks. use flycheck instead of flymake
   (advice-add 'dart-mode :after #'flymake-mode-off)
   (advice-add 'dart-mode :after #'flycheck-mode-on-safe)
   (advice-add 'dart-mode :after #'eglot-ensure)
-  ;(add-hook 'dart-mode-hook #'lsp)
-  ;; (add-hook 'dart-mode-hook 'eglot-ensure)
-  ;; (add-hook 'dart-mode-hook 'flycheck-mode)
-  ;; (add-hook 'dart-mode-hook '(lambda () (flymake-mode nil)))
-  (with-eval-after-load "projectile"
-    (add-to-list 'projectile-project-root-files-bottom-up "pubspec.yaml")
-    (add-to-list 'projectile-project-root-files-bottom-up "BUILD"))
   )
 
 ;; yaml
