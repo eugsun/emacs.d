@@ -54,4 +54,5 @@
 (when (member "WenQuanYi Micro Hei" (font-family-list))
   (set-fontset-font t '(#x4e00 . #x9fff) "WenQuanYi Micro Hei" ))
 
+(set-face-attribute 'default nil :height 90)
 (font-family-list)
