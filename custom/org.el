@@ -44,14 +44,13 @@
       `(
         ("t" "Todo" entry (file+headline org-default-todos-file "Tasks")
          ,(concat "* TODO %?\n"
-                  "  DEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+1d\"))"
-                  " SCHEDULED: %t\n"
-                  "  Entered on %U\n  %i")
+                  "DEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+1d\"))"
+                  " SCHEDULED: %t\n%i")
          )
         ("n" "Note" entry (file+headline org-default-notes-file "Notes")
-         "* %?\n  Entered on %U\n  %i")
+         "* %?\nEntered on %U\n%i")
         ("i" "Idea" entry (file+headline org-default-ideas-file "Ideas")
-         "* %?\n  Entered on %U\n  %i")
+         "* %?\nEntered on %U\n%i")
         )
       )
 
@@ -126,3 +125,10 @@
   :ensure t
   :after org-re-reveal
   )
+
+
+;; HTTP
+(use-package verb
+  :ensure t
+  :after org
+  :config (define-key org-mode-map (kbd "C-c C-r") verb-command-map))
