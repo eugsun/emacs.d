@@ -62,7 +62,8 @@
   :ensure t
   :init
   :custom
-  (org-journal-file-format "%Y%m%d.org")
+  (org-journal-file-type 'monthly)
+  (org-journal-file-format "%Y%m.org")
   (org-journal-dir (concat org-base "journal"))
   (org-journal-date-format "%A, %m/%d/%Y")
   )
