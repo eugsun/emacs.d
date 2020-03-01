@@ -11,6 +11,7 @@
    "ef"  'eglot-format-buffer
    "eh"  'eglot-help-at-point
    "ee"  'eglot-code-actions
+   "er"  'eglot-rename
    )
   )
 
