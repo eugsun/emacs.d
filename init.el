@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; Stolen from @purcell. Keep gc-cons-threshold reasonable unless necessary.
 (setq normal-gc-cons-threshold (* 20 1024 1024))
 (setq init-gc-cons-threshold (* 128 1024 1024))
@@ -51,11 +53,17 @@
       `((".*" ,(concat user-emacs-directory ".backup") t)))
 (setq save-place-file (concat user-emacs-directory ".places"))
 
-;; iqa allows quick interaction with init file.
+;; IQA allows find/reload of init file
 (use-package iqa
   :ensure t
   :config
   (iqa-setup-default))
+
+;; Workspaces
+(use-package perspective
+  :ensure t
+  :config
+  (persp-mode))
 
 ;; Evil mode
 (use-package evil
@@ -190,6 +198,7 @@
 ;;   (global-whitespace-mode t)
 ;;   )
 
+(setq helm-ff-keep-cached-candidates nil)
 
 ;; Misc. variables
 (setq save-interprogram-paste-before-kill t
@@ -201,5 +210,4 @@
 ;;;;;;
 ;;;;;;
 (load-file custom-file)
-(load-file "~/.emacs.d/utils.el")
 (mapc 'load (file-expand-wildcards "~/.emacs.d/custom/*.el"))

@@ -71,6 +71,11 @@
    "li"  '(lsp-organize-imports :which-key "organize imports")
    ;; Yasnippet
    "y"   '(yas-insert-snippet :which-key "yasnippet insert")
+   ;; Workspaces
+   ".."  '(persp-switch :which-key "switch perspective")
+   ".r"  '(persp-rename  :which-key "rename perspective")
+   ".n"  '(persp-next :which-key "next perspective")
+   ".p"  '(persp-prev :which-key "prev perspective")
    ;; Others
    ";"   '(aweshell-dedicated-toggle :which-key "toggle eshell")
    "'"   '(multi-term-dedicated-toggle :which-key "toggle terminal")

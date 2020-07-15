@@ -25,3 +25,5 @@ url/
 \#!*#
 elpy/
 *.cache
+
+request/
