@@ -47,11 +47,14 @@
   (exec-path-from-shell-initialize)
  )
 
+
+;; Put temp files in a more sane place
 (setq backup-directory-alist
       `(("." . ,(concat user-emacs-directory ".backup"))))
 (setq auto-save-file-name-transforms
       `((".*" ,(concat user-emacs-directory ".backup") t)))
 (setq save-place-file (concat user-emacs-directory ".places"))
+
 
 ;; IQA allows find/reload of init file
 (use-package iqa
@@ -203,6 +206,7 @@
 (setq save-interprogram-paste-before-kill t
       require-final-newline t
       load-prefer-newer t
+      helm-ff-keep-cached-candidates nil
       )
 
 

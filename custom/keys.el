@@ -47,6 +47,7 @@
    ;; Org
    "oa"  '(org-agenda :which-key "agenda")
    "oj"  '(org-journal-new-entry :which-key "new journal entry")
+   "of"  '((lambda () (interactive)(org/five-minute-journal-entry)) :which-key "new five-min entry")
    "oo"  '(org-capture :which-key "capture")
    "oh"  '((lambda () (interactive) (org-agenda nil "h")) :which-key "agenda home")
    "ob"  '(org-brain-visualize :which-key "brain")
@@ -56,7 +57,7 @@
    "og"  '((lambda () (interactive)(find-file org-default-games-file)) :which-key "open games")
    "or"  '(org-refile :which-key "refile")
    "o;"  '(org-roam-buffer-toggle-display :which-key "roam display")
-   "of"  '(lambda () (interactive) (five-minute-journal-entry))
+   "of"  '(lambda () (interactive) (org/five-minute-journal-entry))
    ;; Search
    "ss"  '(swiper :which-key "search buffer")
    "sa"  '(swiper-all :which-key "search all buffers")

@@ -1,6 +1,12 @@
 ;; Location
-(setq org-base "~/Dropbox/Private/org/")
-(setq org-directory org-base)
+(setq org-directory "~/Dropbox/Private/org/")
+(setq org-base org-directory)
+(setq org-agenda-files
+      (append
+       (file-expand-wildcards (concat org-directory "agenda/*.org"))
+       (file-expand-wildcards (concat org-directory "agenda/job/*.org"))
+       (file-expand-wildcards (concat org-directory "agenda/mobile/*.org"))
+      ))
 (setq org-refile-targets (quote ((nil :maxlevel . 9)
                                  (org-agenda-files :maxlevel . 9))))
 (setq org-default-notes-file (concat org-base "agenda/notes.org"))
@@ -60,12 +66,14 @@
 
 ;; Journal
 (use-package org-journal
-  :ensure t)
-(setq org-journal-file-type 'monthly)
-(setq org-journal-file-format "%Y%m.org")
-(setq org-journal-dir (concat org-base "journal"))
-(setq org-journal-date-format "%A, %m/%d/%Y")
-(setq five-min-template
+  :ensure t
+  :custom
+  (org-journal-dir (concat org-base "journal"))
+  (org-journal-file-type 'monthly)
+  (org-journal-file-format "%Y%m.org")
+  (org-journal-date-format "%A, %m/%d/%Y")
+  )
+(setq org/five-min-template
       "** 5-minute journal :5min:
 *** I'm grateful for
 *** What would make today great? [/]
@@ -76,31 +84,11 @@
 *** Notable things that happened today
 *** How could I have made today better
 ")
-(defun five-minute-journal-entry ()
+(defun org/five-minute-journal-entry ()
   (progn
     (org-journal-new-entry "5min")
     (beginning-of-line)
-    (insert five-min-template)))
-
-
-;; Brain
-(use-package org-brain
-  :ensure t
-  :after olivetti
-  :init
-  (setq org-brain-path (concat org-base "brain"))
-  (with-eval-after-load 'evil
-    (evil-set-initial-state 'org-brain-visualize-mode 'emacs))
-  (add-hook 'org-brain-visualize-mode-hook 'olivetti-mode)
-  :config
-  (setq org-id-track-globally t)
-  (setq org-id-locations-file "~/.emacs.d/.org-id-locations")
-  (push '("b" "Brain" plain (function org-brain-goto-end)
-          "* %i%?" :empty-lines 1)
-        org-capture-templates)
-  ;; (setq org-brain-visualize-default-choices 'all)
-  ;; (setq org-brain-title-max-length 12)
-  )
+    (insert org/five-min-template)))
 
 
 ;; Noter
@@ -163,8 +151,6 @@
 ;; Org-roam
 (use-package org-roam
   :ensure t
-  :hook
-  (after-init . org-roam-mode)
   :config
   (setq org-roam-db-location "~/Den/org-roam.db")
   (setq org-roam-directory org-directory)
