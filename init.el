@@ -70,7 +70,7 @@
   :ensure t
   :init
   (setq evil-disable-insert-state-bindings t)
-  (setq evil-want-integration t) ;; This is optional since it's already set to t by default.
+  (setq evil-want-integration t)
   (setq evil-want-keybinding nil)
   :config
   (evil-mode 1))
@@ -198,7 +198,6 @@
 ;;   (global-whitespace-mode t)
 ;;   )
 
-(setq helm-ff-keep-cached-candidates nil)
 
 ;; Misc. variables
 (setq save-interprogram-paste-before-kill t

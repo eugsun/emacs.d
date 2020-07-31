@@ -1,33 +1,40 @@
-(use-package eglot
-  :ensure t
-  :config
-  (setq eglot-connect-timeout 3)
-  ;; (setq eglot-sync-connect nil)
-  ;; (setq eglot-auto-display-help-buffer t)
-  (general-define-key
-   :states '(normal visual insert emacs)
-   :prefix "SPC"
-   :non-normal-prefix "M-SPC"
-   "ef"  'eglot-format-buffer
-   "eh"  'eglot-help-at-point
-   "ee"  'eglot-code-actions
-   "er"  'eglot-rename
-   )
-  )
-
-;; (use-package lsp-mode
+;; (use-package eglot
 ;;   :ensure t
-;;   :commands lsp
 ;;   :config
-;;   (setq lsp-auto-guess-root t)
-;;   (setq lsp-eldoc-render-all nil)
-;;   (setq lsp-prefer-flymake nil)
-;;   (setq lsp-enable-completion-at-point t)
-
-;;   (use-package lsp-ui
-;;     :ensure t
-;;     :commands lsp-ui-mode)
+;;   (setq eglot-connect-timeout 3)
+;;   ;; (setq eglot-sync-connect nil)
+;;   ;; (setq eglot-auto-display-help-buffer t)
+;;   (general-define-key
+;;    :states '(normal visual insert emacs)
+;;    :prefix "SPC"
+;;    :non-normal-prefix "M-SPC"
+;;    "ef"  'eglot-format-buffer
+;;    "eh"  'eglot-help-at-point
+;;    "ee"  'eglot-code-actions
+;;    "er"  'eglot-rename
+;;    )
 ;;   )
+
+(use-package lsp-mode
+  :ensure t
+  :commands lsp
+  :config
+  (setq lsp-auto-guess-root t)
+  (setq lsp-eldoc-render-all nil)
+  (setq lsp-prefer-flymake nil)
+  (setq lsp-enable-completion-at-point t)
+  (setq gc-cons-threshold init-gc-cons-threshold)
+  (setq read-process-output-max (* 3 1024 1024))
+  (setq lsp-prefer-capf t)
+  (setq lsp-idle-delay 0.500)
+
+  (use-package lsp-ui
+    :ensure t
+    :commands lsp-ui-mode)
+
+  (use-package lsp-treemacs
+    :ensure t)
+  )
 
 (use-package company
   :ensure t
@@ -57,14 +64,18 @@
   ;; server program
   (setq dart-sdk-path (concat (getenv "HOME") "/Apps/flutter/bin/cache/dart-sdk/"))
   (setq dart-analysis-server-bin (concat dart-sdk-path "bin/snapshots/analysis_server.dart.snapshot"))
-  (add-to-list 'eglot-server-programs `(dart-mode . ("dart" ,dart-analysis-server-bin "--lsp")))
+  ;; (add-to-list 'eglot-server-programs `(dart-mode . ("dart" ,dart-analysis-server-bin "--lsp")))
   ;; project config
   (add-to-list 'projectile-project-root-files-bottom-up "pubspec.yaml")
   (add-to-list 'projectile-project-root-files-bottom-up "BUILD")
   ;; hooks. use flycheck instead of flymake
-  (advice-add 'dart-mode :after #'flymake-mode-off)
-  (advice-add 'dart-mode :after #'flycheck-mode-on-safe)
-  (advice-add 'dart-mode :after #'eglot-ensure)
+  ;; (advice-add 'dart-mode :after #'flymake-mode-off)
+  ;; (advice-add 'dart-mode :after #'flycheck-mode-on-safe)
+  ;; (advice-add 'dart-mode :after #'eglot-ensure)
+  )
+(use-package lsp-dart
+  :ensure t
+  :hook (dart-mode . lsp)
   )
 
 ;; yaml
@@ -148,43 +159,44 @@
   :ensure t
   :mode "\\.cs\\'"
   :config
-  (add-hook 'csharp-mode-hook 'flycheck-mode))
+  (add-hook 'csharp-mode-hook 'flycheck-mode)
+  (advice-add 'csharp-mode :after #'lsp))
 
-(use-package omnisharp
-  :ensure t
-  :after csharp-mode
-  :config
-  (add-to-list 'company-backends 'company-omnisharp)
-  (defun my-csharp-mode-setup ()
-    (omnisharp-mode)
-    (company-mode)
-    (flycheck-mode)
+;; (use-package omnisharp
+;;   :ensure t
+;;   :after csharp-mode
+;;   :config
+;;   (add-to-list 'company-backends 'company-omnisharp)
+;;   (defun my-csharp-mode-setup ()
+;;     (omnisharp-mode)
+;;     (company-mode)
+;;     (flycheck-mode)
 
-    (setq indent-tabs-mode nil)
-    (setq c-syntactic-indentation t)
-    (c-set-style "ellemtel")
-    (setq c-basic-offset 4)
-    (setq truncate-lines t)
-    (setq tab-width 4)
-    (setq evil-shift-width 4)
-    (electric-pair-local-mode 1)
+;;     (setq indent-tabs-mode nil)
+;;     (setq c-syntactic-indentation t)
+;;     (c-set-style "ellemtel")
+;;     (setq c-basic-offset 4)
+;;     (setq truncate-lines t)
+;;     (setq tab-width 4)
+;;     (setq evil-shift-width 4)
+;;     (electric-pair-local-mode 1)
 
-    (local-set-key (kbd "C-c r r") 'omnisharp-run-code-action-refactoring)
-    (local-set-key (kbd "C-c C-c") 'recompile))
-  (add-hook 'csharp-mode-hook 'my-csharp-mode-setup t)
+;;     (local-set-key (kbd "C-c r r") 'omnisharp-run-code-action-refactoring)
+;;     (local-set-key (kbd "C-c C-c") 'recompile))
+;;   (add-hook 'csharp-mode-hook 'my-csharp-mode-setup t)
 
-  (general-define-key
-   :keymaps 'omnisharp-mode-map
-   "C-," '(omnisharp-run-code-action-refactoring :which-key "code action")
-   "C-=" '(omnisharp-code-format-entire-file :which-key "reformat")
-   )
-  (general-define-key
-   :keymaps 'omnisharp-mode-map
-   :states '(normal visual)
-   "gd"  'omnisharp-go-to-definition
-   "gD"  'omnisharp-go-to-definition-other-window
-   )
-  )
+;;   (general-define-key
+;;    :keymaps 'omnisharp-mode-map
+;;    "C-," '(omnisharp-run-code-action-refactoring :which-key "code action")
+;;    "C-=" '(omnisharp-code-format-entire-file :which-key "reformat")
+;;    )
+;;   (general-define-key
+;;    :keymaps 'omnisharp-mode-map
+;;    :states '(normal visual)
+;;    "gd"  'omnisharp-go-to-definition
+;;    "gD"  'omnisharp-go-to-definition-other-window
+;;    )
+;;   )
 
 (use-package json-mode
   :ensure t
@@ -197,5 +209,5 @@
   :ensure t
   :mode "\\.hs\\'"
   :config
-  (advice-add 'haskell-mode :after #'eglot-ensure)
+  ;; (advice-add 'haskell-mode :after #'eglot-ensure)
   )
