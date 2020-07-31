@@ -1,5 +1,6 @@
 ;; Location
 (setq org-base "~/Dropbox/Private/org/")
+(setq org-directory org-base)
 (setq org-refile-targets (quote ((nil :maxlevel . 9)
                                  (org-agenda-files :maxlevel . 9))))
 (setq org-default-notes-file (concat org-base "agenda/notes.org"))
@@ -59,14 +60,28 @@
 
 ;; Journal
 (use-package org-journal
-  :ensure t
-  :init
-  :custom
-  (org-journal-file-type 'monthly)
-  (org-journal-file-format "%Y%m.org")
-  (org-journal-dir (concat org-base "journal"))
-  (org-journal-date-format "%A, %m/%d/%Y")
-  )
+  :ensure t)
+(setq org-journal-file-type 'monthly)
+(setq org-journal-file-format "%Y%m.org")
+(setq org-journal-dir (concat org-base "journal"))
+(setq org-journal-date-format "%A, %m/%d/%Y")
+(setq five-min-template
+      "** 5-minute journal :5min:
+*** I'm grateful for
+*** What would make today great? [/]
+1. [ ]
+2. [ ]
+3. [ ]
+*** Daily affirmation
+*** Notable things that happened today
+*** How could I have made today better
+")
+(defun five-minute-journal-entry ()
+  (progn
+    (org-journal-new-entry "5min")
+    (beginning-of-line)
+    (insert five-min-template)))
+
 
 ;; Brain
 (use-package org-brain
@@ -133,3 +148,24 @@
   :ensure t
   :after org
   :config (define-key org-mode-map (kbd "C-c C-r") verb-command-map))
+
+
+;; Deft
+(use-package deft
+  :ensure t
+  :config
+  (setq deft-directory (concat org-directory "/kb"))
+  (setq deft-recursive t)
+  (setq deft-extensions '("org"))
+  )
+
+
+;; Org-roam
+(use-package org-roam
+  :ensure t
+  :hook
+  (after-init . org-roam-mode)
+  :config
+  (setq org-roam-db-location "~/Den/org-roam.db")
+  (setq org-roam-directory org-directory)
+  )
