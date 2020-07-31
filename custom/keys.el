@@ -10,6 +10,9 @@
    "TAB" 'indent-for-tab-command
    "gd"  'xref-find-definitions
    "gD"  'xref-find-definitions-other-window
+   ;; Navigation
+   "j"   'evil-next-visual-line
+   "k"   'evil-previous-visual-line
    )
 
   (general-define-key
@@ -52,6 +55,8 @@
    "oi"  '((lambda () (interactive)(find-file org-default-ideas-file)) :which-key "open ideas")
    "og"  '((lambda () (interactive)(find-file org-default-games-file)) :which-key "open games")
    "or"  '(org-refile :which-key "refile")
+   "o;"  '(org-roam-buffer-toggle-display :which-key "roam display")
+   "of"  '(lambda () (interactive) (five-minute-journal-entry))
    ;; Search
    "ss"  '(swiper :which-key "search buffer")
    "sa"  '(swiper-all :which-key "search all buffers")
@@ -84,6 +89,7 @@
    "k"   '(browse-kill-ring :which-key "browse kill ring")
    "j"   '(avy-goto-char-timer :which-key "jump to char")
    "T"   '(powerthesaurus-lookup-word-at-point :which-key "look up thesaurus")
+   "d"   '(deft :which-key "deft")
    )
 
   )
