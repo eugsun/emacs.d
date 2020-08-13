@@ -7,6 +7,10 @@
 (add-hook 'emacs-startup-hook
           (lambda () (setq gc-cons-threshold normal-gc-cons-threshold)))
 
+;; Settings for native builds
+(setq comp-speed 3)
+(setq comp-deferred-compilation t)
+
 ;; Disable ugly UI
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
@@ -21,14 +25,12 @@
 (setq package-enable-at-startup nil)
 (setq package-archives '(("melpa" . "http://melpa.org/packages/")
                          ("org" . "http://orgmode.org/elpa/")
-                         ("gnu" . "http://elpa.gnu.org/packages/")
-                         ))
+                         ("gnu" . "http://elpa.gnu.org/packages/")))
 (package-initialize)
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package)
-  (package-install 'org-plus-contrib)
-  )
+  (package-install 'org-plus-contrib))
 (require 'use-package)
 
 
@@ -44,8 +46,7 @@
   :config
   (setq exec-path-from-shell-variables
         `("PATH" "MANPATH" "WORKON_HOME"))
-  (exec-path-from-shell-initialize)
- )
+  (exec-path-from-shell-initialize))
 
 
 ;; Put temp files in a more sane place
@@ -121,14 +122,12 @@
   (setq projectile-require-project-root nil)
   :config
   (projectile-mode 1)
-  (setq projectile-indexing-method 'alien)
-  )
+  (setq projectile-indexing-method 'alien))
 
 
 ;; All The Icons
 (use-package all-the-icons
-  :ensure t
-  )
+  :ensure t)
 ;; NeoTree (which uses the icons)
 (use-package neotree
   :ensure t
@@ -142,6 +141,8 @@
 (setq show-paren-delay 0)
 (setq show-paren-when-point-inside-paren t)
 (show-paren-mode 1)
+(setq paragraph-start "\f\\|[ \t]*$\\|[ \t]*[-+*] ")
+
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (require 'uniquify)
@@ -163,8 +164,7 @@
 (use-package yasnippet
   :ensure t
   :config
-  (yas-global-mode 1)
-  )
+  (yas-global-mode 1))
 (use-package yasnippet-snippets
   :after yasnippet
   :ensure t)
@@ -172,8 +172,7 @@
 (use-package smartparens
   :ensure t
   :init
-  (smartparens-global-mode t)
-)
+  (smartparens-global-mode t))
 
 (use-package avy
   :ensure t)
@@ -185,30 +184,31 @@
 (use-package indent-guide
   :ensure t
   :config
-  (indent-guide-global-mode t)
-  )
+  (indent-guide-global-mode t))
 
 (use-package expand-region
-  :ensure t
-  )
+  :ensure t)
 
-;; (use-package whitespace
-;;   :ensure t
-;;   :init
-;;   (setq whitespace-style '(face empty tabs lines-tail trailing))
-;;   (setq whitespace-line-column 88)
-;;   :config
-;;   (global-whitespace-mode t)
-;;   )
+(use-package hl-todo
+  :ensure t
+  :init
+  (global-hl-todo-mode))
+(use-package whitespace
+  :ensure t
+  :init
+  (setq whitespace-style '(face empty tabs lines-tail trailing))
+  (setq whitespace-line-column 88)
+  :config
+  (add-hook 'prog-mode-hook 'whitespace-mode))
 
 
 ;; Misc. variables
 (setq save-interprogram-paste-before-kill t
       require-final-newline t
       load-prefer-newer t
-      helm-ff-keep-cached-candidates nil
-      )
+      helm-ff-keep-cached-candidates nil)
 
+(setq initial-major-mode 'org-mode)
 
 ;;;;;;
 ;;;;;;

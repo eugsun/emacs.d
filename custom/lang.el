@@ -1,3 +1,6 @@
+(use-package flycheck
+  :ensure t)
+
 ;; (use-package eglot
 ;;   :ensure t
 ;;   :config
@@ -73,6 +76,17 @@
   ;; (advice-add 'dart-mode :after #'flycheck-mode-on-safe)
   ;; (advice-add 'dart-mode :after #'eglot-ensure)
   )
+(use-package hover
+  :ensure t
+  :after flutter
+  :config
+  (general-define-key
+   :keymaps 'dart-mode-map
+   :states '(normal visual)
+   :prefix "SPC"
+   "n h r" #'hover-run-or-hot-reload
+   "n h R" #'hover-run-or-hot-restart))
+
 (use-package lsp-dart
   :ensure t
   :hook (dart-mode . lsp)
@@ -89,14 +103,23 @@
 
 
 ;; Python
-(use-package elpy
+(use-package python-mode
+  :ensure t)
+(use-package lsp-python-ms
+  :ensure t
+  :hook (python-mode . lsp))
+(use-package python-black
   :ensure t
   :config
-  (advice-add 'python-mode :after #'elpy-enable)
-  ;; (advice-add 'python-mode :after #'flymake-mode-off)
-  ;; (advice-add 'python-mode :after #'flycheck-mode-on-safe)
-  )
-(use-package auto-virtualenvwrapper
+  (general-define-key
+   :keymaps 'python-mode-map
+   :prefix "SPC"
+   :states '(normal visual)
+   "lf" 'python-black-buffer
+   ))
+(use-package py-isort
+  ;; requires:
+  ;; pip install isort
   :ensure t)
 
 
@@ -208,6 +231,10 @@
 (use-package haskell-mode
   :ensure t
   :mode "\\.hs\\'"
+  )
+(use-package lsp-haskell
+  :ensure t
+  :hook (haskell-mode . lsp)
   :config
-  ;; (advice-add 'haskell-mode :after #'eglot-ensure)
+  (setq lsp-haskell-process-path-hie "hie-wrapper")
   )
