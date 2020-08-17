@@ -9,8 +9,3 @@
   :config
   (setq multi-term-dedicated-select-after-open-p t)
   )
-
-
-;; Aweshell
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/library/aweshell"))
-(require 'aweshell)
