@@ -27,3 +27,5 @@ elpy/
 *.cache
 
 request/
+
+eln-cache/
