@@ -12,9 +12,11 @@
 (setq comp-deferred-compilation t)
 
 ;; Disable ugly UI
-(scroll-bar-mode -1)
-(tool-bar-mode -1)
-(tooltip-mode -1)
+(when (display-graphic-p)
+  (scroll-bar-mode -1)
+  (tool-bar-mode -1)
+  (tooltip-mode -1)
+  )
 (menu-bar-mode -1)
 (setq inhibit-startup-message t)
 (setq initial-scratch-message nil)
