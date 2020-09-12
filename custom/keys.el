@@ -82,6 +82,7 @@
    ;; LSP
    "ll"  '(lsp-execute-code-action :which-key "lsp action")
    "li"  '(lsp-organize-imports :which-key "organize imports")
+   "lf"  '(lsp-format-buffer :which-key "format buffer")
    ;; Yasnippet
    "y"   '(yas-insert-snippet :which-key "yasnippet insert")
    ;; Workspaces
