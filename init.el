@@ -193,7 +193,7 @@
 
 (use-package hl-todo
   :ensure t
-  :init
+  :config
   (global-hl-todo-mode))
 (use-package whitespace
   :ensure t
@@ -202,6 +202,13 @@
   (setq whitespace-line-column 88)
   :config
   (add-hook 'prog-mode-hook 'whitespace-mode))
+
+(use-package bufler
+  :ensure t
+  :init
+  (evil-set-initial-state 'bufler-list-mode 'emacs)
+  :config
+  (bufler-mode))
 
 
 ;; Misc. variables

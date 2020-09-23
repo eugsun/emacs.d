@@ -33,7 +33,8 @@
    ;; Buffers
    "bi"  '(ibuffer :which-key "ibuffer")
    "br"  '(revert-buffer :which-key "revert buffer")
-   "bb"  '(switch-to-buffer :which-key "switch buffer")
+   "bb"  '(bufler-switch-buffer :which-key "switch buffer")
+   "bl"  '(bufler-list :which-key "bufler list")
    "be"  '(eval-buffer :which-key "eval buffer")
    "bk"  '(kill-current-buffer :which-key "kill buffer")
    "bn"  '((lambda () (interactive)
