@@ -118,7 +118,7 @@
     (org-read-date nil t ts)
     )
   :config
-  (add-hook 'org-mode-hook 'org-edna-mode)
+  ;; (add-hook 'org-mode-hook 'org-edna-mode)
   )
 
 
@@ -143,9 +143,11 @@
 (use-package deft
   :ensure t
   :config
+  (evil-set-initial-state 'deft-mode 'emacs)
   (setq deft-directory (concat org-directory "/kb"))
   (setq deft-recursive t)
   (setq deft-extensions '("org"))
+  (setq deft-auto-save-interval 0)
   )
 
 
@@ -157,6 +159,12 @@
   (setq org-roam-directory org-directory)
   )
 
+
+;; Babel
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((python . t)))
+(setq org-confirm-babel-evaluate nil)
 
 ;; =====
 ;; Utils

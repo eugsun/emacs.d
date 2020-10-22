@@ -130,11 +130,14 @@
 ;; All The Icons
 (use-package all-the-icons
   :ensure t)
-;; NeoTree (which uses the icons)
 (use-package neotree
   :ensure t
   :init
-  (setq neo-theme (if (display-graphic-p) 'icons 'arrow)))
+  ;; NeoTree theme uses the icons
+  (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+  :config
+  (evil-set-initial-state 'neotree-mode 'emacs)
+  )
 
 
 ;; Editor
@@ -209,6 +212,10 @@
   (evil-set-initial-state 'bufler-list-mode 'emacs)
   :config
   (bufler-mode))
+
+
+;; Rendering speedups
+(setq bidi-paragraph-direction 'left-to-right)
 
 
 ;; Misc. variables
