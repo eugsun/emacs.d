@@ -61,7 +61,6 @@
   :ensure t)
 (use-package dart-mode
   :ensure t
-  :after projectile
   :config
   (setq dart-debug t)
   ;; server program
