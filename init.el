@@ -142,6 +142,8 @@
 
 ;; Editor
 (global-undo-tree-mode)
+(setq evil-undo-system 'undo-tree)
+
 (setq ring-bell-function 'ignore)
 (setq show-paren-delay 0)
 (setq show-paren-when-point-inside-paren t)
