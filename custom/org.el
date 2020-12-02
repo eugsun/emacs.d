@@ -143,7 +143,7 @@
 (use-package deft
   :ensure t
   :config
-  (evil-set-initial-state 'deft-mode 'emacs)
+  ;; (evil-set-initial-state 'deft-mode 'emacs)
   (setq deft-directory (concat org-directory "/kb"))
   (setq deft-recursive t)
   (setq deft-extensions '("org"))

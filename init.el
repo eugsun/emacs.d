@@ -141,7 +141,7 @@
 
 
 ;; Editor
-(global-undo-tree-mode)
+;; (global-undo-tree-mode)
 (setq evil-undo-system 'undo-tree)
 
 (setq ring-bell-function 'ignore)

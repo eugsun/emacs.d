@@ -85,11 +85,14 @@
    :prefix "SPC"
    "n h r" #'hover-run-or-hot-reload
    "n h R" #'hover-run-or-hot-restart))
-
 (use-package lsp-dart
   :ensure t
   :hook (dart-mode . lsp)
   )
+
+;;; Configuration of Android projects use Groovy/Gradle
+(use-package groovy-mode
+  :ensure t)
 
 ;; yaml
 (use-package yaml-mode
@@ -237,3 +240,6 @@
   :config
   (setq lsp-haskell-process-path-hie "hie-wrapper")
   )
+
+(use-package sml-mode
+  :ensure t)
