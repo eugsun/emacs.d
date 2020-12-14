@@ -153,8 +153,11 @@
 
 
 ;; Editor
-;; (global-undo-tree-mode)
-(setq evil-undo-system 'undo-tree)
+(use-package undo-tree
+  :ensure t
+  :config
+  (global-undo-tree-mode)
+  (setq evil-undo-system 'undo-tree))
 
 (setq ring-bell-function 'ignore)
 (setq show-paren-delay 0)
