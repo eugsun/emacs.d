@@ -40,6 +40,18 @@
 ;;(use-package benchmark-init
 ;;  :ensure t)
 
+(use-package evil-terminal-cursor-changer
+  :ensure t
+  :init
+  (setq evil-motion-state-cursor 'box)  ; █
+  (setq evil-visual-state-cursor 'box)  ; █
+  (setq evil-normal-state-cursor 'box)  ; █
+  (setq evil-insert-state-cursor 'bar)  ; ⎸
+  (setq evil-emacs-state-cursor  'hbar) ; _
+  :config
+  (unless (display-graphic-p)
+    (evil-terminal-cursor-changer-activate) ; or (etcc-on)
+    ))
 
 ;; Paths
 (use-package exec-path-from-shell
