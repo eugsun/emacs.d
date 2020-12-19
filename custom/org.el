@@ -70,11 +70,10 @@
   :ensure t
   :init
   (add-hook 'org-journal-mode-hook #'outline-minor-mode)
-  :custom
-  (org-journal-dir (concat org-base "journal"))
-  (org-journal-file-type 'monthly)
-  (org-journal-file-format "%Y%m.org")
-  (org-journal-date-format "%A, %m/%d/%Y")
+  (setq org-journal-dir (concat org-base "journal"))
+  (setq org-journal-file-type 'monthly)
+  (setq org-journal-file-format "%Y%m.org")
+  (setq org-journal-date-format "%A, %m/%d/%Y")
   )
 (setq org/five-min-template
       "** 5-minute journal :5min:
