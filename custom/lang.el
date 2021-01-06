@@ -1,22 +1,8 @@
 (use-package flycheck
   :ensure t)
 
-;; (use-package eglot
-;;   :ensure t
-;;   :config
-;;   (setq eglot-connect-timeout 3)
-;;   ;; (setq eglot-sync-connect nil)
-;;   ;; (setq eglot-auto-display-help-buffer t)
-;;   (general-define-key
-;;    :states '(normal visual insert emacs)
-;;    :prefix "SPC"
-;;    :non-normal-prefix "M-SPC"
-;;    "ef"  'eglot-format-buffer
-;;    "eh"  'eglot-help-at-point
-;;    "ee"  'eglot-code-actions
-;;    "er"  'eglot-rename
-;;    )
-;;   )
+(use-package dap-mode
+  :ensure t)
 
 (use-package lsp-mode
   :ensure t
@@ -44,7 +30,7 @@
   :config
   (setq company-idle-delay 0.5)
   (setq company-dabbrev-downcase nil)
-  (setq company-minimum-prefix-length 3)
+  (setq company-minimum-prefix-length 2)
   (global-company-mode t)
 
   ;; (use-package company-lsp
@@ -109,7 +95,9 @@
   :ensure t)
 (use-package lsp-python-ms
   :ensure t
-  :hook (python-mode . lsp))
+  :after lsp-mode
+  :hook (python-mode . lsp)
+  )
 (use-package python-black
   :ensure t
   :config
@@ -123,6 +111,11 @@
   ;; requires:
   ;; pip install isort
   :ensure t)
+(use-package lsp-pyright
+  :ensure t
+  :hook (python-mode . (lambda ()
+                         (require 'lsp-pyright)
+                         (lsp))))
 
 
 ;; PDF
@@ -243,3 +236,16 @@
 
 (use-package sml-mode
   :ensure t)
+
+
+;; Go
+(use-package go-mode
+  :ensure t
+  :mode "\\.go\\'"
+  :hook (go-mode . lsp))
+
+(defun lsp-go-install-save-hooks ()
+  (add-hook 'before-save-hook #'lsp-format-buffer t t)
+  (add-hook 'before-save-hook #'lsp-organize-imports t t))
+(add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
+(add-hook 'go-mode-hook #'yas-minor-mode)

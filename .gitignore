@@ -29,3 +29,5 @@ elpy/
 request/
 
 eln-cache/
+tramp
+.dap-breakpoints
