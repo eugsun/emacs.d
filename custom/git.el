@@ -8,5 +8,6 @@
   :ensure t)
 (use-package magit-todos
   :ensure t
+  :requires magit
   :init
   (magit-todos-mode))
