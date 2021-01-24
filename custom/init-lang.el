@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (use-package flycheck
   :ensure t)
 
@@ -43,10 +45,9 @@
   )
 
 ;; Dart
-(use-package flutter
-  :ensure t)
 (use-package dart-mode
   :ensure t
+  :mode "\\.dart\\'"
   :config
   (setq dart-debug t)
   ;; server program
@@ -61,6 +62,8 @@
   ;; (advice-add 'dart-mode :after #'flycheck-mode-on-safe)
   ;; (advice-add 'dart-mode :after #'eglot-ensure)
   )
+(use-package flutter
+  :ensure t)
 (use-package hover
   :ensure t
   :after flutter
@@ -78,21 +81,24 @@
 
 ;;; Configuration of Android projects use Groovy/Gradle
 (use-package groovy-mode
-  :ensure t)
+  :ensure t
+  :mode "\\.gradle\\'")
 
 ;; yaml
 (use-package yaml-mode
-  :ensure t)
-
+  :ensure t
+  :mode "\\.yaml\\'")
 
 ;; Racket
 (use-package racket-mode
-  :ensure t)
+  :ensure t
+  :mode "\\.rkt\\'")
 
 
 ;; Python
 (use-package python-mode
-  :ensure t)
+  :ensure t
+  :mode "\\.python\\'")
 (use-package lsp-python-ms
   :ensure t
   :after lsp-mode
@@ -100,6 +106,7 @@
   )
 (use-package python-black
   :ensure t
+  :after python-mode
   :config
   (general-define-key
    :keymaps 'python-mode-map
@@ -110,38 +117,25 @@
 (use-package py-isort
   ;; requires:
   ;; pip install isort
-  :ensure t)
+  :ensure t
+  :after python-mode)
 (use-package lsp-pyright
   :ensure t
+  :after python-mode
   :hook (python-mode . (lambda ()
                          (require 'lsp-pyright)
                          (lsp))))
 
 
-;; PDF
-;; (use-package pdf-tools
-;;   :ensure t)
-
-
-;; Fountain
 (use-package fountain-mode
-  :ensure t
-  )
+  :ensure t)
 
 (use-package imenu-list
-  :ensure t
-  :config
-  ;; (setq imenu-list-focus-after-activation t)
-  )
+  :ensure t)
 
-
-;; Markdown
 (use-package markdown-mode
-  :ensure t
-  )
+  :ensure t)
 
-
-;; Ink
 (use-package ink-mode
   :ensure t
   :after olivetti
@@ -161,7 +155,6 @@
    "C-c C-c" 'ink-mode-open
    )
   )
-
 
 ;; Clojure
 (use-package clojure-mode
@@ -223,6 +216,7 @@
   (setq js-indent-level 2)
   )
 
+
 (use-package haskell-mode
   :ensure t
   :mode "\\.hs\\'"
@@ -234,18 +228,20 @@
   (setq lsp-haskell-process-path-hie "hie-wrapper")
   )
 
+
 (use-package sml-mode
-  :ensure t)
+  :ensure t
+  :mode "\\.sml\\'")
 
 
 ;; Go
 (use-package go-mode
   :ensure t
   :mode "\\.go\\'"
-  :hook (go-mode . lsp))
-
-(defun lsp-go-install-save-hooks ()
-  (add-hook 'before-save-hook #'lsp-format-buffer t t)
-  (add-hook 'before-save-hook #'lsp-organize-imports t t))
-(add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
-(add-hook 'go-mode-hook #'yas-minor-mode)
+  :hook ((go-mode . lsp)
+         (go-mode . yas-minor-mode))
+  :init
+  (defun lsp-go-install-save-hooks ()
+    (add-hook 'before-save-hook #'lsp-format-buffer t t)
+    (add-hook 'before-save-hook #'lsp-organize-imports t t))
+  (add-hook 'go-mode-hook #'lsp-go-install-save-hooks))

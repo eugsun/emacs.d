@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; Evil keybinding
 (use-package general
   :ensure t
