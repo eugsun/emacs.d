@@ -7,18 +7,8 @@
 (add-hook 'emacs-startup-hook
           (lambda () (setq gc-cons-threshold normal-gc-cons-threshold)))
 
-;; Settings for native builds
 (setq comp-speed 2)
 (setq comp-deferred-compilation t)
-
-(when (display-graphic-p)
-  (scroll-bar-mode -1)
-  (tool-bar-mode -1)
-  (tooltip-mode -1)
-  )
-(menu-bar-mode -1)
-(setq inhibit-startup-message t)
-(setq initial-scratch-message nil)
 (setq custom-file "~/.emacs.d/spam.el")
 
 ;; Packages
@@ -47,5 +37,6 @@
 (load "init-lang")
 (load "init-util")
 (load "init-keys")
+(load "init-skeleton")
 
 (load-file custom-file)

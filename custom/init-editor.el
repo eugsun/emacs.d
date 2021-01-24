@@ -1,5 +1,14 @@
 ;; -*- lexical-binding: t; -*-
 
+(when (display-graphic-p)
+  (scroll-bar-mode -1)
+  (tool-bar-mode -1)
+  (tooltip-mode -1)
+  )
+(menu-bar-mode -1)
+(setq inhibit-startup-message t)
+(setq initial-scratch-message nil)
+
 ;; Paths
 (use-package exec-path-from-shell
   :if (memq window-system '(mac ns x))
