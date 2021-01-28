@@ -16,8 +16,8 @@
   (setq lsp-enable-completion-at-point t)
   (setq gc-cons-threshold init-gc-cons-threshold)
   (setq read-process-output-max (* 3 1024 1024))
-  (setq lsp-prefer-capf t)
   (setq lsp-idle-delay 0.500)
+  (setq lsp-completion-provider :capf)
 
   (use-package lsp-ui
     :ensure t
@@ -44,6 +44,7 @@
   ;;   )
   )
 
+
 ;; Dart
 (use-package dart-mode
   :ensure t
@@ -61,6 +62,7 @@
   ;; (advice-add 'dart-mode :after #'flymake-mode-off)
   ;; (advice-add 'dart-mode :after #'flycheck-mode-on-safe)
   ;; (advice-add 'dart-mode :after #'eglot-ensure)
+  (dap-dart-setup)
   )
 (use-package flutter
   :ensure t)
@@ -171,7 +173,11 @@
   :mode "\\.cs\\'"
   :config
   (add-hook 'csharp-mode-hook 'flycheck-mode)
+  ;; To make omnisharp work, replace the server installed mono to the global one
   (advice-add 'csharp-mode :after #'lsp))
+(use-package csproj-mode
+  :ensure t
+  :requires csharp-mode)
 
 ;; (use-package omnisharp
 ;;   :ensure t
