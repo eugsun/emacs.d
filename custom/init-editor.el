@@ -159,6 +159,7 @@
   :ensure t
   :init
   (evil-set-initial-state 'bufler-list-mode 'emacs)
+  (setq completion-styles '(basic substring partial-completion))
   :config
   (bufler-mode))
 
