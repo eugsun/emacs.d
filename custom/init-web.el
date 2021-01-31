@@ -7,11 +7,11 @@
   :requires emmet-mode
   :ensure t
   :mode ("\\.html\\'" "\\.css\\'")
+  :hook (web-mode . emmet-mode)
   :config
   (setq web-mode-markup-indent-offset 2)
   (setq web-mode-css-indent-offset 2)
-  (setq web-mode-code-indent-offset 2)
-  (emmet-mode t))
+  (setq web-mode-code-indent-offset 2))
 
 ;; Javascript
 (use-package js2-mode
