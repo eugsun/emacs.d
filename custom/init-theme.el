@@ -5,11 +5,12 @@
 ;; --
 (use-package doom-themes
   :ensure t)
-(use-package smart-mode-line
+(use-package doom-modeline
   :ensure t
-  :config
-  (setq sml/no-confirm-load-theme t)
-  (sml/setup))
+  :init
+  (doom-modeline-mode 1)
+  :custom
+  (doom-modeline-enable-word-count 1))
 
 ;; --
 ;; Typeface
