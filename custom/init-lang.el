@@ -1,13 +1,11 @@
 ;; -*- lexical-binding: t; -*-
 
 (use-package flycheck
-  :ensure t)
+  :after lsp)
 
 (use-package dap-mode
-  :ensure t)
-
+  :commands dap-debug)
 (use-package lsp-mode
-  :ensure t
   :commands lsp
   :config
   (setq lsp-auto-guess-root t)
@@ -17,18 +15,14 @@
   (setq gc-cons-threshold init-gc-cons-threshold)
   (setq read-process-output-max (* 3 1024 1024))
   (setq lsp-idle-delay 0.500)
-  (setq lsp-completion-provider :capf)
+  (setq lsp-completion-provider :capf))
 
-  (use-package lsp-ui
-    :ensure t
-    :commands lsp-ui-mode)
-
-  (use-package lsp-treemacs
-    :ensure t)
-  )
+(use-package lsp-ui
+  :commands lsp-ui-mode)
+(use-package lsp-treemacs
+  :after lsp)
 
 (use-package company
-  :ensure t
   :config
   (setq company-idle-delay 0.5)
   (setq company-dabbrev-downcase nil)
@@ -36,7 +30,6 @@
   (global-company-mode t)
 
   ;; (use-package company-lsp
-  ;;   :ensure t
   ;;   :commands company-lsp
   ;;   :config
   ;;   (setq company-lsp-cache-candidates 'auto)
@@ -47,7 +40,6 @@
 
 ;; Dart
 (use-package dart-mode
-  :ensure t
   :mode "\\.dart\\'"
   :config
   (setq dart-debug t)
@@ -65,9 +57,8 @@
   (dap-dart-setup)
   )
 (use-package flutter
-  :ensure t)
+  :after dart-mode)
 (use-package hover
-  :ensure t
   :after flutter
   :config
   (general-define-key
@@ -77,37 +68,28 @@
    "n h r" #'hover-run-or-hot-reload
    "n h R" #'hover-run-or-hot-restart))
 (use-package lsp-dart
-  :ensure t
   :hook (dart-mode . lsp)
+  :custom
+  (lsp-dart-flutter-widget-guides nil)
   )
 
 ;;; Configuration of Android projects use Groovy/Gradle
 (use-package groovy-mode
-  :ensure t
   :mode "\\.gradle\\'")
 
 ;; yaml
 (use-package yaml-mode
-  :ensure t
   :mode "\\.yaml\\'")
 
 ;; Racket
 (use-package racket-mode
-  :ensure t
   :mode "\\.rkt\\'")
 
 
 ;; Python
 (use-package python-mode
-  :ensure t
-  :mode "\\.python\\'")
-(use-package lsp-python-ms
-  :ensure t
-  :after lsp-mode
-  :hook (python-mode . lsp)
-  )
+  :mode "\\.py\\'")
 (use-package python-black
-  :ensure t
   :after python-mode
   :config
   (general-define-key
@@ -119,28 +101,22 @@
 (use-package py-isort
   ;; requires:
   ;; pip install isort
-  :ensure t
   :after python-mode)
 (use-package lsp-pyright
-  :ensure t
-  :after python-mode
-  :hook (python-mode . (lambda ()
-                         (require 'lsp-pyright)
-                         (lsp))))
+  :after (python-mode lsp))
+(use-package lsp-python-ms
+  :after (python-mode lsp))
 
 
 (use-package fountain-mode
-  :ensure t)
-
+  :mode "\\.fountain\\'")
 (use-package imenu-list
-  :ensure t)
+  :commands imenu-list-smart-toggle)
 
 (use-package markdown-mode
-  :ensure t)
+  :mode "\\.md\\'")
 
 (use-package ink-mode
-  :ensure t
-  :after olivetti
   :mode "\\.ink\\'"
   :config
   (add-hook 'ink-mode-hook 'olivetti-mode)
@@ -160,27 +136,22 @@
 
 ;; Clojure
 (use-package clojure-mode
-  :ensure t
   :mode "\\.clj\\'")
 (use-package cider
-  :ensure t
-  :defer t)
+  :after clojure-mode)
 
 
 ;; CSharp
 (use-package csharp-mode
-  :ensure t
   :mode "\\.cs\\'"
   :config
   (add-hook 'csharp-mode-hook 'flycheck-mode)
   ;; To make omnisharp work, replace the server installed mono to the global one
   (advice-add 'csharp-mode :after #'lsp))
 (use-package csproj-mode
-  :ensure t
-  :requires csharp-mode)
+  :after csharp-mode)
 
 ;; (use-package omnisharp
-;;   :ensure t
 ;;   :after csharp-mode
 ;;   :config
 ;;   (add-to-list 'company-backends 'company-omnisharp)
@@ -216,7 +187,6 @@
 ;;   )
 
 (use-package json-mode
-  :ensure t
   :mode "\\.json\\'"
   :config
   (setq js-indent-level 2)
@@ -224,25 +194,19 @@
 
 
 (use-package haskell-mode
-  :ensure t
-  :mode "\\.hs\\'"
-  )
+  :mode "\\.hs\\'")
 (use-package lsp-haskell
-  :ensure t
-  :hook (haskell-mode . lsp)
+  :after (haskell-mode lsp)
   :config
   (setq lsp-haskell-process-path-hie "hie-wrapper")
   )
 
 
 (use-package sml-mode
-  :ensure t
   :mode "\\.sml\\'")
-
 
 ;; Go
 (use-package go-mode
-  :ensure t
   :mode "\\.go\\'"
   :hook ((go-mode . lsp)
          (go-mode . yas-minor-mode))

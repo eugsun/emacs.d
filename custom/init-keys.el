@@ -2,7 +2,6 @@
 
 ;; Evil keybinding
 (use-package general
-  :ensure t
   :config
   (general-evil-setup)
 
@@ -69,6 +68,7 @@
    "or"  '(org-refile :which-key "refile")
    "o;"  '(org-roam-buffer-toggle-display :which-key "roam display")
    "of"  '(lambda () (interactive) (org/five-minute-journal-entry))
+   "oR"  '(org-re-reveal-export-to-html-and-browse)
    ;; Search
    "ss"  '(swiper :which-key "search buffer")
    "sa"  '(swiper-all :which-key "search all buffers")
@@ -137,4 +137,4 @@
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 
-(global-set-key (kbd "M-@") #'er/expand-region)
+(global-set-key (kbd "C-=") #'er/expand-region)

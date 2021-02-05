@@ -1,7 +1,6 @@
 ;; -*- lexical-binding: t; -*-
 
 (use-package org
-  :ensure t
   :init
   ;; Location
   (setq org-directory "~/Dropbox/Private/org/")
@@ -86,7 +85,6 @@
 
 ;; Journal
 (use-package org-journal
-  :ensure t
   :after org
   :config
   (add-hook 'org-journal-mode-hook #'outline-minor-mode)
@@ -115,46 +113,33 @@
 
 ;; Noter
 (use-package org-noter
-  :ensure t
   :after org
   :config
   (setq org-noter-notes-search-path `(,(concat org-base "reading/")))
-  (setq org-noter-doc-split-fraction '(0.67 . 0.67))
-  )
+  (setq org-noter-doc-split-fraction '(0.67 . 0.67)))
 
 (use-package org-edna
-  :ensure t
   :after org
   :init
   ;; This missing function causes malfunction when scheduling.
   (defun org-timestamp-from-string (ts)
-    (org-read-date nil t ts)
-    )
-  :config
-  ;; (add-hook 'org-mode-hook 'org-edna-mode)
-  )
+    (org-read-date nil t ts)))
 
 
 ;; Presentation
 (use-package org-re-reveal
-  :ensure t
-  :after org)
+  :commands org-re-reveal-export-to-html-and-browse)
 (use-package org-re-reveal-ref
-  :ensure t
   :after org-re-reveal)
-
 
 ;; HTTP
 (use-package verb
-  :ensure t
-  :after org
+  :commands verb-command-map
   :config (define-key org-mode-map (kbd "C-c C-r") verb-command-map))
-
 
 ;; Deft
 (use-package deft
-  :ensure t
-  :after org
+  :commands deft
   :config
   ;; (evil-set-initial-state 'deft-mode 'emacs)
   (setq deft-directory (concat org-directory "/kb"))
@@ -163,11 +148,9 @@
   (setq deft-auto-save-interval 0)
   )
 
-
 ;; Org-roam
 (use-package org-roam
-  :ensure t
-  :after org
+  :after deft
   :config
   (setq org-roam-db-location "~/Den/org-roam.db")
   (setq org-roam-directory org-directory)
@@ -230,7 +213,7 @@
   (olivetti-set-width 88)
   )
 (use-package olivetti
-  :ensure t
+  :hook (text-mode . olivetti-mode)
   :init
   (if (memq window-system '(mac ns x))
       (setq olivetti-body-width 88)
@@ -238,14 +221,13 @@
     (setq olivetti-body-width 1.0)
     )
   :config
-  (add-hook 'text-mode-hook 'olivetti-mode)
   (add-hook 'olivetti-mode-hook 'set-reader-view)
   ;; (add-hook 'text-mode-hook '(whitespace-mode nil))
   )
 
 ;; Thesaurus
 (use-package powerthesaurus
-  :ensure t)
+  :commands powerthesaurus-lookup-word-at-point)
 
 ;; Spellcheck
 (when (executable-find "hunspell")

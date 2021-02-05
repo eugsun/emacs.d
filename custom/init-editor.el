@@ -12,8 +12,8 @@
 ;; Paths
 (use-package exec-path-from-shell
   :if (memq window-system '(mac ns x))
-  :ensure t
   :custom
+  (exec-path-from-shell-arguments nil)
   (exec-path-from-shell-check-startup-files nil)
   (exec-path-from-shell-variables
         `("PATH" "MANPATH" "WORKON_HOME"))
@@ -22,21 +22,20 @@
 
 ;; IQA allows find/reload of init file
 (use-package iqa
-  :ensure t
+  :commands iqa-find-user-init-file
   :config
   (iqa-setup-default))
 
 
 ;; Workspaces
 (use-package perspective
-  :ensure t
+  :commands persp-switch
   :config
   (persp-mode))
 
 
 ;; Evil mode
 (use-package evil
-  :ensure t
   :init
   (setq evil-disable-insert-state-bindings t)
   (setq evil-want-integration t)
@@ -45,12 +44,10 @@
   (evil-mode 1))
 (use-package evil-collection
   :after evil
-  :ensure t
   :config
   (evil-collection-init))
 (use-package evil-terminal-cursor-changer
   :after evil
-  :ensure t
   :init
   (setq evil-motion-state-cursor 'box)  ; █
   (setq evil-visual-state-cursor 'box)  ; █
@@ -64,10 +61,7 @@
 
 
 ;; Ivy
-(use-package rg
-  :ensure t)
 (use-package ivy
-  :ensure t
   :diminish ivy-mode
   :init
   (setq ivy-use-virtual-buffer t)
@@ -75,26 +69,26 @@
   :config
   (ivy-mode 1))
 (use-package counsel
-  :ensure t
+  :after ivy
   :init
   (setq counsel-rg-base-command
         "rg -S -M 140 --no-heading --line-number --color never %s ."))
+(use-package rg
+  :after counsel)
 (use-package swiper
-  :ensure t)
+  :after ivy)
 
 
 ;; Show keybinding hints
 (use-package which-key
-  :ensure t
   :config
   (which-key-mode 1))
 
 
 ;; All The Icons
-(use-package all-the-icons
-  :ensure t)
+(use-package all-the-icons)
 (use-package neotree
-  :ensure t
+  :commands neotree-toggle
   :init
   ;; NeoTree theme uses the icons
   (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
@@ -105,50 +99,37 @@
 
 ;; Editor
 (use-package undo-tree
-  :ensure t
   :config
   (global-undo-tree-mode)
   (setq evil-undo-system 'undo-tree))
 
-
-(use-package multiple-cursors
-  :ensure t)
+(use-package multiple-cursors)
 
 (use-package yasnippet
-  :ensure t
   :config
   (yas-global-mode 1))
 (use-package yasnippet-snippets
-  :after yasnippet
-  :ensure t)
+  :after yasnippet)
 
 (use-package smartparens
-  :ensure t
   :config
   (show-smartparens-global-mode t)
   (smartparens-global-mode t))
 
-(use-package avy
-  :ensure t)
-(use-package ace-window
-  :ensure t)
-(use-package browse-kill-ring
-  :ensure t)
+(use-package avy)
+(use-package ace-window)
+(use-package browse-kill-ring)
 
 (use-package indent-guide
-  :ensure t
   :config
   (indent-guide-global-mode t))
 
-(use-package expand-region
-  :ensure t)
+(use-package expand-region)
 
 (use-package hl-todo
-  :ensure t
   :config
   (global-hl-todo-mode))
 (use-package whitespace
-  :ensure t
   :init
   (setq whitespace-style '(face empty tabs lines-tail trailing))
   (setq whitespace-line-column 88)
@@ -156,7 +137,6 @@
   (add-hook 'prog-mode-hook 'whitespace-mode))
 
 (use-package bufler
-  :ensure t
   :init
   (evil-set-initial-state 'bufler-list-mode 'emacs)
   (setq completion-styles '(basic substring partial-completion))
@@ -165,7 +145,6 @@
 
 ;; Terminals
 (use-package multi-term
-  :ensure t
   :init
   (unless (memq window-system '(mac ns x))
     (setenv "SHELL" "powershell")

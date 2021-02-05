@@ -1,28 +1,22 @@
 ;; -*- lexical-binding: t; -*-
 
 (use-package projectile
-  :ensure t
   :init
   (setq projectile-require-project-root nil)
   :config
   (projectile-mode t)
   (setq projectile-indexing-method 'alien))
 (use-package counsel-projectile
-  :ensure t
-  :requires counsel projectile)
+  :after (counsel projectile))
 
-
-;; Start ssh-agent in Windows for magit
-(use-package ssh-agency
-  :ensure t)
 (use-package magit
-  :ensure t
-  :defer t)
+  :commands magit-status)
 (use-package forge
-  :ensure t
-  :requires magit)
+  :after magit)
 (use-package magit-todos
-  :ensure t
-  :requires magit
+  :after magit
   :config
   (magit-todos-mode))
+;; Start ssh-agent in Windows for magit
+(use-package ssh-agency
+  :after magit)

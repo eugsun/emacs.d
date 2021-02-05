@@ -14,7 +14,6 @@
    ))))
 
 (use-package autoinsert
-  :ensure t
   :custom
   (auto-insert-directory "~/.emacs.d/skeletons/")
   (auto-insert-query nil)

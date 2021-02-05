@@ -2,7 +2,7 @@
 
 ;; Stolen from @purcell. Keep gc-cons-threshold reasonable unless necessary.
 (setq normal-gc-cons-threshold (* 100 1024 1024))
-(setq init-gc-cons-threshold (* 200 1024 1024))
+(setq init-gc-cons-threshold (* 300 1024 1024))
 (setq gc-cons-threshold init-gc-cons-threshold)
 (add-hook 'emacs-startup-hook
           (lambda () (setq gc-cons-threshold normal-gc-cons-threshold)))
@@ -23,7 +23,10 @@
   (package-install 'use-package)
   (package-install 'org-plus-contrib)
   )
+
 (require 'use-package)
+(setq use-package-always-ensure t)
+(setq use-package-verbose t)
 
 ;;;;;;
 ;;;;;;
@@ -35,8 +38,9 @@
 (load "init-pm")
 (load "init-web")
 (load "init-lang")
-(load "init-util")
 (load "init-keys")
 (load "init-skeleton")
+
+(load "init-util")
 
 (load-file custom-file)
