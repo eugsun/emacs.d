@@ -47,11 +47,11 @@
 ;; --
 (if (display-graphic-p)
     (progn
-      (setq theme-autoswitch t)
-      (setq theme-autoswitch/light-theme 'doom-solarized-light)
-      (setq theme-autoswitch/dark-theme 'doom-peacock)
-      (setq theme-autoswitch/day-start-hour 6)
-      (setq theme-autoswitch/day-end-hour 17)
+      (setq-default theme-autoswitch t)
+      (setq-default theme-autoswitch/light-theme 'doom-solarized-light)
+      (setq-default theme-autoswitch/dark-theme 'doom-peacock)
+      (setq-default theme-autoswitch/day-start-hour 8)
+      (setq-default theme-autoswitch/day-end-hour 17)
       (if (and theme-autoswitch (display-graphic-p))
           (progn
             (setq current-theme theme-autoswitch/dark-theme)

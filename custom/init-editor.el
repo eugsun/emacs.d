@@ -1,14 +1,5 @@
 ;; -*- lexical-binding: t; -*-
 
-(when (display-graphic-p)
-  (scroll-bar-mode -1)
-  (tool-bar-mode -1)
-  (tooltip-mode -1)
-  )
-(menu-bar-mode -1)
-(setq inhibit-startup-message t)
-(setq initial-scratch-message nil)
-
 ;; Paths
 (use-package exec-path-from-shell
   :if (memq window-system '(mac ns x))
@@ -74,7 +65,7 @@
   (setq counsel-rg-base-command
         "rg -S -M 140 --no-heading --line-number --color never %s ."))
 (use-package rg
-  :after counsel)
+  :commands counsel-rg)
 (use-package swiper
   :after ivy)
 
@@ -85,8 +76,7 @@
   (which-key-mode 1))
 
 
-;; All The Icons
-(use-package all-the-icons)
+;; Neotree, which requires all the icons
 (use-package neotree
   :commands neotree-toggle
   :init
@@ -95,6 +85,8 @@
   :config
   (evil-set-initial-state 'neotree-mode 'emacs)
   )
+(use-package all-the-icons
+  :after neotree)
 
 
 ;; Editor
@@ -106,6 +98,7 @@
 (use-package multiple-cursors)
 
 (use-package yasnippet
+  :commands (yas/expand-snippet yas-insert-snippet)
   :config
   (yas-global-mode 1))
 (use-package yasnippet-snippets
@@ -120,21 +113,17 @@
 (use-package ace-window)
 (use-package browse-kill-ring)
 
-(use-package indent-guide
-  :config
-  (indent-guide-global-mode t))
+(use-package highlight-indent-guides
+  :hook (prog-mode . highlight-indent-guides-mode))
+;; (use-package indent-guide
+;;   :config
+;;   (indent-guide-global-mode t))
 
 (use-package expand-region)
 
 (use-package hl-todo
   :config
   (global-hl-todo-mode))
-(use-package whitespace
-  :init
-  (setq whitespace-style '(face empty tabs lines-tail trailing))
-  (setq whitespace-line-column 88)
-  :config
-  (add-hook 'prog-mode-hook 'whitespace-mode))
 
 (use-package bufler
   :init
@@ -145,6 +134,7 @@
 
 ;; Terminals
 (use-package multi-term
+  :commands (multi-term-dedicated-toggle multi-term)
   :init
   (unless (memq window-system '(mac ns x))
     (setenv "SHELL" "powershell")
@@ -162,7 +152,7 @@
       `((".*" ,(concat user-emacs-directory ".backup") t)))
 (setq save-place-file (concat user-emacs-directory ".places"))
 
-;; Configuration
+;; Global Editor Configuration
 (require 'uniquify)
 (require 'saveplace)
 (setq-default save-place t)
@@ -183,7 +173,6 @@
       require-final-newline t
       load-prefer-newer t)
 
-
 (global-hl-line-mode t)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
-(setq initial-major-mode 'org-mode)
+;; (setq initial-major-mode 'org-mode)

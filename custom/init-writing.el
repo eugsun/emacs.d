@@ -1,6 +1,8 @@
 ;; -*- lexical-binding: t; -*-
 
 (use-package org
+  :mode ("\\.org\\'" . org-mode)
+  :commands (org-capture org-agenda deft)
   :init
   ;; Location
   (setq org-directory "~/Dropbox/Private/org/")
@@ -222,7 +224,6 @@
     )
   :config
   (add-hook 'olivetti-mode-hook 'set-reader-view)
-  ;; (add-hook 'text-mode-hook '(whitespace-mode nil))
   )
 
 ;; Thesaurus

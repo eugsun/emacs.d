@@ -54,7 +54,6 @@
   ;; (advice-add 'dart-mode :after #'flymake-mode-off)
   ;; (advice-add 'dart-mode :after #'flycheck-mode-on-safe)
   ;; (advice-add 'dart-mode :after #'eglot-ensure)
-  (dap-dart-setup)
   )
 (use-package flutter
   :after dart-mode)
@@ -68,10 +67,10 @@
    "n h r" #'hover-run-or-hot-reload
    "n h R" #'hover-run-or-hot-restart))
 (use-package lsp-dart
-  :hook (dart-mode . lsp)
+  :hook ((dart-mode . lsp)
+         (dart-mode . dap-dart-setup))
   :custom
-  (lsp-dart-flutter-widget-guides nil)
-  )
+  (lsp-dart-flutter-widget-guides nil))
 
 ;;; Configuration of Android projects use Groovy/Gradle
 (use-package groovy-mode
