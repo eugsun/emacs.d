@@ -124,7 +124,7 @@
 (global-set-key (kbd "M-0") 'maximize-window)
 (global-set-key (kbd "M-p") 'ace-window)
 (global-set-key (kbd "M-/") 'hippie-expand)
-(global-set-key (kbd "C-'") #'imenu-list-smart-toggle)
+(global-set-key (kbd "M-'") #'imenu-list-smart-toggle)
 
 (global-set-key (kbd "C-s") 'isearch-forward-regexp)
 (global-set-key (kbd "C-S") 'isearch-forward-symbol-at-point)

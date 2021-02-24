@@ -107,7 +107,10 @@
 (use-package smartparens
   :config
   (show-smartparens-global-mode t)
-  (smartparens-global-mode t))
+  (smartparens-global-mode t)
+  (sp-local-pair 'org-mode "~" "~")
+  (sp-local-pair 'org-mode "=" "=")
+  (sp-local-pair 'org-mode "*" "*"))
 
 (use-package avy)
 (use-package ace-window)

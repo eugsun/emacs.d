@@ -102,9 +102,10 @@
   ;; pip install isort
   :after python-mode)
 (use-package lsp-pyright
-  :after (python-mode lsp))
-(use-package lsp-python-ms
-  :after (python-mode lsp))
+  :after python-mode
+  :hook (python-mode . (lambda ()
+                         (require 'lsp-pyright)
+                         (lsp))))
 
 
 (use-package fountain-mode
