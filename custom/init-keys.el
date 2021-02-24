@@ -68,7 +68,7 @@
    "or"  '(org-refile :which-key "refile")
    "o;"  '(org-roam-buffer-toggle-display :which-key "roam display")
    "of"  '(lambda () (interactive) (org/five-minute-journal-entry))
-   "oR"  '(org-re-reveal-export-to-html-and-browse)
+   ;; "oR"  '(org-re-reveal-export-to-html-and-browse)
    ;; Search
    "ss"  '(swiper :which-key "search buffer")
    "sa"  '(swiper-all :which-key "search all buffers")

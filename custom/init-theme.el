@@ -3,12 +3,16 @@
 ;; --
 ;; Theme
 ;; --
-(use-package doom-themes)
 (use-package doom-modeline
   :init
   (doom-modeline-mode 1)
   :custom
   (doom-modeline-enable-word-count 1))
+
+;; (use-package doom-themes)
+;; (use-package spacemacs-theme
+;;   :disabled)
+(use-package solarized-theme)
 
 ;; --
 ;; Typeface
@@ -45,13 +49,15 @@
 ;; --
 ;; -- Automatically switch between ligh and dark theme based on time of day
 ;; --
+(setq-default theme-autoswitch t)
+(setq-default theme-autoswitch/day-start-hour 8)
+(setq-default theme-autoswitch/day-end-hour 17)
+
+(setq-default theme-autoswitch/light-theme 'solarized-light)
+(setq-default theme-autoswitch/dark-theme 'solarized-dark)
+
 (if (display-graphic-p)
     (progn
-      (setq-default theme-autoswitch t)
-      (setq-default theme-autoswitch/light-theme 'doom-solarized-light)
-      (setq-default theme-autoswitch/dark-theme 'doom-peacock)
-      (setq-default theme-autoswitch/day-start-hour 8)
-      (setq-default theme-autoswitch/day-end-hour 17)
       (if (and theme-autoswitch (display-graphic-p))
           (progn
             (setq current-theme theme-autoswitch/dark-theme)
@@ -72,4 +78,4 @@
             (run-with-timer 0 3600 #'sync-theme-with-time)
             )
         (load-theme theme-autoswitch/dark-theme t)))
-  (load-theme 'doom-dark+))
+  (load-theme theme-autoswitch/dark-theme t))

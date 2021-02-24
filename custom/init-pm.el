@@ -1,10 +1,10 @@
 ;; -*- lexical-binding: t; -*-
 
 (use-package projectile
+  :hook (prog-mode . projectile-mode)
+  :commands counsel-projectile-switch-project
   :init
   (setq projectile-require-project-root nil)
-  :config
-  (projectile-mode t)
   (setq projectile-indexing-method 'alien))
 (use-package counsel-projectile
   :after (counsel projectile))
