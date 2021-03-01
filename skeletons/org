@@ -1,2 +1,3 @@
 #+TITLE: ${1:`(my/convert-resource-name (file-name-nondirectory (buffer-file-name)))`}
 #+DATE: `(format-time-string "%Y-%m-%d %a" )`
+#+ROAM_KEY: `(file-name-nondirectory (buffer-file-name))`

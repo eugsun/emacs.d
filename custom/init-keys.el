@@ -68,6 +68,7 @@
    "or"  '(org-refile :which-key "refile")
    "o;"  '(org-roam-buffer-toggle-display :which-key "roam display")
    "of"  '(lambda () (interactive) (org/five-minute-journal-entry))
+   "ol"  'org-store-link
    ;; "oR"  '(org-re-reveal-export-to-html-and-browse)
    ;; Search
    "ss"  '(swiper :which-key "search buffer")
@@ -109,7 +110,7 @@
    :states '(normal visual)
    :prefix nil
    :keymaps 'org-mode-map
-   "gd" 'org-agenda-open-link
+   "gd" 'org-open-at-point
    [C-return]  'org/insert-item
    )
 
