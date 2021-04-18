@@ -33,6 +33,10 @@
 
 ;; Packages
 (require 'package)
+(unless (memq window-system '(mac ns x))
+  ; Windows has trouble with package refresh
+  (setq package-check-signature nil)
+)
 (setq package-enable-at-startup nil)
 (setq package-archives '(("melpa" . "http://melpa.org/packages/")
                          ("org" . "http://orgmode.org/elpa/")

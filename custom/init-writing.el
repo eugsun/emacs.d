@@ -24,6 +24,7 @@
   (setq org-log-done t)
   (setq org-tags-column 2)
   (setq org-startup-indented t)
+  (setq org-pretty-entities t)
   (setq org-image-actual-width nil)
 
   ;; Habits
