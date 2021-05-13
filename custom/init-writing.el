@@ -135,6 +135,8 @@
 ;;   :commands org-re-reveal-export-to-html-and-browse)
 ;; (use-package org-re-reveal-ref
 ;;   :after org-re-reveal)
+(use-package org-tree-slide
+  :after org)
 
 ;; HTTP
 (use-package verb

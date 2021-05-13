@@ -3,5 +3,6 @@ ${1:`(file-name-nondirectory (buffer-file-name))`}
 """
 
 from __future__ import annotations
+from typing import List, Optional
 
 $2

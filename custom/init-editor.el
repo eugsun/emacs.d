@@ -98,9 +98,9 @@
 (use-package multiple-cursors)
 
 (use-package yasnippet
-  :commands (yas/expand-snippet yas-insert-snippet)
+  ;; :commands (yas/expand-snippet yas-insert-snippet)
   :config
-  (yas-global-mode 1))
+  (yas-global-mode t))
 (use-package yasnippet-snippets
   :after yasnippet)
 
@@ -110,7 +110,8 @@
   (smartparens-global-mode t)
   (sp-local-pair 'org-mode "~" "~")
   (sp-local-pair 'org-mode "=" "=")
-  (sp-local-pair 'org-mode "*" "*"))
+  (sp-local-pair 'org-mode "*" "*")
+  (sp-local-pair 'org-mode "/" "/"))
 
 (use-package avy)
 (use-package ace-window)

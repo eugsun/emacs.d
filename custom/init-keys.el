@@ -107,6 +107,11 @@
 
   ;; org-mode bindings
   (general-define-key
+   :keymaps 'org-mode-map
+   "<f8>" 'org-tree-slide-mode
+   "s-<f8>" 'org-tree-slide-skip-done-toggle)
+
+  (general-define-key
    :states '(normal visual)
    :prefix nil
    :keymaps 'org-mode-map

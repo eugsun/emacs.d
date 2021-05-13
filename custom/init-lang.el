@@ -7,7 +7,11 @@
   :commands dap-debug)
 (use-package lsp-mode
   :commands lsp
+  ;; :init
   :config
+  (setq lsp-file-watch-threshold 50000)
+  (push "[/\\\\]\\.emacs\\.d/\\.extension\\'" lsp-file-watch-ignored-directories)
+  (push "[/\\\\]\\.emacs\\.d/elpa\\'" lsp-file-watch-ignored-directories)
   (setq lsp-auto-guess-root t)
   (setq lsp-eldoc-render-all nil)
   (setq lsp-prefer-flymake nil)
@@ -87,7 +91,9 @@
 
 ;; Python
 (use-package python-mode
-  :mode "\\.py\\'")
+  :mode "\\.py\\'"
+  :custom
+  (python-shell-interpreter "ipython"))
 (use-package python-black
   :after python-mode
   :config
@@ -101,11 +107,15 @@
   ;; requires:
   ;; pip install isort
   :after python-mode)
+(use-package pyvenv
+  :after python-mode)
 (use-package lsp-pyright
-  :after python-mode
+  ;; :mode "\\.py\\'"
+  ;; :after python-mode
   :hook (python-mode . (lambda ()
                          (require 'lsp-pyright)
-                         (lsp))))
+                         (lsp-deferred)))
+  )
 
 
 (use-package fountain-mode
@@ -144,10 +154,10 @@
 ;; CSharp
 (use-package csharp-mode
   :mode "\\.cs\\'"
-  :config
-  (add-hook 'csharp-mode-hook 'flycheck-mode)
+  :init
   ;; To make omnisharp work, replace the server installed mono to the global one
-  (advice-add 'csharp-mode :after #'lsp))
+  (advice-add 'csharp-mode :after #'lsp)
+  (add-hook 'csharp-mode-hook 'flycheck-mode))
 (use-package csproj-mode
   :after csharp-mode)
 
