@@ -33,3 +33,5 @@ tramp
 .dap-breakpoints
 
 .extension/
+eclipse.jdt.ls/
+workspace/

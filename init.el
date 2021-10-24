@@ -15,7 +15,7 @@
 (add-hook 'emacs-startup-hook #'display-startup-time)
 
 ;; Native compilation
-(setq comp-speed 2)
+(setq comp-speed 3)
 (setq comp-deferred-compilation t)
 
 ;; Custom-file
@@ -40,7 +40,10 @@
 (setq package-enable-at-startup nil)
 (setq package-archives '(("melpa" . "http://melpa.org/packages/")
                          ("org" . "http://orgmode.org/elpa/")
-                         ("gnu" . "http://elpa.gnu.org/packages/")))
+                         ("gnu" . "http://elpa.gnu.org/packages/")
+                         ("ox-odt" . "https://kjambunathan.github.io/elpa/")
+                         ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
+(setq package-user-dir "~/.local/emacs-packages/")
 (package-initialize)
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
@@ -56,8 +59,8 @@
 ;;;;;;
 (add-to-list 'load-path "~/.emacs.d/custom/")
 
-(load "init-theme")
 (load "init-editor")
+(load "init-theme")
 (load "init-writing")
 (load "init-pm")
 (load "init-web")
@@ -66,5 +69,7 @@
 (load "init-skeleton")
 
 (load "init-util")
+
+(load "init-st")
 
 (load-file custom-file)

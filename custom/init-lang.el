@@ -2,17 +2,21 @@
 
 (use-package flycheck
   :after lsp)
-
+(use-package posframe
+  ;; Posframe is a pop-up tool that must be manually installed for dap-mode
+  )
 (use-package dap-mode
-  :commands dap-debug)
+  :hook
+  (lsp-mode . dap-mode)
+  (lsp-mode . dap-ui-mode))
+
 (use-package lsp-mode
-  :commands lsp
   ;; :init
   :config
-  (setq lsp-file-watch-threshold 50000)
+  (setq lsp-file-watch-threshold 3000)
   (push "[/\\\\]\\.emacs\\.d/\\.extension\\'" lsp-file-watch-ignored-directories)
   (push "[/\\\\]\\.emacs\\.d/elpa\\'" lsp-file-watch-ignored-directories)
-  (setq lsp-auto-guess-root t)
+  ;; (setq lsp-auto-guess-root t)
   (setq lsp-eldoc-render-all nil)
   (setq lsp-prefer-flymake nil)
   (setq lsp-enable-completion-at-point t)
@@ -22,7 +26,10 @@
   (setq lsp-completion-provider :capf))
 
 (use-package lsp-ui
-  :commands lsp-ui-mode)
+  :commands lsp-ui-mode
+  ;; :custom
+  ;; (lsp-ui-sideline-enable nil)
+  )
 (use-package lsp-treemacs
   :after lsp)
 
@@ -110,8 +117,8 @@
 (use-package pyvenv
   :after python-mode)
 (use-package lsp-pyright
-  ;; :mode "\\.py\\'"
-  ;; :after python-mode
+  :mode "\\.py\\'"
+  :after python-mode
   :hook (python-mode . (lambda ()
                          (require 'lsp-pyright)
                          (lsp-deferred)))
@@ -225,3 +232,50 @@
     (add-hook 'before-save-hook #'lsp-format-buffer t t)
     (add-hook 'before-save-hook #'lsp-organize-imports t t))
   (add-hook 'go-mode-hook #'lsp-go-install-save-hooks))
+
+
+;; Ruby
+(use-package enh-ruby-mode
+  :mode "\\.rb\\'"
+  :config
+  (add-hook 'enh-ruby-mode-hook #'lsp))
+
+
+;; Java/Scala
+(use-package lsp-java
+  :after (java-mode lsp)
+  :mode "\\.java\\'"
+  :config
+  (add-hook 'java-mode-hook 'lsp))
+
+;; Scala
+(use-package scala-mode
+  :mode "\\.scala\\'"
+  :config
+  (setq lsp-enable-file-watchers nil)   ; hangs otherwise
+  (add-hook 'scala-mode-hook #'lsp)
+  )
+(use-package lsp-metals
+  :after (scala-mode lsp)
+  :mode "\\.scala\\'"
+  )
+(use-package sbt-mode
+  :commands sbt-start sbt-command
+  :config
+  ;; WORKAROUND: https://github.com/ensime/emacs-sbt-mode/issues/31
+  ;; allows using SPACE when in the minibuffer
+  (substitute-key-definition
+   'minibuffer-complete-word
+   'self-insert-command
+   minibuffer-local-completion-map)
+   ;; sbt-supershell kills sbt-mode:  https://github.com/hvesalai/emacs-sbt-mode/issues/152
+   (setq sbt:program-options '("-Dsbt.supershell=false"))
+)
+
+;; Protobuf
+(use-package protobuf-mode
+  :mode "\\.proto\\'")
+
+;; Bazel
+(use-package bazel
+  :mode "\\BUILD\\'")

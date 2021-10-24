@@ -7,7 +7,7 @@
   (exec-path-from-shell-arguments nil)
   (exec-path-from-shell-check-startup-files nil)
   (exec-path-from-shell-variables
-        `("PATH" "MANPATH" "WORKON_HOME"))
+        `("PATH" "MANPATH" "WORKON_HOME" "DICPATH"))
   :config
   (exec-path-from-shell-initialize))
 
@@ -62,6 +62,7 @@
 (use-package counsel
   :after ivy
   :init
+  (setq counsel-projectile-find-file-matcher 'ivy--re-filter)
   (setq counsel-rg-base-command
         "rg -S -M 140 --no-heading --line-number --color never %s ."))
 (use-package rg
@@ -130,11 +131,11 @@
   (global-hl-todo-mode))
 
 (use-package bufler
+  :commands bufler-list
   :init
   (evil-set-initial-state 'bufler-list-mode 'emacs)
   (setq completion-styles '(basic substring partial-completion))
-  :config
-  (bufler-mode))
+  )
 
 ;; Terminals
 (use-package multi-term
@@ -145,8 +146,7 @@
     (setq multi-term-program "powershell")
     )
   :config
-  (setq multi-term-dedicated-select-after-open-p t)
-  )
+  (setq multi-term-dedicated-select-after-open-p t))
 
 
 ;; Put temp files in a more sane place

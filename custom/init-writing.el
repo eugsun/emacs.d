@@ -5,20 +5,21 @@
   :commands (org-capture org-agenda deft)
   :init
   ;; Location
-  (setq org-directory "~/Dropbox/Private/org/")
+  (setq org-directory "~/kb/")
   (setq org-base org-directory)
+  (setq org-agenda-base (concat org-directory "agenda/"))
   (setq org-agenda-files
         (append
-         (file-expand-wildcards (concat org-directory "agenda/*.org"))
-         (file-expand-wildcards (concat org-directory "agenda/job/*.org"))
-         (file-expand-wildcards (concat org-directory "agenda/mobile/*.org"))
+         (file-expand-wildcards (concat org-agenda-base "*.org"))
+         (file-expand-wildcards (concat org-agenda-base "job/*.org"))
+         (file-expand-wildcards (concat org-agenda-base "mobile/*.org"))
          ))
   (setq org-refile-targets (quote ((nil :maxlevel . 9)
                                    (org-agenda-files :maxlevel . 9))))
-  (setq org-default-notes-file (concat org-base "agenda/notes.org"))
-  (setq org-default-todos-file (concat org-base "agenda/todos.org"))
-  (setq org-default-ideas-file (concat org-base "agenda/ideas.org"))
-  (setq org-default-games-file (concat org-base "agenda/games.org"))
+  (setq org-default-notes-file (concat org-agenda-base "notes.org"))
+  (setq org-default-todos-file (concat org-agenda-base "todos.org"))
+  (setq org-default-ideas-file (concat org-agenda-base "ideas.org"))
+  (setq org-default-games-file (concat org-agenda-base "games.org"))
 
   ;; Editor
   (setq org-log-done t)
@@ -37,9 +38,9 @@
   ;; Agenda
   (setq org-agenda-files
         (append
-         (file-expand-wildcards (concat org-base "agenda/*.org"))
-         (file-expand-wildcards (concat org-base "agenda/job/*.org"))
-         (file-expand-wildcards (concat org-base "agenda/mobile/*.org"))
+         (file-expand-wildcards (concat org-agenda-base "*.org"))
+         (file-expand-wildcards (concat org-agenda-base "job/*.org"))
+         (file-expand-wildcards (concat org-agenda-base "mobile/*.org"))
          ))
   (setq org-agenda-file-regexp "\\`[^.].*\\.org'\\|[0-9]+")
   (setq org-agenda-skip-deadline-prewarning-if-scheduled t)
@@ -87,11 +88,12 @@
    '((python . t)))
   )
 
+
 ;; Journal
 (use-package org-journal
   :after org
-  :config
-  (add-hook 'org-journal-mode-hook #'outline-minor-mode)
+  ;; :config
+  ;; (add-hook 'org-journal-mode-hook #'outline-minor-mode)
   :custom
   (org-journal-dir (concat org-base "journal"))
   (org-journal-file-type 'monthly)
@@ -147,21 +149,39 @@
 (use-package deft
   :commands deft
   :config
-  (evil-set-initial-state 'deft-mode 'emacs)
-  (setq deft-directory (concat org-directory "/kb"))
+  ;; (evil-set-initial-state 'deft-mode 'emacs)
+  (setq deft-use-filter-string-for-filename nil)
+  (setq deft-directory (concat org-directory "notes/"))
   (setq deft-recursive t)
   (setq deft-extensions '("org"))
   (setq deft-auto-save-interval 0)
+  (setq deft-strip-title-regexp
+        "\\(?:^%+\\|^#\\+TITLE: *\\|^[#* ]+\\|-\\*-[[:alpha:]]+-\\*-\\|^Title:[	 ]*\\|#+$\\)")
+  (setq deft-strip-summary-regexp "\\([
+    ]\\|^#\\+[[:upper:]_]+:.*$\\|^\\:[[:upper:]_]+:.*$\\)")
+  (setq deft-use-filename-as-title t)
+  (add-hook 'deft-open-file-hook 'deft-filter-clear)
   )
 
 ;; Org-roam
 (use-package org-roam
-  :after deft
+  :after org
+  :init
+  (setq org-roam-v2-ack t)
   :config
   (setq org-roam-db-location "~/Den/org-roam.db")
   (setq org-roam-directory org-directory)
+  (org-roam-db-autosync-mode)
   )
 
+;; Org-to-odt export
+(use-package ox-odt
+  :after org)
+
+(use-package org-contrib
+  :after org
+  :config
+  (require 'ox-confluence))
 
 ;; --
 ;; Utils
@@ -219,7 +239,7 @@
   (olivetti-set-width 88)
   )
 (use-package olivetti
-  :hook (text-mode . olivetti-mode)
+  :hook (org-mode . olivetti-mode)
   :init
   (if (memq window-system '(mac ns x))
       (setq olivetti-body-width 88)

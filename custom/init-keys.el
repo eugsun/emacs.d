@@ -8,7 +8,7 @@
   (general-define-key
    :states '(normal visual)
    :prefix nil
-   "TAB" 'indent-for-tab-command
+   ;; "TAB" 'indent-for-tab-command
    "gd"  'xref-find-definitions
    "gD"  'xref-find-definitions-other-window
    ;; Navigation
@@ -34,7 +34,7 @@
    ;; Buffers
    "bi"  '(ibuffer :which-key "ibuffer")
    "br"  '(revert-buffer :which-key "revert buffer")
-   "bb"  '(bufler-switch-buffer :which-key "switch buffer")
+   "bb"  '(counsel-switch-buffer :which-key "switch buffer")
    "bl"  '(bufler-list :which-key "bufler list")
    "be"  '(eval-buffer :which-key "eval buffer")
    "bk"  '(kill-current-buffer :which-key "kill buffer")
@@ -60,6 +60,7 @@
    "oj"  '((lambda () (interactive) (org-journal-open-current-journal-file)) :which-key "today's journal")
    "of"  '((lambda () (interactive) (org/five-minute-journal-entry)) :which-key "new five-min entry")
    "oo"  '(org-capture :which-key "capture")
+   "oe"  'org-export-dispatch
    "oh"  '((lambda () (interactive) (org-agenda nil "h")) :which-key "agenda home")
    "on"  '((lambda () (interactive) (find-file org-default-notes-file)) :which-key "open notes")
    "ot"  '((lambda () (interactive) (find-file org-default-todos-file)) :which-key "open todos")
@@ -69,6 +70,7 @@
    "o;"  '(org-roam-buffer-toggle-display :which-key "roam display")
    "of"  '(lambda () (interactive) (org/five-minute-journal-entry))
    "ol"  'org-store-link
+   "oL"  'org-toggle-link-display
    ;; "oR"  '(org-re-reveal-export-to-html-and-browse)
    ;; Search
    "ss"  '(swiper :which-key "search buffer")
@@ -97,34 +99,30 @@
    ;; Others
    ";"   '(aweshell-dedicated-toggle :which-key "toggle eshell")
    "'"   '(multi-term-dedicated-toggle :which-key "toggle terminal")
-   "g"   '(magit :which-key "magit")
+   "gg"  '(magit :which-key "magit")
+   "gb"  '(magit-blame :which-key "blame")
+   "gl"  '(magit-log-current :which-key "log current branch")
+   "gL"  '(magit-log-buffer-file :which-key "log current file")
    "q"   '(save-buffers-kill-terminal :which-key "save all and quit")
    "k"   '(browse-kill-ring :which-key "browse kill ring")
    "j"   '(avy-goto-char-timer :which-key "jump to char")
    "T"   '(powerthesaurus-lookup-word-at-point :which-key "look up thesaurus")
    "d"   '(deft :which-key "deft")
-   )
+   "D"   '(dictionary-lookup-definition :which-key "dict lookup"))
 
   ;; org-mode bindings
   (general-define-key
    :keymaps 'org-mode-map
    "<f8>" 'org-tree-slide-mode
-   "s-<f8>" 'org-tree-slide-skip-done-toggle)
+   "s-<f8>" 'org-tree-slide-skip-done-toggle
+   [C-return]  'org/insert-item)
 
   (general-define-key
    :states '(normal visual)
    :prefix nil
    :keymaps 'org-mode-map
    "gd" 'org-open-at-point
-   [C-return]  'org/insert-item
-   )
-
-  (general-define-key
-   :states '(insert emacs)
-   :prefix nil
-   :keymaps 'org-mode-map
-   [C-return]  'org/insert-item
-   ))
+   "TAB" 'org-cycle))
 
 ;; Global keybinding
 (global-set-key (kbd "M-0") 'maximize-window)
