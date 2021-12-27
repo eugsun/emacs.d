@@ -178,6 +178,10 @@
 (use-package ox-odt
   :after org)
 
+;; Org-to-markdown export
+(use-package ox-hugo
+  :after org)
+
 (use-package org-contrib
   :after org
   :config
