@@ -13,7 +13,12 @@
   :after (counsel projectile))
 
 (use-package magit
-  :commands magit-status)
+  :commands magit-status
+  :config
+  (setq magit-refresh-verbose nil)      ; Toggle when need to profile
+  (setq magit-refresh-status-buffer nil)
+  (remove-hook 'magit-status-sections-hook 'magit-insert-tags-header)
+  (remove-hook 'magit-status-sections-hook 'magit-insert-status-headers))
 
 ;; TODO: Figure out performative alternative
 ;; (use-package forge

@@ -13,6 +13,7 @@
 (use-package lsp-mode
   ;; :init
   :config
+  (setq lsp-enable-file-watchers nil)
   (setq lsp-file-watch-threshold 3000)
   (push "[/\\\\]\\.emacs\\.d/\\.extension\\'" lsp-file-watch-ignored-directories)
   (push "[/\\\\]\\.emacs\\.d/elpa\\'" lsp-file-watch-ignored-directories)
