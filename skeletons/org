@@ -1,2 +1,5 @@
+:PROPERTIES:
+:ID: `(org-id-new)`
+:END:
 #+TITLE: ${1:`(my/convert-resource-name (file-name-nondirectory (buffer-file-name)))`}
-#+DATE: `(format-time-string "%Y-%m-%d %a" )`
+#+DATE: [`(format-time-string "%Y-%m-%d %a" )`]

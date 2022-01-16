@@ -169,10 +169,18 @@
   :init
   (setq org-roam-v2-ack t)
   :config
-  (setq org-roam-db-location "~/Den/org-roam.db")
+  (setq org-roam-db-location (concat org-directory "roam.db"))
   (setq org-roam-directory org-directory)
   (org-roam-db-autosync-mode)
   )
+
+(use-package org-roam-ui
+  :after org-roam
+  :config
+  (setq org-roam-ui-sync-theme t
+        org-roam-ui-follow t
+        org-roam-ui-update-on-save t
+        org-roam-ui-open-on-start t))
 
 ;; Org-to-odt export
 (use-package ox-odt
@@ -238,7 +246,7 @@
 
 
 (defun set-reader-view ()
-  (text-scale-set 1)
+  ;; (text-scale-set 1)
   (setq line-spacing 4)
   (olivetti-set-width 88)
   )
