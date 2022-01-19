@@ -278,5 +278,4 @@
   :mode "\\.proto\\'")
 
 ;; Bazel
-(use-package bazel
-  :mode "\\BUILD\\'")
+(use-package bazel)
