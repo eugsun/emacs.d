@@ -5,16 +5,27 @@
   :config
   (add-hook 'web-mode-hook 'flow-minor-enable-automatically))
 
+(use-package add-node-modules-path)
 (use-package web-mode
   :mode (".html$" ".css$" ".vue$" ".js$" ".erb$")
-  :config
-  (setq web-mode-markup-indent-offset 2)
-  (setq web-mode-attr-indent-offset 2)
-  (setq web-mode-attr-value-indent-offset 2)
-  (setq web-mode-css-indent-offset 2)
-  (setq web-mode-code-indent-offset 2)
-  (setq web-mode-enable-auto-pairing t)
-  (setq web-mode-enable-css-colorization t))
+  :init
+  (add-node-modules-path)
+  :custom
+  (web-mode-script-padding 2)
+  (web-mode-markup-indent-offset 2)
+  (web-mode-attr-indent-offset 2)
+  (web-mode-attr-value-indent-offset 2)
+  (web-mode-css-indent-offset 2)
+  (web-mode-code-indent-offset 2)
+  (web-mode-script-padding 2)
+  (web-mode-style-padding 2)
+  (web-mode-block-padding 2)
+  (web-mode-enable-auto-pairing t)
+  (web-mode-enable-css-colorization t)
+  :hook (web-mode . (lambda ()
+                      (if (equal web-mode-content-type "javascript")
+                          (web-mode-set-content-type "jsx")
+                        (message "now set to: %s" web-mode-content-type)))))
 (use-package emmet-mode
   :after web-mode
   :hook (web-mode . emmet-mode))
@@ -65,6 +76,9 @@
 
 
 ;; Prettier
+(use-package prettier-js
+  :after web-mode)
+
 ;; (defun enable-minor-mode (my-pair)
 ;;   (if (buffer-file-name)
 ;;     (if (string-match (car my-pair) buffer-file-name)
