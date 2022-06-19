@@ -80,6 +80,7 @@
   (advice-add 'org-agenda-todo :after #'org-save-all-org-buffers)
 
   :config
+  (add-to-list 'org-src-lang-modes (cons "jsx" 'web-mode))
   ;; Bring back src block completion with <s
   (require 'org-tempo)
   ;; Babel

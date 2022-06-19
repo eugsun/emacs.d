@@ -1,7 +1,6 @@
 ;; -*- lexical-binding: t; -*-
 
-(use-package flycheck
-  :after lsp)
+(use-package flycheck)
 (use-package posframe
   ;; Posframe is a pop-up tool that must be manually installed for dap-mode
   )
@@ -13,6 +12,8 @@
 (use-package lsp-mode
   ;; :init
   :config
+
+  (setq lsp-response-timeout 20)
   (setq lsp-enable-file-watchers nil)
   (setq lsp-file-watch-threshold 3000)
   (push "[/\\\\]\\.emacs\\.d/\\.extension\\'" lsp-file-watch-ignored-directories)

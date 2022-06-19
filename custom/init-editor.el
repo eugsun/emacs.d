@@ -57,14 +57,16 @@
   :init
   (setq ivy-use-virtual-buffer t)
   (setq enable-recursive-minibuffers t)
+  (setq ivy-sort-max-size 7500)
   :config
   (ivy-mode 1))
 (use-package counsel
   :after ivy
-  :init
-  (setq counsel-projectile-find-file-matcher 'ivy--re-filter)
-  (setq counsel-rg-base-command
-        "rg -S -M 140 --no-heading --line-number --color never %s ."))
+  ;; :init
+  ;; (setq counsel-projectile-find-file-matcher 'ivy--re-filter)
+  ;; (setq counsel-rg-base-command
+  ;;       "rg -S -M 140 --no-heading --line-number --color never %s .")
+  )
 (use-package rg
   :commands counsel-rg)
 (use-package swiper
