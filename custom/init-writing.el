@@ -183,9 +183,9 @@
         org-roam-ui-update-on-save t
         org-roam-ui-open-on-start t))
 
-;; Org-to-odt export
-(use-package ox-odt
-  :after org)
+;; ;; Org-to-odt export
+;; (use-package ox-odt
+;;   :after org)
 
 ;; Org-to-markdown export
 (use-package ox-hugo
@@ -246,16 +246,17 @@
       (evil-insert 1))))
 
 
+(setq my/olivetti/width 95)
 (defun set-reader-view ()
   ;; (text-scale-set 1)
   (setq line-spacing 4)
-  (olivetti-set-width 88)
+  (olivetti-set-width my/olivetti/width)
   )
 (use-package olivetti
   :hook (org-mode . olivetti-mode)
   :init
   (if (memq window-system '(mac ns x))
-      (setq olivetti-body-width 88)
+      (setq olivetti-body-width my/olivetti/width)
     ;; TODO: Revisit when Emacs 27 fixes window-set-margins
     (setq olivetti-body-width 1.0)
     )

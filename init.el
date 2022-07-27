@@ -32,24 +32,42 @@
 (setq initial-scratch-message nil)
 
 ;; Packages
-(require 'package)
-(setq package-check-signature nil)
-(setq package-enable-at-startup nil)
-(setq package-archives '(("melpa" . "http://melpa.org/packages/")
-                         ("gnu" . "http://elpa.gnu.org/packages/")
-                         ("ox-odt" . "https://kjambunathan.github.io/elpa/")
-                         ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
-(setq package-user-dir "~/.local/emacs-packages/")
-(package-initialize)
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package)
-  (package-install 'org-plus-contrib)
-  )
+;; use package.el
+;; (require 'package)
+;; (setq package-check-signature nil)
+;; (setq package-enable-at-startup nil)
+;; (setq package-archives '(("melpa" . "http://melpa.org/packages/")
+;;                          ("gnu" . "http://elpa.gnu.org/packages/")
+;;                          ("ox-odt" . "https://kjambunathan.github.io/elpa/")
+;;                          ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
+;; (setq package-user-dir "~/.local/emacs-packages/")
+;; (package-initialize)
+;; (unless (package-installed-p 'use-package)
+;;   (package-refresh-contents)
+;;   (package-install 'use-package)
+;;   (package-install 'org-plus-contrib)
+;;   )
+
+;; use straight.el
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
 
 (require 'use-package)
 (setq use-package-always-ensure t)
 (setq use-package-verbose t)
+;; straight.el integration
+(setq straight-use-package-by-default t)
 
 ;;;;;;
 ;;;;;;
@@ -63,9 +81,7 @@
 (load "init-lang")
 (load "init-keys")
 (load "init-skeleton")
-
 (load "init-util")
-
 (load "init-st")
 
 (load-file custom-file)

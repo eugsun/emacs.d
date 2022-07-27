@@ -35,3 +35,7 @@ tramp
 .extension/
 eclipse.jdt.ls/
 workspace/
+
+.places
+history
+straight/

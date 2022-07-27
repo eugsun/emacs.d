@@ -280,3 +280,6 @@
 
 ;; Bazel
 (use-package bazel)
+
+;; Lua
+(use-package lua-mode)

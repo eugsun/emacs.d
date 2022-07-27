@@ -35,11 +35,12 @@
 
 (use-package add-node-modules-path)
 (use-package web-mode
-  :mode (".html$" ".css$" ".vue$" ".js$" ".erb$")
+  :mode (".html$" ".css$" ".vue$" ".js$" ".erb$" ".tsx$")
   :init
   (add-node-modules-path)
   :config
   (flycheck-add-mode 'javascript-eslint 'web-mode)
+  (flycheck-add-mode 'typescript-tslint 'web-mode)
   :custom
   (web-mode-script-padding 2)
   (web-mode-markup-indent-offset 2)
@@ -66,6 +67,17 @@
   :hook (web-mode . emmet-mode))
 
 ;; Javascript
+(use-package tide :ensure t)
+(defun setup-tide-mode ()
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1))
+(add-hook 'typescript-mode-hook #'setup-tide-mode)
+
+
 ;; TODO: Figure out how to make js2 work well with jsx files
 ;; (use-package js2-mode
 ;;   :mode "\\.jsx?\\'"

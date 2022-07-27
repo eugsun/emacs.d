@@ -161,7 +161,7 @@
 ;; Global Editor Configuration
 (require 'uniquify)
 (require 'saveplace)
-(setq-default save-place t)
+(save-place-mode t)
 
 (setq-default line-spacing 2)
 (setq-default cursor-type '(bar . 2))
@@ -182,3 +182,13 @@
 (global-hl-line-mode t)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 ;; (setq initial-major-mode 'org-mode)
+
+(recentf-mode t)
+
+(setq history-length 25)
+(savehist-mode t)
+
+(setq use-dialog-box nil)
+
+(setq global-auto-revert-non-file-buffers t)
+(global-auto-revert-mode t)

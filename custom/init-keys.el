@@ -31,6 +31,7 @@
    "ff"  '(counsel-find-file :which-key "find file")
    "fi"  '(iqa-find-user-init-file :which-key "find init file")
    "fe"  '(iqa-reload-user-init-file :which-key "eval init file")
+   "fr"  '(counsel-recentf :which-key "open recent file")
    ;; Buffers
    "bi"  '(ibuffer :which-key "ibuffer")
    "br"  '(revert-buffer :which-key "revert buffer")
