@@ -76,6 +76,7 @@
   (eldoc-mode +1)
   (tide-hl-identifier-mode +1))
 (add-hook 'typescript-mode-hook #'setup-tide-mode)
+(add-hook 'web-mode-hook #'setup-tide-mode)
 
 
 ;; TODO: Figure out how to make js2 work well with jsx files

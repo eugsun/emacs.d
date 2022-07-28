@@ -20,22 +20,29 @@
    :states '(normal visual insert emacs)
    :prefix "SPC"
    :non-normal-prefix "M-SPC"
-   "SPC" '(counsel-M-x :which-key "M-x")
-   "/"   '(counsel-projectile-rg :which-key "ripgrep")
-   "."   '(projectile-find-file :which-key "find file in project")
+   ;; "SPC" '(counsel-M-x :which-key "M-x")
+   "SPC" '(execute-extended-command :which-key "M-x")
+   ;; "/"   '(counsel-projectile-rg :which-key "ripgrep")
+   "/"   '(consult-ripgrep :which-key "ripgrep")
+   ;; "."   '(projectile-find-file :which-key "find file in project")
+   "."   '(eugsun/consult-fd :which-key "find file in project")
    "TAB" '(evil-switch-to-windows-last-buffer :which-key "previous buffer")
-   "p"   '(projectile-switch-project :which-key "switch to project")
+   ;; "p"   '(projectile-switch-project :which-key "switch to project")
+   "p"   '(project-switch-project :which-key "switch to project")
    "0"   '(neotree-toggle :which-key "neotree")
    "n"   (general-simulate-key "C-c" :which-key "minor mode prefix")
    ;; Files
-   "ff"  '(counsel-find-file :which-key "find file")
+   ;; "ff"  '(counsel-find-file :which-key "find file")
+   "ff"  '(find-file :which-key "find file")
    "fi"  '(iqa-find-user-init-file :which-key "find init file")
    "fe"  '(iqa-reload-user-init-file :which-key "eval init file")
-   "fr"  '(counsel-recentf :which-key "open recent file")
+   ;; "fr"  '(counsel-recentf :which-key "open recent file")
+   "fr"  '(consult-recent-file :which-key "open recent file")
    ;; Buffers
    "bi"  '(ibuffer :which-key "ibuffer")
    "br"  '(revert-buffer :which-key "revert buffer")
-   "bb"  '(counsel-switch-buffer :which-key "switch buffer")
+   ;; "bb"  '(counsel-switch-buffer :which-key "switch buffer")
+   "bb"  '(consult-buffer :which-key "switch buffer")
    "bl"  '(bufler-list :which-key "bufler list")
    "be"  '(eval-buffer :which-key "eval buffer")
    "bk"  '(kill-current-buffer :which-key "kill buffer")
@@ -68,7 +75,7 @@
    "oi"  '((lambda () (interactive) (find-file org-default-ideas-file)) :which-key "open ideas")
    "og"  '((lambda () (interactive) (find-file org-default-games-file)) :which-key "open games")
    "or"  '(org-refile :which-key "refile")
-   "o;"  '(org-roam-buffer-toggle-display :which-key "roam display")
+   ;; "o;"  '(org-roam-buffer-toggle-display :which-key "roam display")
    "of"  '(lambda () (interactive) (org/five-minute-journal-entry))
    "ol"  'org-store-link
    "oL"  'org-toggle-link-display
@@ -76,8 +83,10 @@
    "oD"  'org-id-get-create
    ;; "oR"  '(org-re-reveal-export-to-html-and-browse)
    ;; Search
-   "ss"  '(swiper :which-key "search buffer")
-   "sa"  '(swiper-all :which-key "search all buffers")
+   ;; "ss"  '(swiper :which-key "search buffer")
+   ;; "sa"  '(swiper-all :which-key "search all buffers")
+   "ss"  '(consult-line :which-key "search buffer")
+   "sa"  '(consult-line-multi :which-key "search all buffers")
    "sd"  '(xref-find-definitions :which-key "find definition")
    "sD"  '(xref-find-definitions-other-window :which-key "find definition in other frame")
    ;; Modes
@@ -111,7 +120,8 @@
    "j"   '(avy-goto-char-timer :which-key "jump to char")
    "T"   '(powerthesaurus-lookup-word-at-point :which-key "look up thesaurus")
    "d"   '(deft :which-key "deft")
-   "D"   '(dictionary-lookup-definition :which-key "dict lookup"))
+   "D"   '(dictionary-lookup-definition :which-key "dict lookup")
+   "N"   '(denote :which-key "denote"))
 
   ;; org-mode bindings
   (general-define-key
@@ -128,6 +138,8 @@
    "TAB" 'org-cycle))
 
 ;; Global keybinding
+(global-set-key (kbd "C-,") 'embark-act)
+
 (global-set-key (kbd "M-0") 'maximize-window)
 (global-set-key (kbd "M-p") 'ace-window)
 (global-set-key (kbd "M-/") 'hippie-expand)

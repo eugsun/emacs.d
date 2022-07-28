@@ -164,24 +164,32 @@
   (add-hook 'deft-open-file-hook 'deft-filter-clear)
   )
 
-;; Org-roam
-(use-package org-roam
+;; denote
+(use-package denote
   :after org
   :init
-  (setq org-roam-v2-ack t)
-  :config
-  (setq org-roam-db-location (concat org-directory "roam.db"))
-  (setq org-roam-directory org-directory)
-  (org-roam-db-autosync-mode)
+  (setq denote-directory (concat org-directory "notes/"))
+  (setq denote-prompts '(title keywords subdirectory))
   )
 
-(use-package org-roam-ui
-  :after org-roam
-  :config
-  (setq org-roam-ui-sync-theme t
-        org-roam-ui-follow t
-        org-roam-ui-update-on-save t
-        org-roam-ui-open-on-start t))
+;; Org-roam
+;; (use-package org-roam
+;;   :after org
+;;   :init
+;;   (setq org-roam-v2-ack t)
+;;   :config
+;;   (setq org-roam-db-location (concat org-directory "roam.db"))
+;;   (setq org-roam-directory org-directory)
+;;   (org-roam-db-autosync-mode)
+;;   )
+
+;; (use-package org-roam-ui
+;;   :after org-roam
+;;   :config
+;;   (setq org-roam-ui-sync-theme t
+;;         org-roam-ui-follow t
+;;         org-roam-ui-update-on-save t
+;;         org-roam-ui-open-on-start t))
 
 ;; ;; Org-to-odt export
 ;; (use-package ox-odt

@@ -17,6 +17,8 @@
   :config
   (iqa-setup-default))
 
+;; Timer
+(use-package tmr)
 
 ;; Workspaces
 (use-package perspective
@@ -24,6 +26,12 @@
   :config
   (persp-mode))
 
+;; History
+(use-package savehist
+  :custom
+  (history-length 25)
+  :config
+  (savehist-mode))
 
 ;; Evil mode
 (use-package evil
@@ -51,27 +59,62 @@
     ))
 
 
-;; Ivy
-(use-package ivy
-  :diminish ivy-mode
-  :init
-  (setq ivy-use-virtual-buffer t)
-  (setq enable-recursive-minibuffers t)
-  (setq ivy-sort-max-size 7500)
+; Completion framework
+(use-package orderless
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-defaults nil)
+  (completion-category-overrides '((file (styles partial-completion)))))
+(use-package vertico
+  :custom
+  (enable-recursive-minibuffers t)
+  (vertico-resize t)
+  (vertico-cycle t)
   :config
-  (ivy-mode 1))
-(use-package counsel
-  :after ivy
-  ;; :init
-  ;; (setq counsel-projectile-find-file-matcher 'ivy--re-filter)
-  ;; (setq counsel-rg-base-command
-  ;;       "rg -S -M 140 --no-heading --line-number --color never %s .")
-  )
-(use-package rg
-  :commands counsel-rg)
-(use-package swiper
-  :after ivy)
+  (vertico-mode))
 
+(use-package consult
+  :config
+  (defun eugsun/consult-fd (&optional dir initial)
+    "Find project files.
+  A replacement for `projectile-find-file'."
+    (interactive "P")
+    (let ((consult-find-command "fd --color=never --hidden --exclude .git/ --full-path ARG OPTS"))
+      (consult-find dir initial)))
+  )
+(use-package marginalia
+  :config
+  (marginalia-mode))
+(use-package embark)
+(use-package embark-consult
+  :after (embark consult)
+  :demand t
+  :hook
+  (embark-collect-mode . consult-preview-at-point-mode))
+
+;; Ivy
+;; (use-package ivy
+;;   :diminish ivy-mode
+;;   :init
+;;   (setq ivy-use-virtual-buffer t)
+;;   (setq enable-recursive-minibuffers t)
+;;   (setq ivy-sort-max-size 7500)
+;;   :config
+;;   (ivy-mode 1))
+;; (use-package counsel
+;;   :after ivy
+;;   ;; :init
+;;   ;; (setq counsel-projectile-find-file-matcher 'ivy--re-filter)
+;;   ;; (setq counsel-rg-base-command
+;;   ;;       "rg -S -M 140 --no-heading --line-number --color never %s .")
+;;   )
+;; (use-package rg
+;;   :commands counsel-rg)
+;; (use-package swiper
+;;   :after ivy)
+
+;; Search
+(use-package rg)
 
 ;; Show keybinding hints
 (use-package which-key
@@ -94,9 +137,14 @@
 
 ;; Editor
 (use-package undo-tree
+  :custom
+  (evil-undo-system 'undo-tree)
+  (undo-tree-history-directory-alist '(("." . "~/.emacs.d/undos")))
+  (undo-tree-visualizer-diff t)
+  (undo-tree-visualizer-timestamps t)
   :config
   (global-undo-tree-mode)
-  (setq evil-undo-system 'undo-tree))
+  )
 
 (use-package multiple-cursors)
 
@@ -136,7 +184,7 @@
   :commands bufler-list
   :init
   (evil-set-initial-state 'bufler-list-mode 'emacs)
-  (setq completion-styles '(basic substring partial-completion))
+  ;; (setq completion-styles '(basic substring partial-completion))
   )
 
 ;; Terminals
@@ -185,10 +233,13 @@
 
 (recentf-mode t)
 
-(setq history-length 25)
-(savehist-mode t)
-
 (setq use-dialog-box nil)
 
 (setq global-auto-revert-non-file-buffers t)
 (global-auto-revert-mode t)
+
+;;;; colorize output in compile buffer
+(require 'ansi-color)
+(defun my/colorize-compilation-buffer ()
+  (ansi-color-apply-on-region compilation-filter-start (point-max)))
+(add-hook 'compilation-filter-hook 'my/colorize-compilation-buffer)

@@ -61,8 +61,8 @@
   (setq dart-analysis-server-bin (concat dart-sdk-path "bin/snapshots/analysis_server.dart.snapshot"))
   ;; (add-to-list 'eglot-server-programs `(dart-mode . ("dart" ,dart-analysis-server-bin "--lsp")))
   ;; project config
-  (add-to-list 'projectile-project-root-files-bottom-up "pubspec.yaml")
-  (add-to-list 'projectile-project-root-files-bottom-up "BUILD")
+  ;; (add-to-list 'projectile-project-root-files-bottom-up "pubspec.yaml")
+  ;; (add-to-list 'projectile-project-root-files-bottom-up "BUILD")
   ;; hooks. use flycheck instead of flymake
   ;; (advice-add 'dart-mode :after #'flymake-mode-off)
   ;; (advice-add 'dart-mode :after #'flycheck-mode-on-safe)
