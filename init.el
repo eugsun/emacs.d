@@ -19,7 +19,9 @@
 (setq comp-deferred-compilation t)
 
 ;; Custom-file
-(setq custom-file "~/.emacs.d/spam.el")
+(defconst custom-file (expand-file-name "spam.el" user-emacs-directory))
+;; NOERROR to ignore nonexistent file - Emacs will create it
+(load custom-file t)
 
 ;; Base UI
 (when (display-graphic-p)
@@ -61,7 +63,7 @@
       (goto-char (point-max))
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
-
+(straight-use-package 'use-package)
 
 (require 'use-package)
 (setq use-package-always-ensure t)
