@@ -74,13 +74,58 @@
   (vertico-mode))
 
 (use-package consult
+  :custom
+  ;; Optionally configure the register formatting. This improves the register
+  ;; preview for `consult-register', `consult-register-load',
+  (register-preview-delay 0.5)
+  (register-preview-function #'consult-register-format)
+  ;; Optionally tweak the register preview window.
+  ;; This adds thin lines, sorting and hides the mode line of the window.
+  (advice-add #'register-preview :override #'consult-register-window)
+  ;; Use Consult to select xref locations with preview
+  (xref-show-xrefs-function #'consult-xref)
+  (xref-show-definitions-function #'consult-xref)
+  (consult-narrow-key "<")
+  (consult-project-function (lambda (_) (vc-root-dir)))
   :config
-  (defun eugsun/consult-fd (&optional dir initial)
-    "Find project files.
-  A replacement for `projectile-find-file'."
+  (defvar consult--fd-command nil)
+  (defun consult--fd-builder (input)
+    (unless consult--fd-command
+      (setq consult--fd-command
+            (if (eq 0 (call-process-shell-command "fdfind"))
+                "fdfind"
+              "fd")))
+    (pcase-let* ((`(,arg . ,opts) (consult--command-split input))
+                 (`(,re . ,hl) (funcall consult--regexp-compiler
+                                        arg 'extended t)))
+      (when re
+        (list :command (append
+                        (list consult--fd-command
+                              "--color=never" "--full-path"
+                              (consult--join-regexps re 'extended))
+                        opts)
+              :highlight hl))))
+
+  (defun consult-fd (&optional dir initial)
     (interactive "P")
-    (let ((consult-find-command "fd --color=never --hidden --exclude .git/ --full-path ARG OPTS"))
-      (consult-find dir initial)))
+    (let* ((prompt-dir (consult--directory-prompt "Fd" dir))
+           (default-directory (cdr prompt-dir)))
+      (find-file (consult--find (car prompt-dir) #'consult--fd-builder initial))))
+
+  ;; (setq eugsun/fd-args
+  ;;       "fd --color=never --hidden --full-path -E {'.git/', '*/autogen_from_ruby/', '*/*.test.*', '*/*.rbi'} ARG OPTS")
+  ;; (setq eugsun/fd-args
+  ;;       "fd --color=never --hidden --full-path -E '.git/' -E '**/autogen_from_ruby/' -E '**/*.test.*' -E '*/*.rbi'")
+  ;; (defun eugsun/consult-fd (&optional dir initial)
+  ;;   "Find project files (excluding test files). Replacement for `projectile-find-file'."
+  ;;   (interactive "P")
+  ;;   (let ((consult-find-args eugsun/fd-args))
+  ;;     (consult-find dir initial)))
+  ;; (defun eugsun/consult-fd-with-tests (&optional dir initial)
+  ;;   "Find project files (including test files). Replacement for `projectile-find-file'."
+  ;;   (interactive "P")
+  ;;   (let ((consult-find-args "fd --color=never --hidden --full-path --exclude .git/ --exclude '**/autogen_from_ruby/' ARG OPTS"))
+  ;;     (consult-find dir initial)))
   )
 (use-package marginalia
   :config
