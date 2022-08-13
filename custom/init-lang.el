@@ -9,32 +9,6 @@
   (lsp-mode . dap-mode)
   (lsp-mode . dap-ui-mode))
 
-(use-package lsp-mode
-  ;; :init
-  :config
-
-  (setq lsp-response-timeout 20)
-  (setq lsp-enable-file-watchers nil)
-  (setq lsp-file-watch-threshold 3000)
-  (push "[/\\\\]\\.emacs\\.d/\\.extension\\'" lsp-file-watch-ignored-directories)
-  (push "[/\\\\]\\.emacs\\.d/elpa\\'" lsp-file-watch-ignored-directories)
-  ;; (setq lsp-auto-guess-root t)
-  (setq lsp-eldoc-render-all nil)
-  (setq lsp-prefer-flymake nil)
-  (setq lsp-enable-completion-at-point t)
-  (setq gc-cons-threshold init-gc-cons-threshold)
-  (setq read-process-output-max (* 3 1024 1024))
-  (setq lsp-idle-delay 0.500)
-  (setq lsp-completion-provider :capf))
-
-(use-package lsp-ui
-  :commands lsp-ui-mode
-  ;; :custom
-  ;; (lsp-ui-sideline-enable nil)
-  )
-(use-package lsp-treemacs
-  :after lsp)
-
 (use-package company
   :config
   (setq company-idle-delay 0.5)
@@ -79,11 +53,9 @@
    :prefix "SPC"
    "n h r" #'hover-run-or-hot-reload
    "n h R" #'hover-run-or-hot-restart))
-(use-package lsp-dart
-  :hook ((dart-mode . lsp)
-         (dart-mode . dap-dart-setup))
-  :custom
-  (lsp-dart-flutter-widget-guides nil))
+
+
+
 
 ;;; Configuration of Android projects use Groovy/Gradle
 (use-package groovy-mode
@@ -118,13 +90,7 @@
   :after python-mode)
 (use-package pyvenv
   :after python-mode)
-(use-package lsp-pyright
-  :mode "\\.py\\'"
-  :after python-mode
-  :hook (python-mode . (lambda ()
-                         (require 'lsp-pyright)
-                         (lsp-deferred)))
-  )
+
 
 
 (use-package fountain-mode
@@ -214,11 +180,7 @@
 
 (use-package haskell-mode
   :mode "\\.hs\\'")
-(use-package lsp-haskell
-  :after (haskell-mode lsp)
-  :config
-  (setq lsp-haskell-process-path-hie "hie-wrapper")
-  )
+
 
 
 (use-package sml-mode
@@ -244,11 +206,7 @@
 
 
 ;; Java/Scala
-(use-package lsp-java
-  :after (java-mode lsp)
-  :mode "\\.java\\'"
-  :config
-  (add-hook 'java-mode-hook 'lsp))
+
 
 ;; Scala
 (use-package scala-mode
@@ -257,10 +215,7 @@
   (setq lsp-enable-file-watchers nil)   ; hangs otherwise
   (add-hook 'scala-mode-hook #'lsp)
   )
-(use-package lsp-metals
-  :after (scala-mode lsp)
-  :mode "\\.scala\\'"
-  )
+
 (use-package sbt-mode
   :commands sbt-start sbt-command
   :config
@@ -283,3 +238,79 @@
 
 ;; Lua
 (use-package lua-mode)
+
+
+;; LSP
+;; (use-package lsp-mode
+;;   ;; :init
+;;   :config
+;; (general-define-key
+;;  :states '(normal visual insert emacs)
+;;  :prefix "SPC"
+;;  :non-normal-prefix "M-SPC"
+;;  "ll"  '(lsp-execute-code-action :which-key "lsp action")
+;;  "li"  '(lsp-organize-imports :which-key "organize imports")
+;;  "lf"  '(lsp-format-buffer :which-key "format buffer")
+;;  )
+;;   (setq lsp-response-timeout 20)
+;;   (setq lsp-enable-file-watchers nil)
+;;   (setq lsp-file-watch-threshold 3000)
+;;   (push "[/\\\\]\\.emacs\\.d/\\.extension\\'" lsp-file-watch-ignored-directories)
+;;   (push "[/\\\\]\\.emacs\\.d/elpa\\'" lsp-file-watch-ignored-directories)
+;;   ;; (setq lsp-auto-guess-root t)
+;;   (setq lsp-eldoc-render-all nil)
+;;   (setq lsp-prefer-flymake nil)
+;;   (setq lsp-enable-completion-at-point t)
+;;   (setq gc-cons-threshold init-gc-cons-threshold)
+;;   (setq read-process-output-max (* 3 1024 1024))
+;;   (setq lsp-idle-delay 0.500)
+;;   (setq lsp-completion-provider :capf))
+
+;; (use-package lsp-ui
+;;   :commands lsp-ui-mode
+;;   ;; :custom
+;;   ;; (lsp-ui-sideline-enable nil)
+;;   )
+;; (use-package lsp-treemacs
+;;   :after lsp)
+
+;; (use-package lsp-dart
+;;   :hook ((dart-mode . lsp)
+;;          (dart-mode . dap-dart-setup))
+;;   :custom
+;;   (lsp-dart-flutter-widget-guides nil))
+;; (use-package lsp-pyright
+;;   :mode "\\.py\\'"
+;;   :after python-mode
+;;   :hook (python-mode . (lambda ()
+;;                          (require 'lsp-pyright)
+;;                          (lsp-deferred)))
+;;   )
+;; (use-package lsp-haskell
+;;   :after (haskell-mode lsp)
+;;   :config
+;;   (setq lsp-haskell-process-path-hie "hie-wrapper")
+;;   )
+;; (use-package lsp-java
+;;   :after (java-mode lsp)
+;;   :mode "\\.java\\'"
+;;   :config
+;;   (add-hook 'java-mode-hook 'lsp))
+;; (use-package lsp-metals
+;;   :after (scala-mode lsp)
+;;   :mode "\\.scala\\'"
+;;   )
+
+
+(use-package eglot
+  :after general
+  :config
+  (general-define-key
+   :states '(normal visual insert emacs)
+   :prefix "SPC"
+   :non-normal-prefix "M-SPC"
+   "ll"  '(eglot-code-actions :which-key "lang action")
+   "li"  '(eglot-code-action-organize-imports :which-key "organize imports")
+   "lf"  '(eglot-format :which-key "format buffer")
+   "lr"  '(eglot-rename :which-key "rename"))
+  )

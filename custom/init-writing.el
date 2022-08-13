@@ -169,7 +169,7 @@
   :after org
   :init
   (setq denote-directory (concat org-directory "notes/"))
-  (setq denote-prompts '(title keywords subdirectory))
+  (setq denote-prompts '(title keywords subdirectory date))
   )
 
 ;; Org-roam

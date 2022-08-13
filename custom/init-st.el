@@ -14,11 +14,11 @@
 
 
 ;; Configure the connection to Sorbet
-(lsp-register-client
- (make-lsp-client
-  :new-connection (lsp-stdio-connection
-                   '("pay" "exec" "scripts/bin/typecheck" "--lsp" "--enable-all-experimental-lsp-features"))
-  :major-modes '(ruby-mode enh-ruby-mode)
-  :priority 25
-  :activation-fn 'st/activate-lsp-p
-  :server-id 'stripe-sorbet-lsp))
+;; (lsp-register-client
+;;  (make-lsp-client
+;;   :new-connection (lsp-stdio-connection
+;;                    '("pay" "exec" "scripts/bin/typecheck" "--lsp" "--enable-all-experimental-lsp-features"))
+;;   :major-modes '(ruby-mode enh-ruby-mode)
+;;   :priority 25
+;;   :activation-fn 'st/activate-lsp-p
+;;   :server-id 'stripe-sorbet-lsp))
