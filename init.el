@@ -33,24 +33,7 @@
 (setq inhibit-startup-message t)
 (setq initial-scratch-message nil)
 
-;; Packages
-;; use package.el
-;; (require 'package)
-;; (setq package-check-signature nil)
-;; (setq package-enable-at-startup nil)
-;; (setq package-archives '(("melpa" . "http://melpa.org/packages/")
-;;                          ("gnu" . "http://elpa.gnu.org/packages/")
-;;                          ("ox-odt" . "https://kjambunathan.github.io/elpa/")
-;;                          ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
-;; (setq package-user-dir "~/.local/emacs-packages/")
-;; (package-initialize)
-;; (unless (package-installed-p 'use-package)
-;;   (package-refresh-contents)
-;;   (package-install 'use-package)
-;;   (package-install 'org-plus-contrib)
-;;   )
-
-;; use straight.el
+;; Use straight.el
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
