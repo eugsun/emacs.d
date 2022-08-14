@@ -51,7 +51,6 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 (setq use-package-verbose t)
-;; straight.el integration
 (setq straight-use-package-by-default t)
 
 ;;;;;;
@@ -67,6 +66,10 @@
 (load "init-keys")
 (load "init-skeleton")
 (load "init-util")
-(load "init-st")
 
 (load-file custom-file)
+
+(use-package stripemacs
+  :straight
+  (:local-repo "~/.emacs.d/lib/stripemacs/"
+   :type nil))
