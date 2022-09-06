@@ -154,13 +154,13 @@
   (setq deft-use-filter-string-for-filename nil)
   (setq deft-directory (concat org-directory "notes/"))
   (setq deft-recursive t)
-  (setq deft-extensions '("org"))
+  (setq deft-extensions '("org" "md"))
   (setq deft-auto-save-interval 0)
-  (setq deft-strip-title-regexp
-        "\\(?:^%+\\|^#\\+TITLE: *\\|^[#* ]+\\|-\\*-[[:alpha:]]+-\\*-\\|^Title:[	 ]*\\|#+$\\)")
-  (setq deft-strip-summary-regexp "\\([
-    ]\\|^#\\+[[:upper:]_]+:.*$\\|^\\:[[:upper:]_]+:.*$\\)")
-  (setq deft-use-filename-as-title t)
+  ;; (setq deft-strip-title-regexp
+  ;;       "\\(?:^%+\\|^#\\+TITLE: *\\|^[#* ]+\\|-\\*-[[:alpha:]]+-\\*-\\|^Title:[	 ]*\\|#+$\\)")
+  ;; (setq deft-strip-summary-regexp "\\([
+  ;;   ]\\|^#\\+[[:upper:]_]+:.*$\\|^\\:[[:upper:]_]+:.*$\\)")
+  ;; (setq deft-use-filename-as-title t)
   (add-hook 'deft-open-file-hook 'deft-filter-clear)
   )
 
