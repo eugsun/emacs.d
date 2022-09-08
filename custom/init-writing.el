@@ -1,7 +1,6 @@
 ;; -*- lexical-binding: t; -*-
 
 (use-package org
-  :mode ("\\.org\\'" . org-mode)
   :commands (org-capture org-agenda deft)
   :init
   ;; Location

@@ -57,13 +57,13 @@
 ;;;;;;
 (add-to-list 'load-path "~/.emacs.d/custom/")
 
+(load "init-keys")
 (load "init-editor")
 (load "init-theme")
 (load "init-writing")
 (load "init-pm")
 (load "init-web")
 (load "init-lang")
-(load "init-keys")
 (load "init-skeleton")
 (load "init-util")
 

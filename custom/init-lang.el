@@ -228,11 +228,12 @@
   :mode "\\.proto\\'")
 
 ;; Bazel
-(use-package bazel)
+(use-package bazel
+  :after lsp)
 
 ;; Lua
-(use-package lua-mode)
-
+(use-package lua-mode
+  :mode "\\.lua\\'")
 
 ;; LSP
 (use-package lsp-mode
