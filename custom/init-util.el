@@ -47,3 +47,11 @@ same directory as the org-buffer and insert a link to this file."
                                         ; insert into file if correctly taken
   (if (file-exists-p filename)
       (insert (concat "[[file:" filename "]]"))))
+
+(defun my/log-function-time (f &rest args)
+  (let ((time-start (current-time)))
+    (prog1
+        (apply f args)
+      (message "%s seconds used in (magit-process-file %s)"
+               (time-to-seconds (time-subtract (current-time) time-start))
+               args))))

@@ -22,7 +22,8 @@
 
 ;; Workspaces
 (use-package perspective
-  :commands persp-switch
+  :init
+  (setq persp-suppress-no-prefix-key-warning t)
   :config
   (persp-mode))
 
