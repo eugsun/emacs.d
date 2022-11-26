@@ -4,12 +4,12 @@
 (use-package posframe
   ;; Posframe is a pop-up tool that must be manually installed for dap-mode
   )
-(use-package dap-mode
-  :config
-  (require 'dap-ruby)
-  :hook
-  (lsp-mode . dap-mode)
-  (lsp-mode . dap-ui-mode))
+;; (use-package dap-mode
+;;   :config
+;;   (require 'dap-ruby)
+;;   :hook
+;;   (lsp-mode . dap-mode)
+;;   (lsp-mode . dap-ui-mode))
 
 (use-package company
   :config
@@ -96,7 +96,10 @@
 (use-package fountain-mode
   :mode "\\.fountain\\'")
 (use-package imenu-list
-  :commands imenu-list-smart-toggle)
+  :commands imenu-list-smart-toggle
+  :init
+  (setq imenu-list-focus-after-activation t)
+  (setq imenu-list-size 0.3))
 
 (use-package markdown-mode
   :mode "\\.md\\'")
@@ -238,6 +241,7 @@
 ;; LSP
 (use-package lsp-mode
   :init
+  (setq lsp-use-plists t)
   (setq lsp-response-timeout 20)
   (setq lsp-enable-file-watchers nil)
   (setq lsp-file-watch-threshold 3000)
@@ -265,8 +269,9 @@
 (use-package lsp-ui
   :after lsp
   :commands lsp-ui-mode
-  :custom
-  (lsp-ui-sideline-enable nil))
+  ;; :custom
+  ;; (lsp-ui-sideline-enable nil)
+  )
 (use-package lsp-treemacs
   :after lsp)
 (use-package lsp-dart
@@ -296,7 +301,6 @@
   :after (scala-mode lsp)
   :mode "\\.scala\\'"
   )
-
 
 ;; (use-package eglot
 ;;   :after general

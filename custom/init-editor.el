@@ -3,12 +3,19 @@
 ;; Paths
 (use-package exec-path-from-shell
   :if (memq window-system '(mac ns x))
-  :custom
-  (exec-path-from-shell-arguments nil)
-  (exec-path-from-shell-check-startup-files nil)
-  (exec-path-from-shell-variables
-        `("PATH" "MANPATH" "WORKON_HOME" "DICPATH"))
+  :init
+  (setq explicit-shell-file-name "/bin/bash")
+  (setq shell-file-name "/bin/bash")
+  (setq explicit-bash.exe-args '("--noediting" "--login" "-ic"))
+  (setq shell-command-switch "-ic")
+  (setenv "SHELL" shell-file-name)
   :config
+  (setq exec-path-from-shell-arguments nil)
+  (setq exec-path-from-shell-check-startup-files nil)
+  ;; (exec-path-from-shell-variables
+  ;;       `("PATH" "MANPATH" "WORKON_HOME" "DICPATH"))
+  (dolist (var '("SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE" "NIX_SSL_CERT_FILE" "NIX_PATH"))
+    (add-to-list 'exec-path-from-shell-variables var))
   (exec-path-from-shell-initialize))
 
 ;; IQA allows find/reload of init file
@@ -65,7 +72,27 @@
   :custom
   (completion-styles '(orderless basic))
   (completion-category-defaults nil)
-  (completion-category-overrides '((file (styles partial-completion)))))
+  (completion-category-overrides '((file (styles partial-completion))))
+  :config
+  (defun flex-if-twiddle (pattern _index _total)
+    (when (string-suffix-p "~" pattern)
+      `(orderless-flex . ,(substring pattern 0 -1))))
+
+  (defun first-initialism (pattern index _total)
+    (if (= index 0) 'orderless-initialism))
+
+  (defun without-if-bang (pattern _index _total)
+    (cond
+     ((equal "!" pattern)
+      '(orderless-literal . ""))
+     ((string-prefix-p "!" pattern)
+      `(orderless-without-literal . ,(substring pattern 1)))))
+  (setq orderless-matching-styles '(orderless-regexp)
+        orderless-style-dispatchers '(
+                                      ;; first-initialism
+                                      flex-if-twiddle
+                                      without-if-bang))
+  )
 (use-package vertico
   :custom
   (enable-recursive-minibuffers t)
@@ -134,7 +161,6 @@
 (use-package embark)
 (use-package embark-consult
   :after (embark consult)
-  :demand t
   :hook
   (embark-collect-mode . consult-preview-at-point-mode))
 

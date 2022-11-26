@@ -27,6 +27,10 @@
   (setq org-pretty-entities t)
   (setq org-image-actual-width nil)
 
+  ;; Export
+  (setq org-export-with-section-numbers nil)
+  (setq org-export-with-toc nil)
+
   ;; Habits
   (setq org-habit-preceding-days 14)
   (setq org-habit-following-days 1)

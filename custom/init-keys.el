@@ -23,7 +23,7 @@
    ;; "SPC" '(counsel-M-x :which-key "M-x")
    "SPC" '(execute-extended-command :which-key "M-x")
    ;; "/"   '(counsel-projectile-rg :which-key "ripgrep")
-   "/"   '(consult-git-grep :which-key "search file content in project")
+   "/"   '(consult-ripgrep :which-key "search file content in project")
    ;; "."   '(projectile-find-file :which-key "find file in project")
    "."   '(consult-fd :which-key "find file in project")
    "TAB" '(evil-switch-to-windows-last-buffer :which-key "previous buffer")

@@ -49,13 +49,13 @@
 ;; --
 ;; -- Automatically switch between ligh and dark theme based on time of day
 ;; --
-(setq-default theme-autoswitch t)
+(setq-default theme-autoswitch nil)
 (setq-default theme-autoswitch/day-start-hour 7)
 (setq-default theme-autoswitch/day-end-hour 17)
 
 (setq-default theme-autoswitch/light-theme 'solarized-light)
 (setq-default theme-autoswitch/dark-theme 'solarized-dark)
-(setq-default theme-autoswitch/default theme-autoswitch/light-theme)
+(setq-default theme-autoswitch/default theme-autoswitch/dark-theme)
 
 (if (display-graphic-p)
     (progn
