@@ -315,3 +315,7 @@
 (defun my/colorize-compilation-buffer ()
   (ansi-color-apply-on-region compilation-filter-start (point-max)))
 (add-hook 'compilation-filter-hook 'my/colorize-compilation-buffer)
+
+;; Frame transparency
+(set-frame-parameter (selected-frame) 'alpha '(97 . 100))
+(add-to-list 'default-frame-alist '(alpha . (90 . 90)))

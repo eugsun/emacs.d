@@ -74,6 +74,7 @@
    "ot"  '((lambda () (interactive) (find-file org-default-todos-file)) :which-key "open todos")
    "oi"  '((lambda () (interactive) (find-file org-default-ideas-file)) :which-key "open ideas")
    "og"  '((lambda () (interactive) (find-file org-default-games-file)) :which-key "open games")
+   "op"  '(org-present :which-key "present")
    "or"  '(org-refile :which-key "refile")
    ;; "o;"  '(org-roam-buffer-toggle-display :which-key "roam display")
    "of"  '(lambda () (interactive) (org/five-minute-journal-entry))

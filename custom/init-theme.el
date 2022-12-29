@@ -1,5 +1,9 @@
 ;; -*- lexical-binding: t; -*-
 
+;; Frame transparency
+(set-frame-parameter (selected-frame) 'alpha '(98 . 100))
+(add-to-list 'default-frame-alist '(alpha . (95 . 95)))
+
 ;; --
 ;; Theme
 ;; --

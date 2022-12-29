@@ -1,5 +1,22 @@
 ;; -*- lexical-binding: t; -*-
 
+;; Spellcheck
+(when (executable-find "hunspell")
+  (setq ispell-program-name "hunspell")
+  (setq ispell-local-dictionary "en_US")
+  (setq ispell-local-dictionary-alist
+        '(("en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "en_US") nil utf-8)))
+  )
+
+(when (memq window-system '(mac ns x))
+  ;; TODO: Enable this in Windows after it's no longer slow
+  (dolist (hook '(text-mode-hook))
+    (add-hook hook (lambda () (flyspell-mode 1))))
+  (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
+    (add-hook hook (lambda () (flyspell-mode -1))))
+  )
+
+;; Org
 (use-package org
   :commands (org-capture org-agenda deft)
   :init
@@ -74,6 +91,13 @@
            "* %?\nEntered on %U\n%i")
           ("i" "Idea" entry (file+headline org-default-ideas-file "Ideas")
            "* %?\nEntered on %U\n%i")
+          ("d" "Denote" plain
+           (file denote-last-path)
+           #'denote-org-capture
+           :no-save t
+           :immediate-finish nil
+           :kill-buffer t
+           :jump-to-captured t)
           )
         )
 
@@ -106,10 +130,9 @@
   :init
   (setq org/five-min-template
         "** 5-minute journal :5min:
-*** I'm grateful for
-*** What would make today great? [/]
+*** Theme of the day
+*** A few TODOs [/]
 - [ ]
-*** Daily affirmation
 *** Notable things that happened today
 *** How could I have made today better
 ")
@@ -279,18 +302,12 @@
 (use-package powerthesaurus
   :commands powerthesaurus-lookup-word-at-point)
 
-;; Spellcheck
-(when (executable-find "hunspell")
-  (setq ispell-program-name "hunspell")
-  (setq ispell-local-dictionary "en_US")
-  (setq ispell-local-dictionary-alist
-        '(("en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "en_US") nil utf-8)))
-  )
-
-(when (memq window-system '(mac ns x))
-  ;; TODO: Enable this in Windows after it's no longer slow
-  (dolist (hook '(text-mode-hook))
-    (add-hook hook (lambda () (flyspell-mode 1))))
-  (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
-    (add-hook hook (lambda () (flyspell-mode -1))))
-  )
+;; Org Present
+(use-package org-present
+  :after org
+  :init
+  (defun my/org-present-prepare (buffer-name heading)
+    (org-overview)
+    (org-show-entry)
+    (org-show-children))
+  (add-hook 'org-present-after-navigate-functions 'my/org-present-prepare))
