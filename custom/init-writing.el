@@ -23,19 +23,6 @@
   ;; Location
   (setq org-directory "~/kb/")
   (setq org-base org-directory)
-  (setq org-agenda-base (concat org-directory "agenda/"))
-  (setq org-agenda-files
-        (append
-         (file-expand-wildcards (concat org-agenda-base "*.org"))
-         (file-expand-wildcards (concat org-agenda-base "job/*.org"))
-         (file-expand-wildcards (concat org-agenda-base "mobile/*.org"))
-         ))
-  (setq org-refile-targets (quote ((nil :maxlevel . 9)
-                                   (org-agenda-files :maxlevel . 9))))
-  (setq org-default-notes-file (concat org-agenda-base "notes.org"))
-  (setq org-default-todos-file (concat org-agenda-base "todos.org"))
-  (setq org-default-ideas-file (concat org-agenda-base "ideas.org"))
-  (setq org-default-games-file (concat org-agenda-base "games.org"))
 
   ;; Editor
   (setq org-log-done t)
@@ -56,12 +43,19 @@
   (setq org-habit-show-all-today t)
 
   ;; Agenda
+  (setq org-agenda-base (concat org-directory "agenda/"))
   (setq org-agenda-files
         (append
          (file-expand-wildcards (concat org-agenda-base "*.org"))
          (file-expand-wildcards (concat org-agenda-base "job/*.org"))
          (file-expand-wildcards (concat org-agenda-base "mobile/*.org"))
          ))
+  (setq org-refile-targets (quote ((nil :maxlevel . 9)
+                                   (org-agenda-files :maxlevel . 9))))
+  (setq org-default-notes-file (concat org-agenda-base "notes.org"))
+  (setq org-default-todos-file (concat org-agenda-base "todos.org"))
+  (setq org-default-ideas-file (concat org-agenda-base "ideas.org"))
+  (setq org-default-games-file (concat org-agenda-base "games.org"))
   (setq org-agenda-file-regexp "\\`[^.].*\\.org'\\|[0-9]+")
   (setq org-agenda-skip-deadline-prewarning-if-scheduled t)
   (setq org-agenda-skip-scheduled-if-deadline-is-shown t)
@@ -125,8 +119,9 @@
   :custom
   (org-journal-dir (concat org-base "journal"))
   (org-journal-file-type 'monthly)
-  (org-journal-date-format "%A, %m/%d/%Y")
+  (org-journal-date-format "%Y-%m-%d, %A")
   (org-journal-file-format "%Y%m.org")
+  (org-journal-file-header "#+TITLE: %Y-%m\n#+STARTUP: folded\n")
   :init
   (setq org/five-min-template
         "** 5-minute journal :5min:
@@ -148,7 +143,8 @@
 (use-package org-noter
   :after org
   :config
-  (setq org-noter-notes-search-path `(,(concat org-base "reading/")))
+  ;; (setq org-noter-notes-search-path `(,(concat org-base "reading/")))
+  (setq org-noter-notes-search-path org-base)
   (setq org-noter-doc-split-fraction '(0.67 . 0.67)))
 
 (use-package org-edna
@@ -178,7 +174,8 @@
   :config
   ;; (evil-set-initial-state 'deft-mode 'emacs)
   (setq deft-use-filter-string-for-filename nil)
-  (setq deft-directory (concat org-directory "notes/"))
+  ;; (setq deft-directory (concat org-directory "notes/"))
+  (setq deft-directory org-directory)
   (setq deft-recursive t)
   (setq deft-extensions '("org" "md"))
   (setq deft-auto-save-interval 0)
@@ -194,7 +191,7 @@
 (use-package denote
   :after org
   :init
-  (setq denote-directory (concat org-directory "notes/"))
+  (setq denote-directory org-directory)
   (setq denote-prompts '(title keywords subdirectory date))
   )
 

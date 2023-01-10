@@ -53,7 +53,7 @@
 ;; --
 ;; -- Automatically switch between ligh and dark theme based on time of day
 ;; --
-(setq-default theme-autoswitch nil)
+(setq-default theme-autoswitch t)
 (setq-default theme-autoswitch/day-start-hour 7)
 (setq-default theme-autoswitch/day-end-hour 17)
 
