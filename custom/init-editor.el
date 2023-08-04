@@ -158,9 +158,10 @@
 (use-package marginalia
   :config
   (marginalia-mode))
-(use-package embark)
+(use-package embark
+  :after embark-consult)
 (use-package embark-consult
-  :after (embark consult)
+  :after consult
   :hook
   (embark-collect-mode . consult-preview-at-point-mode))
 
