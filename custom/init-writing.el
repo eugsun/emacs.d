@@ -113,7 +113,7 @@
 
 ;; Journal
 (use-package org-journal
-  :after org
+  ;; :after org
   ;; :config
   ;; (add-hook 'org-journal-mode-hook #'outline-minor-mode)
   :custom
@@ -124,19 +124,19 @@
   (org-journal-file-header "#+TITLE: %Y-%m\n#+STARTUP: folded\n")
   :init
   (setq org/five-min-template
-        "** 5-minute journal :5min:
-*** Theme of the day
-*** A few TODOs [/]
-- [ ]
-*** Notable things that happened today
-*** How could I have made today better
-")
+        (concat
+         "** 5-minute journal :5min:\n"
+         "*** Tone\n"
+         "*** Plan [/]\n"
+         "- [ ]\n"
+         "*** Notes\n"
+         "*** Reflections\n"
+         ))
   (defun org/five-minute-journal-entry ()
     (progn
       (org-journal-new-entry "5min")
       (beginning-of-line)
-      (insert org/five-min-template)))
-  )
+      (insert org/five-min-template))))
 
 
 ;; Noter
@@ -168,6 +168,26 @@
   :commands verb-command-map
   :config (define-key org-mode-map (kbd "C-c C-r") verb-command-map))
 
+;; Search notes
+(use-package consult-notes
+  :after org
+  :straight (:type git :host github :repo "mclear-tools/consult-notes")
+  :commands (consult-notes
+             consult-notes-search-in-all-notes
+             ;; if using org-roam
+             consult-notes-org-roam-find-node
+             consult-notes-org-roam-find-node-relation)
+  :config
+  (setq consult-notes-file-dir-sources '(("Name"  ?o "~/kb"))) ;; Set notes dir(s), see below
+  ;; Set org-roam integration, denote integration, or org-heading integration e.g.:
+  ;; (setq consult-notes-org-headings-files '("~/path/to/file1.org"
+  ;;                                          "~/path/to/file2.org"))
+  (consult-notes-org-headings-mode)
+  (when (locate-library "denote")
+    (consult-notes-denote-mode))
+  ;; search only for text files in denote dir
+  (setq consult-notes-denote-files-function (function denote-directory-text-only-files)))
+
 ;; Deft
 (use-package deft
   :commands deft
@@ -193,7 +213,9 @@
   :init
   (setq denote-directory org-directory)
   (setq denote-prompts '(title keywords subdirectory date))
-  )
+  (setq denote-rename-buffer-mode 1)
+  :config
+  (add-hook 'dired-mode-hook #'denote-dired-mode-in-directories))
 
 ;; Org-roam
 ;; (use-package org-roam
@@ -219,13 +241,13 @@
 ;;   :after org)
 
 ;; Org-to-markdown export
-(use-package ox-hugo
-  :after org)
+;; (use-package ox-hugo
+;;   :after org)
 
-(use-package org-contrib
-  :after org
-  :config
-  (require 'ox-confluence))
+;; (use-package org-contrib
+;;   :after org
+;;   :config
+;;   (require 'ox-confluence))
 
 ;; --
 ;; Utils
@@ -301,10 +323,31 @@
 
 ;; Org Present
 (use-package org-present
-  :after org
+  :commands org-present
+  ;; :after org
   :init
   (defun my/org-present-prepare (buffer-name heading)
     (org-overview)
     (org-show-entry)
     (org-show-children))
   (add-hook 'org-present-after-navigate-functions 'my/org-present-prepare))
+
+;; Bibliography
+(use-package biblio)
+
+;; Citar to access bibliographies
+(use-package citar
+  :init
+  (setq bibliography-directory "~/kb/bib/")
+  (setq org-cite-global-bibliography
+   (directory-files bibliography-directory t
+                    "^[A-Z|a-z|0-9].+.bib$"))
+  (setq citar-bibliography org-cite-global-bibliography)
+  (setq org-cite-insert-processor 'citar)
+  (setq org-cite-follow-processor 'citar)
+  (setq org-cite-activate-processor 'citar)
+  :bind
+  (("C-c w c o" . citar-open)
+   (:map org-mode-map
+         :package org
+         ("C-c w C". #'org-cite-insert))))

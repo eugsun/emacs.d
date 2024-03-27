@@ -55,3 +55,10 @@ same directory as the org-buffer and insert a link to this file."
       (message "%s seconds used in (magit-process-file %s)"
                (time-to-seconds (time-subtract (current-time) time-start))
                args))))
+
+(defun my/markdown-convert-buffer-to-org ()
+  "Convert the current buffer's content from markdown to orgmode format and save it with the current buffer's file name but with .org extension."
+  (interactive)
+  (shell-command-on-region (point-min) (point-max)
+                           (format "pandoc -f markdown -t org -o %s"
+                                   (concat (file-name-sans-extension (buffer-file-name)) ".org"))))

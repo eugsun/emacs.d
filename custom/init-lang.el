@@ -241,7 +241,7 @@
 ;; LSP
 (use-package lsp-mode
   :init
-  (setq lsp-use-plists t)
+  (setq lsp-use-plists nil)
   (setq lsp-response-timeout 20)
   (setq lsp-enable-file-watchers nil)
   (setq lsp-file-watch-threshold 3000)
@@ -314,3 +314,14 @@
 ;;    "lf"  '(eglot-format :which-key "format buffer")
 ;;    "lr"  '(eglot-rename :which-key "rename"))
 ;;   )
+
+(use-package chatgpt-shell
+  :ensure t
+  :custom
+  (chatgpt-shell-openai-key
+   (auth-source-pick-first-password :host "api.openai.com")))
+
+(use-package ob-chatgpt-shell
+  :ensure t
+  :config
+  (ob-chatgpt-shell-setup))

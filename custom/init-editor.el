@@ -1,22 +1,22 @@
 ;; -*- lexical-binding: t; -*-
 
 ;; Paths
-(use-package exec-path-from-shell
-  :if (memq window-system '(mac ns x))
-  :init
-  (setq explicit-shell-file-name "/bin/bash")
-  (setq shell-file-name "/bin/bash")
-  (setq explicit-bash.exe-args '("--noediting" "--login" "-ic"))
-  (setq shell-command-switch "-ic")
-  (setenv "SHELL" shell-file-name)
-  :config
-  (setq exec-path-from-shell-arguments nil)
-  (setq exec-path-from-shell-check-startup-files nil)
-  ;; (exec-path-from-shell-variables
-  ;;       `("PATH" "MANPATH" "WORKON_HOME" "DICPATH"))
-  (dolist (var '("SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE" "NIX_SSL_CERT_FILE" "NIX_PATH"))
-    (add-to-list 'exec-path-from-shell-variables var))
-  (exec-path-from-shell-initialize))
+;; (use-package exec-path-from-shell
+;;   :if (memq window-system '(mac ns x))
+;;   ;; :init
+;;   ;; (setq explicit-shell-file-name "/bin/bash")
+;;   ;; (setq shell-file-name "/bin/bash")
+;;   ;; (setq explicit-bash.exe-args '("--noediting" "--login" "-ic"))
+;;   ;; (setq shell-command-switch "-ic")
+;;   ;; (setenv "SHELL" shell-file-name)
+;;   :config
+;;   (setq exec-path-from-shell-arguments nil)
+;;   (setq exec-path-from-shell-check-startup-files nil)
+;;   ;; (exec-path-from-shell-variables
+;;   ;;       `("PATH" "MANPATH" "WORKON_HOME" "DICPATH"))
+;;   (dolist (var '("SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE" "NIX_SSL_CERT_FILE" "NIX_PATH"))
+;;     (add-to-list 'exec-path-from-shell-variables var))
+;;   (exec-path-from-shell-initialize))
 
 ;; IQA allows find/reload of init file
 (use-package iqa
@@ -120,25 +120,25 @@
   (defun consult--fd-builder (input)
     (unless consult--fd-command
       (setq consult--fd-command
-            (if (eq 0 (call-process-shell-command "fdfind"))
-                "fdfind"
-              "fd")))
+	    (if (eq 0 (call-process-shell-command "fdfind"))
+		"fdfind"
+	      "fd")))
     (pcase-let* ((`(,arg . ,opts) (consult--command-split input))
-                 (`(,re . ,hl) (funcall consult--regexp-compiler
-                                        arg 'extended t)))
+		 (`(,re . ,hl) (funcall consult--regexp-compiler
+					arg 'extended t)))
       (when re
-        (list :command (append
-                        (list consult--fd-command
-                              "--color=never" "--full-path"
-                              (consult--join-regexps re 'extended))
-                        opts)
-              :highlight hl))))
+	(cons (append
+	       (list consult--fd-command
+		     "--color=never" "--full-path"
+		     (consult--join-regexps re 'extended))
+	       opts)
+	      hl))))
 
   (defun consult-fd (&optional dir initial)
     (interactive "P")
-    (let* ((prompt-dir (consult--directory-prompt "Fd" dir))
-           (default-directory (cdr prompt-dir)))
-      (find-file (consult--find (car prompt-dir) #'consult--fd-builder initial))))
+    (pcase-let* ((`(,prompt ,paths ,dir) (consult--directory-prompt "Fd" dir))
+		 (default-directory dir))
+      (find-file (consult--find prompt #'consult--fd-builder initial))))
 
   ;; (setq eugsun/fd-args
   ;;       "fd --color=never --hidden --full-path -E {'.git/', '*/autogen_from_ruby/', '*/*.test.*', '*/*.rbi'} ARG OPTS")
@@ -320,3 +320,6 @@
 ;; Frame transparency
 (set-frame-parameter (selected-frame) 'alpha '(97 . 100))
 (add-to-list 'default-frame-alist '(alpha . (90 . 90)))
+
+;; Enable password store to be used
+(auth-source-pass-enable)
