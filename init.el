@@ -17,6 +17,9 @@
 ;; Native compilation
 (setq comp-speed 3)
 (setq comp-deferred-compilation t)
+(if (and (fboundp 'native-comp-available-p) (native-comp-available-p))
+    (message "Native compilation is available")
+  (message "Native compilation is *not* available"))
 
 ;; Custom-file
 (defconst custom-file (expand-file-name "spam.el" user-emacs-directory))

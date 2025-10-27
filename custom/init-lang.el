@@ -325,3 +325,7 @@
   :ensure t
   :config
   (ob-chatgpt-shell-setup))
+
+;; Stats - R
+(use-package ess
+  :ensure t)
